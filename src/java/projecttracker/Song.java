@@ -1,4 +1,5 @@
 package projecttracker;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -9,10 +10,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class Song{
+public class Song {
 
-	private final String[] availableNotes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-	private enum ChordColor {major, minor};		 
+	private final String[] availableNotes = { "C", "C#", "D", "D#", "E", "F",
+			"F#", "G", "G#", "A", "A#", "B" };
+
+	private enum ChordColor {
+		major, minor
+	};
 
 	private String title;
 	private String intro;
@@ -20,78 +25,60 @@ public class Song{
 	private List<String> chorusChords;
 	private String outro;
 	
-	
-	//Constructor that creates a new song
-	 Song(){				
-		 
-		 title = createTitle();
-		 intro = makeIntroOutro(6);
-		 verseChords = makeVerseChorus(4);
-		 chorusChords = makeVerseChorus(3);
-		 outro = makeIntroOutro(4);
-		 
-		  
-	}
- 
- 
-
-	Song(int introNotes, int noOfChordsInVerse, int noOfChordsInChorus, int noOfNotesInOutro){				
-		 
-		 title = createTitle();
-		 intro = makeIntroOutro(introNotes);
-		 verseChords = makeVerseChorus(noOfChordsInVerse);
-		 chorusChords = makeVerseChorus(noOfChordsInChorus);
-		 outro = makeIntroOutro(noOfNotesInOutro);
-		 
-		  
+	Song() {
+		title = createTitle();
+		intro = makeIntroOutro(6);
+		verseChords = makeVerseChorus(4);
+		chorusChords = makeVerseChorus(3);
+		outro = makeIntroOutro(4);
 	}
 
+	Song(int introNotes, int numberOfChordsInVerse, int numberOfChordsInChorus,
+			int numberOfNotesInOutro) {
+		title = createTitle();
+		intro = makeIntroOutro(introNotes);
+		verseChords = makeVerseChorus(numberOfChordsInVerse);
+		chorusChords = makeVerseChorus(numberOfChordsInChorus);
+		outro = makeIntroOutro(numberOfNotesInOutro);
+	}
 
-
-	 
-	 private List<String> makeVerseChorus(int i) {
-		 List<String> returnList = new LinkedList<String>();
-		 for (int j = 0; j < i; j++) {
-			 String Chord = getRandomNote() + " " + getChordColor();
-			 returnList.add(Chord);
+	private List<String> makeVerseChorus(int i) {
+		List<String> chords = new LinkedList<String>();
+		for (int j = 0; j < i; j++) {
+			String chord = getRandomNote() + " " + getChordColor();
+			chords.add(chord);
 		}
-		 return (returnList);
-	 
+		return chords;
 	}
 
-	 private String getChordColor(){
-		 Random randomGenerator = new Random();
+	private String getChordColor() {
+		Random randomGenerator = new Random();
 
-		 boolean minor = randomGenerator.nextBoolean(); 
-		 if (minor == false)
-			 return (ChordColor.minor.toString());
-		 else 
-			 return ("");//ChordColor.major.toString());
-	 }
+		boolean minor = randomGenerator.nextBoolean();
+		if (minor == false)
+			return ChordColor.minor.toString();
+		else
+			return "";// ChordColor.major.toString());
+	}
 
 	private String makeIntroOutro(int i) {
-	String introOutro = new String();
+		String introOutro = new String();
 		for (int j = 0; j < i; j++) {
 			introOutro = introOutro + getRandomNote() + " ";
 		}
 		return introOutro;
 	}
 
-	private String getRandomNote(){
-		return (availableNotes[getRandomNumber(availableNotes.length)]);
+	private String getRandomNote() {
+		return availableNotes[getRandomNumber(availableNotes.length)];
 	}
 
- 
-	public int getRandomNumber(int maxtal){
-	    Random randomGenerator = new Random();
-	    return (randomGenerator.nextInt(maxtal));
+	public int getRandomNumber(int maxtal) {
+		Random randomGenerator = new Random();
+		return randomGenerator.nextInt(maxtal);
 	}
 
- 
-
- 
-	public String createTitleOld(){
-
+	public String createTitleOld() {
 		List<String> l = new LinkedList<String>();
 
 		try {
@@ -99,24 +86,113 @@ public class Song{
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
-			//Read File Line By Line
-			while ((strLine = br.readLine()) != null)   {
+			// Read File Line By Line
+			while ((strLine = br.readLine()) != null) {
 				l.add(strLine);
 			}
 			br.close();
-			
+
 		} catch (Exception e) {
-			e.printStackTrace();		 
+			e.printStackTrace();
 		}
 
-		String title = l.get(getRandomNumber(l.size())) + " " + l.get(getRandomNumber(l.size()));
+		String title = l.get(getRandomNumber(l.size())) + " "
+				+ l.get(getRandomNumber(l.size()));
 
-		return  title;
-		
+		return title;
 	}
-	
-	public String createTitle(){
 
+	public String createSong() {
+		String song = new String();
+		song = addTitle();
+		song = addIntro(song);
+		song = addVerse(song);
+		song = addChorus(song);
+		song = addOutro(song);
+		return song;
+	}
+
+	private String addIntro(String rs) {
+		rs = rs + "Intro: \n" + intro + "\n\n";
+		return rs;
+	}
+
+	private String addTitle() {
+		String rs;
+		rs = "\n" + title + "\n";
+		for (int i = 0; i < title.length(); i++) {
+			rs = rs + "-";
+		}
+		rs = rs + "\n\n";
+		return rs;
+	}
+
+	private String addOutro(String rs) {
+		rs = rs + "Outro: \n" + outro;
+		return rs;
+	}
+
+	private String addChorus(String rs) {
+		rs = rs + "Chorus: \n";
+		for (int i = 0; i < chorusChords.size(); i++) {
+			rs = rs + chorusChords.get(i);
+			if (i != chorusChords.size() - 1)
+				rs = rs + ", ";
+		}
+
+		rs = rs + "\n\n";
+		return rs;
+	}
+
+	private String addVerse(String rs) {
+		rs = rs + "Verse: \n";
+		for (int i = 0; i < verseChords.size(); i++) {
+			rs = rs + verseChords.get(i);
+			if (i != verseChords.size() - 1)
+				rs = rs + ", ";
+		}
+		rs = rs + "\n\n";
+		return rs;
+	}
+
+	public String getCompleteSongStringHtmlFormat() {
+		String rs = new String();
+		// Title
+		rs = " <h1><u>" + title + "</u><br>";
+		// for (int i = 0; i < title.length(); i++) {
+		// rs = rs + "--";
+		// }
+		rs = rs + "<br>";
+
+		// Add Intro
+		rs = rs + "Intro: <br>" + intro + "<br><br>";
+
+		// Add Verse
+		rs = rs + "Verse: <br>";
+		for (int i = 0; i < verseChords.size(); i++) {
+			rs = rs + verseChords.get(i);
+			if (i != verseChords.size() - 1)
+				rs = rs + ", ";
+		}
+		rs = rs + "<br><br>";
+
+		// Add Chorus
+		rs = rs + "Chorus: <br>";
+		for (int i = 0; i < chorusChords.size(); i++) {
+			rs = rs + chorusChords.get(i);
+			if (i != chorusChords.size() - 1)
+				rs = rs + ", ";
+		}
+
+		rs = rs + "<br><br>";
+
+		// Add outro
+		rs = rs + "Outro: <br>" + outro + "</h1>";
+
+		return rs;
+	}
+
+	public String createTitle() {
 		List<String> l = new LinkedList<String>();
 
 		l.add("16th");
@@ -125,11 +201,11 @@ public class Song{
 		l.add("Of");
 		l.add("February");
 		l.add("A-roving");
-	  		l.add("Fife");
+		l.add("Fife");
 		l.add("Bonny");
 		l.add("Shepherd");
 		l.add("Lad");
- 
+
 		l.add("Bring");
 		l.add("Home");
 		l.add("The");
@@ -1167,11 +1243,11 @@ public class Song{
 		l.add("The");
 		l.add("Lawyer");
 		l.add("Diddle");
- 
+
 		l.add("The");
 		l.add("Kind");
 		l.add("Country");
-		l.add("Lovers"); 
+		l.add("Lovers");
 		l.add("Didnt");
 		l.add("He");
 		l.add("Ramble");
@@ -1221,7 +1297,7 @@ public class Song{
 		l.add("Lament");
 		l.add("Doctor");
 		l.add("Freud");
-		l.add("Doctor"); 
+		l.add("Doctor");
 		l.add("Fifteen");
 		l.add("Cents");
 		l.add("Ginseng");
@@ -1340,7 +1416,7 @@ public class Song{
 		l.add("Forgive");
 		l.add("You ");
 		l.add("I");
-		l.add("Wont"); 
+		l.add("Wont");
 		l.add("God");
 		l.add("The");
 		l.add("What");
@@ -1496,7 +1572,7 @@ public class Song{
 		l.add("Ballu");
 		l.add("Hills");
 		l.add("Of");
-	 
+
 		l.add("Hills");
 		l.add("Of");
 		l.add("Greenmore");
@@ -1518,11 +1594,11 @@ public class Song{
 		l.add("Him");
 		l.add("A");
 		l.add("Horse");
-		 
+
 		l.add("Only");
 		l.add("Got");
 		l.add("One");
-		l.add("Ball"); 
+		l.add("Ball");
 		l.add("Hi");
 		l.add("Fi");
 		l.add("Stereo");
@@ -1539,9 +1615,9 @@ public class Song{
 		l.add("Hobo");
 		l.add("Bills");
 		l.add("Last");
-	 
+
 		l.add("Hobo");
-		l.add("Bill"); 
+		l.add("Bill");
 		l.add("Hold");
 		l.add("To");
 		l.add("Gods");
@@ -1704,7 +1780,7 @@ public class Song{
 		l.add("The");
 		l.add("Air");
 		l.add("Hungry");
- 
+
 		l.add("Hungry");
 		l.add("Child");
 		l.add("Hunter");
@@ -1726,7 +1802,7 @@ public class Song{
 		l.add("The");
 		l.add("Wren");
 		l.add("Huron");
-		 
+
 		l.add("Huron");
 		l.add("Carol");
 		l.add("Hurrah");
@@ -1761,10 +1837,10 @@ public class Song{
 		l.add("Lewis");
 		l.add("Idlers");
 		l.add("And");
-	 
+
 		l.add("At");
 		l.add("The");
-		l.add("Door"); 
+		l.add("Door");
 		l.add("Id");
 		l.add("Rather");
 		l.add("Make");
@@ -1855,10 +1931,10 @@ public class Song{
 		l.add("Ill");
 		l.add("Take");
 		l.add("The");
-		 
+
 		l.add("Some");
 		l.add("Old");
-		l.add("Table"); 
+		l.add("Table");
 		l.add("Ill");
 		l.add("Tell");
 		l.add("Ma");
@@ -2128,7 +2204,7 @@ public class Song{
 		l.add("Irish");
 		l.add("Lover");
 		l.add("Of");
-		l.add("Kildare"); 
+		l.add("Kildare");
 		l.add("Irish");
 		l.add("Rebel");
 		l.add("Spy");
@@ -2364,13 +2440,13 @@ public class Song{
 		l.add("I");
 		l.add("Cant");
 		l.add("Help");
-	 
+
 		l.add("Im");
 		l.add("Still");
 		l.add("In");
 		l.add("Love");
 		l.add("With");
-		l.add("You"); 
+		l.add("You");
 		l.add("I");
 		l.add("Can");
 		l.add("Sail");
@@ -2391,9 +2467,9 @@ public class Song{
 		l.add("Girl");
 		l.add("I");
 		l.add("C");
-		l.add("I"); 
+		l.add("I");
 		l.add("Workers");
-		l.add("Song"); 
+		l.add("Song");
 		l.add("I");
 		l.add("Dig");
 		l.add("Sex");
@@ -2606,7 +2682,7 @@ public class Song{
 		l.add("Dixie");
 		l.add("I");
 		l.add("Want");
-		l.add("A"); 
+		l.add("A");
 		l.add("I");
 		l.add("Was");
 		l.add("Born");
@@ -2622,12 +2698,12 @@ public class Song{
 		l.add("I");
 		l.add("Was");
 		l.add("Only");
-	 
+
 		l.add("Walk");
 		l.add("In");
 		l.add("The");
 		l.add("Light");
-		l.add("Green"); 
+		l.add("Green");
 		l.add("I");
 		l.add("Will");
 		l.add("Arise");
@@ -2715,7 +2791,7 @@ public class Song{
 		l.add("Jack");
 		l.add("Sheppard");
 		l.add("Jack");
-	 
+
 		l.add("Jacobs");
 		l.add("Ladder");
 		l.add("Jamestown");
@@ -2768,14 +2844,14 @@ public class Song{
 		l.add("Jenkins");
 		l.add("Jerseywocky");
 		l.add("Jesse");
-		      
+
 		l.add("Wonder");
 		l.add("Where");
 		l.add("My");
 		l.add("Poor");
 		l.add("Old");
 		l.add("Jesses");
-		l.add("Gone"); 
+		l.add("Gone");
 		l.add("Jesus");
 		l.add("Loves");
 		l.add("Me");
@@ -2829,7 +2905,7 @@ public class Song{
 		l.add("And");
 		l.add("Betsy");
 		l.add("Johnny");
-	 
+
 		l.add("Johnny");
 		l.add("Be");
 		l.add("Fair");
@@ -3065,10 +3141,10 @@ public class Song{
 		l.add("Kings");
 		l.add("Shilling");
 		l.add("King");
- 
+
 		l.add("Jolly");
 		l.add("Rogues");
-		l.add("Variant"); 
+		l.add("Variant");
 		l.add("King");
 		l.add("Arthur");
 		l.add("And");
@@ -3115,7 +3191,7 @@ public class Song{
 		l.add("Kissing");
 		l.add("Song");
 		l.add("Kitchie");
-	 
+
 		l.add("Kitchie");
 		l.add("Boy");
 		l.add("A");
@@ -3210,9 +3286,9 @@ public class Song{
 		l.add("Margaret");
 		l.add("2");
 		l.add("Lady");
-	 
+
 		l.add("Silkie");
-		l.add("3"); 
+		l.add("3");
 		l.add("Lady");
 		l.add("Of");
 		l.add("Arngosk");
@@ -3244,9 +3320,9 @@ public class Song{
 		l.add("Worm");
 		l.add("Lament");
 		l.add("Lamenting");
-	 
+
 		l.add("Of");
-		l.add("Kildare"); 
+		l.add("Kildare");
 		l.add("Lament");
 		l.add("For");
 		l.add("Staker");
@@ -3384,8 +3460,8 @@ public class Song{
 		l.add("The");
 		l.add("Rearguard");
 		l.add("Lemon");
- 
-		l.add("Parody"); 
+
+		l.add("Parody");
 		l.add("Leo");
 		l.add("Mcguires");
 		l.add("Song");
@@ -3393,7 +3469,7 @@ public class Song{
 		l.add("Les");
 		l.add("Raftsmen");
 		l.add("Lets");
-   		l.add("All");
+		l.add("All");
 		l.add("Sing");
 		l.add("Like");
 		l.add("The");
@@ -3515,7 +3591,7 @@ public class Song{
 		l.add("Lias");
 		l.add("Laddie");
 		l.add("Liberty");
-		 
+
 		l.add("Licht");
 		l.add("Bobs");
 		l.add("Lassie");
@@ -3538,8 +3614,8 @@ public class Song{
 		l.add("Is");
 		l.add("A");
 		l.add("Ballgame");
-	 
-		l.add("Me"); 
+
+		l.add("Me");
 		l.add("Lighthouse");
 		l.add("Light");
 		l.add("At");
@@ -3552,7 +3628,7 @@ public class Song{
 		l.add("Ballad");
 		l.add("Lily");
 		l.add("The");
-		 
+
 		l.add("Lily");
 		l.add("The");
 		l.add("Pink");
@@ -3585,7 +3661,7 @@ public class Song{
 		l.add("Little");
 		l.add("Ball");
 		l.add("Of");
-	 
+
 		l.add("Little");
 		l.add("Birdie");
 		l.add("Little");
@@ -3593,7 +3669,7 @@ public class Song{
 		l.add("Went");
 		l.add("Away");
 		l.add("Little");
- 
+
 		l.add("Little");
 		l.add("Cat");
 		l.add("Little");
@@ -3659,9 +3735,9 @@ public class Song{
 		l.add("Little");
 		l.add("Stream");
 		l.add("Of");
- 
+
 		l.add("Dyin");
-		l.add("Hobo"); 
+		l.add("Hobo");
 		l.add("Little");
 		l.add("Willie");
 		l.add("Living");
@@ -3745,12 +3821,12 @@ public class Song{
 		l.add("Mary");
 		l.add("Flynn");
 		l.add("Lord");
- 
+
 		l.add("Lord");
 		l.add("Beichan");
 		l.add("And");
 		l.add("Susie");
- 
+
 		l.add("Lord");
 		l.add("Delamere");
 		l.add("Lord");
@@ -3940,10 +4016,10 @@ public class Song{
 		l.add("Maggie");
 		l.add("Was");
 		l.add("A");
-	 
+
 		l.add("N");
 		l.add("Johnny");
-		l.add("Variant"); 
+		l.add("Variant");
 		l.add("Magic");
 		l.add("Penny");
 		l.add("Mahan");
@@ -4011,9 +4087,9 @@ public class Song{
 		l.add("Sings");
 		l.add("Mandy");
 		l.add("Mandy");
-		 
+
 		l.add("Truckin");
-		l.add("Mama"); 
+		l.add("Mama");
 		l.add("Many");
 		l.add("Times");
 		l.add("Before");
@@ -4119,7 +4195,7 @@ public class Song{
 		l.add("A");
 		l.add("Little");
 		l.add("Clone");
-	 
+
 		l.add("Martindale");
 		l.add("Mary");
 		l.add("Riley");
@@ -4147,20 +4223,20 @@ public class Song{
 		l.add("Maurice");
 		l.add("Crotty");
 		l.add("Maven");
- 
+
 		l.add("The");
 		l.add("Tune");
 		l.add("Of");
 		l.add("You");
 		l.add("Gotta");
 		l.add("Have");
- 
+
 		l.add("Mayor");
 		l.add("Of");
 		l.add("Bordeaux");
 		l.add("May");
 		l.add("Day");
-	 
+
 		l.add("May");
 		l.add("Morning");
 		l.add("Carol");
@@ -4224,15 +4300,14 @@ public class Song{
 		l.add("Sea");
 		l.add("Men");
 		l.add("Of");
- 
- 
+
 		l.add("Me");
 		l.add("Brave");
 		l.add("Boys");
 		l.add("Michael");
 		l.add("Blanns");
 		l.add("Drinking");
- 
+
 		l.add("Of");
 		l.add("January");
 		l.add("Month");
@@ -4246,7 +4321,7 @@ public class Song{
 		l.add("Moon");
 		l.add("Dancing");
 		l.add("Morning");
- 
+
 		l.add("And");
 		l.add("The");
 		l.add("Master");
@@ -4254,24 +4329,24 @@ public class Song{
 		l.add("Mulberry");
 		l.add("Bush");
 		l.add("Mule");
- 
+
 		l.add("My");
-		l.add("Lassie"); 
+		l.add("Lassie");
 		l.add("The");
 		l.add("Man");
 		l.add("In");
 		l.add("The");
-		l.add("Moon"); 
+		l.add("Moon");
 		l.add("Died");
 		l.add("Night");
 		l.add("Riders");
-	 
+
 		l.add("Do");
 		l.add("You");
 		l.add("Ride");
 		l.add("For");
 		l.add("Your");
-		l.add("Money"); 
+		l.add("Money");
 		l.add("Night");
 		l.add("They");
 		l.add("Drove");
@@ -4367,12 +4442,12 @@ public class Song{
 		l.add("No");
 		l.add("Churchman");
 		l.add("Am");
-		l.add("I"); 
+		l.add("I");
 		l.add("Lord");
 		l.add("Preacher");
 		l.add("And");
 		l.add("The");
- 
+
 		l.add("Precious");
 		l.add("Friend");
 		l.add("Present");
@@ -4547,12 +4622,12 @@ public class Song{
 		l.add("The");
 		l.add("Silver");
 		l.add("Dollar");
-	 
+
 		l.add("Very");
 		l.add("Brief");
 		l.add("Parodies");
 		l.add("Or");
-		l.add("Fragments"); 
+		l.add("Fragments");
 		l.add("Quiet");
 		l.add("Mists");
 		l.add("Of");
@@ -4567,7 +4642,7 @@ public class Song{
 		l.add("Raftsmen");
 		l.add("Ragged");
 		l.add("But");
-	 
+
 		l.add("Ragged");
 		l.add("But");
 		l.add("Right");
@@ -4620,7 +4695,7 @@ public class Song{
 		l.add("Real");
 		l.add("Old");
 		l.add("Mountain");
-		 
+
 		l.add("Reaper");
 		l.add("Rebels");
 		l.add("Escape");
@@ -4660,14 +4735,14 @@ public class Song{
 		l.add("Farewell");
 		l.add("Reload");
 		l.add("Remember");
-	 
+
 		l.add("The");
 		l.add("Candle");
 		l.add("Lights");
 		l.add("Are");
-	 
+
 		l.add("The");
-		l.add("Giants"); 
+		l.add("Giants");
 		l.add("Requiem");
 		l.add("Rest");
 		l.add("Of");
@@ -4691,31 +4766,31 @@ public class Song{
 		l.add("Riddle");
 		l.add("Riddles");
 		l.add("Wisely");
-	 
-		l.add("Banks"); 
+
+		l.add("Banks");
 		l.add("Riddles");
 		l.add("Wisely");
 		l.add("Expounded");
 		l.add("3");
 		l.add("Riddle");
-		 
+
 		l.add("I");
 		l.add("Have");
 		l.add("A");
 		l.add("Young");
-		l.add("Suster"); 
+		l.add("Suster");
 		l.add("Ride");
 		l.add("In");
 		l.add("The");
-		 
+
 		l.add("Rights");
 		l.add("Of");
 		l.add("Man");
 		l.add("Right");
 		l.add("Said");
-		 
+
 		l.add("Of");
-		l.add("Tea"); 
+		l.add("Tea");
 		l.add("Rindercella");
 		l.add("Ringsend");
 		l.add("Rose");
@@ -4755,7 +4830,7 @@ public class Song{
 		l.add("Jordan");
 		l.add("River");
 		l.add("Of");
-		l.add("The"); 
+		l.add("The");
 		l.add("Golden");
 		l.add("Prize");
 		l.add("Robin");
@@ -4763,7 +4838,8 @@ public class Song{
 		l.add("Progress");
 		l.add("To");
 		l.add("Nottingham");
-		l.add("Robin"); 	l.add("Rolling");
+		l.add("Robin");
+		l.add("Rolling");
 		l.add("Down");
 		l.add("The");
 		l.add("River");
@@ -4772,13 +4848,13 @@ public class Song{
 		l.add("Roll");
 		l.add("Roll");
 		l.add("Me");
-		l.add("Over"); 
+		l.add("Over");
 		l.add("Soda");
 		l.add("Scotch");
 		l.add("On");
 		l.add("The");
 		l.add("Rocks");
-		l.add("Scotsmans"); 
+		l.add("Scotsmans");
 		l.add("Seven");
 		l.add("Hundred");
 		l.add("Elves");
@@ -4789,18 +4865,18 @@ public class Song{
 		l.add("Spanish");
 		l.add("Angels");
 		l.add("Seven");
-		 
+
 		l.add("Leaves");
 		l.add("Of");
-		l.add("Life"); 
+		l.add("Life");
 		l.add("Seven");
 		l.add("Wonders");
 		l.add("Shackles");
-		l.add("And"); 
+		l.add("And");
 		l.add("Of");
 		l.add("Loredo");
 		l.add("Strings");
-		l.add("And"); 
+		l.add("And");
 		l.add("Your");
 		l.add("Time");
 		l.add("Tak");
@@ -4814,7 +4890,7 @@ public class Song{
 		l.add("Dust");
 		l.add("Bowl");
 		l.add("Blues");
-		l.add("Talking"); 
+		l.add("Talking");
 		l.add("Hard");
 		l.add("Hard");
 		l.add("Times");
@@ -4826,7 +4902,7 @@ public class Song{
 		l.add("Shanty");
 		l.add("Tebo");
 		l.add("Teddy");
-		l.add("Bears");  
+		l.add("Bears");
 		l.add("Of");
 		l.add("The");
 		l.add("Pamanaw");
@@ -4843,7 +4919,7 @@ public class Song{
 		l.add("Mine");
 		l.add("In");
 		l.add("The");
-		l.add("Sky");  
+		l.add("Sky");
 		l.add("Glass");
 		l.add("There");
 		l.add("Was");
@@ -4852,7 +4928,7 @@ public class Song{
 		l.add("Man");
 		l.add("Stood");
 		l.add("On");
-		l.add("A"); 
+		l.add("A");
 		l.add("In");
 		l.add("Thessaly");
 		l.add("There");
@@ -4866,7 +4942,7 @@ public class Song{
 		l.add("Was");
 		l.add("A");
 		l.add("Sea");
-	 
+
 		l.add("There");
 		l.add("Was");
 		l.add("A");
@@ -4905,9 +4981,9 @@ public class Song{
 		l.add("To");
 		l.add("Take");
 		l.add("Me");
-		 
+
 		l.add("The");
-		l.add("14th"); 
+		l.add("14th");
 		l.add("They");
 		l.add("Call");
 		l.add("The");
@@ -4922,7 +4998,7 @@ public class Song{
 		l.add("Any");
 		l.add("More");
 		l.add("Thinnest");
-	 
+
 		l.add("Thirty");
 		l.add("Pieces");
 		l.add("Of");
@@ -4975,7 +5051,7 @@ public class Song{
 		l.add("Blind");
 		l.add("Mice");
 		l.add("Are");
-		 
+
 		l.add("Three");
 		l.add("Brothers");
 		l.add("Come");
@@ -5022,9 +5098,9 @@ public class Song{
 		l.add("Up");
 		l.add("And");
 		l.add("Gone");
-	 
+
 		l.add("The");
-		l.add("Mule"); 
+		l.add("Mule");
 		l.add("Time");
 		l.add("Came");
 		l.add("Down");
@@ -5092,8 +5168,8 @@ public class Song{
 		l.add("Tom");
 		l.add("Williams");
 		l.add("Tones");
-		 
-		l.add("Churchyard"); 
+
+		l.add("Churchyard");
 		l.add("Tone");
 		l.add("Is");
 		l.add("Coming");
@@ -5111,7 +5187,7 @@ public class Song{
 		l.add("Lullaby");
 		l.add("Tooralooraloora");
 		l.add("Irish");
-	 
+
 		l.add("Too");
 		l.add("Close");
 		l.add("To");
@@ -5172,8 +5248,8 @@ public class Song{
 		l.add("Muir");
 		l.add("Transit");
 		l.add("Van");
-		 
-		l.add("Goodman"); 
+
+		l.add("Goodman");
 		l.add("Traveller");
 		l.add("All");
 		l.add("Over");
@@ -5187,8 +5263,8 @@ public class Song{
 		l.add("Drummer");
 		l.add("Travelling");
 		l.add("Salesman");
- 
-		l.add("Gaelic"); 
+
+		l.add("Gaelic");
 		l.add("Trip");
 		l.add("Through");
 		l.add("Holyhead");
@@ -5260,7 +5336,7 @@ public class Song{
 		l.add("Turn");
 		l.add("Ye");
 		l.add("To");
-		 
+
 		l.add("Turn");
 		l.add("Your");
 		l.add("Radio");
@@ -5353,8 +5429,8 @@ public class Song{
 		l.add("Line");
 		l.add("Unfortunate");
 		l.add("Rake");
- 
-		l.add("Beliving"); 
+
+		l.add("Beliving");
 		l.add("Unreconstructed");
 		l.add("Rebel");
 		l.add("Unter");
@@ -5410,9 +5486,9 @@ public class Song{
 		l.add("Home");
 		l.add("Villains");
 		l.add("Chorus");
-		 
+
 		l.add("Starry");
-		l.add("Night"); 
+		l.add("Night");
 		l.add("Viruses");
 		l.add("Waes");
 		l.add("Me");
@@ -5457,8 +5533,8 @@ public class Song{
 		l.add("Walter");
 		l.add("Lesly");
 		l.add("Waly");
- 
-		l.add("Napoleon"); 
+
+		l.add("Napoleon");
 		l.add("Warlike");
 		l.add("Seamen");
 		l.add("War");
@@ -5495,8 +5571,8 @@ public class Song{
 		l.add("Town");
 		l.add("Way");
 		l.add("Of");
- 
-		l.add("One"); 
+
+		l.add("One");
 		l.add("Way");
 		l.add("Out");
 		l.add("West");
@@ -5598,7 +5674,7 @@ public class Song{
 		l.add("Charlie");
 		l.add("Wellington");
 		l.add("And");
-		 
+
 		l.add("Well");
 		l.add("Dust");
 		l.add("Off");
@@ -5616,7 +5692,7 @@ public class Song{
 		l.add("Western");
 		l.add("Highway");
 		l.add("Western");
- 
+
 		l.add("Wests");
 		l.add("Asleep");
 		l.add("West");
@@ -5704,13 +5780,13 @@ public class Song{
 		l.add("Whats");
 		l.add("Made");
 		l.add("Milwaukee");
-		 
+
 		l.add("Made");
 		l.add("A");
 		l.add("Loser");
 		l.add("Out");
 		l.add("Of");
-		l.add("Me"); 
+		l.add("Me");
 		l.add("Whats");
 		l.add("The");
 		l.add("Rhyme");
@@ -5850,7 +5926,7 @@ public class Song{
 		l.add("Was");
 		l.add("A");
 		l.add("Wee");
-	 
+
 		l.add("When");
 		l.add("I");
 		l.add("Was");
@@ -5862,7 +5938,7 @@ public class Song{
 		l.add("Was");
 		l.add("A");
 		l.add("Young");
-		 
+
 		l.add("When");
 		l.add("I");
 		l.add("Was");
@@ -5944,7 +6020,7 @@ public class Song{
 		l.add("Bloody");
 		l.add("War");
 		l.add("Is");
-	 
+
 		l.add("When");
 		l.add("This");
 		l.add("Dreadful");
@@ -5993,7 +6069,7 @@ public class Song{
 		l.add("Fade");
 		l.add("Whirley");
 		l.add("Wha");
-	 
+
 		l.add("Whirly");
 		l.add("Whorl");
 		l.add("Whiskey");
@@ -6023,7 +6099,7 @@ public class Song{
 		l.add("Fisher");
 		l.add("White");
 		l.add("House");
-		 
+
 		l.add("White");
 		l.add("Slave");
 		l.add("Whitsun");
@@ -6093,7 +6169,7 @@ public class Song{
 		l.add("Wild");
 		l.add("Boy");
 		l.add("Wild");
-	 
+
 		l.add("Lumberjack");
 		l.add("Wild");
 		l.add("Rose");
@@ -6124,7 +6200,7 @@ public class Song{
 		l.add("Willie");
 		l.add("The");
 		l.add("Kitchie");
-		 
+
 		l.add("Willie");
 		l.add("The");
 		l.add("Weeper");
@@ -6181,93 +6257,10 @@ public class Song{
 		l.add("Wakes");
 		l.add("Winter");
 
+		String title = l.get(getRandomNumber(l.size())) + " "
+				+ l.get(getRandomNumber(l.size()));
 
-		String title = l.get(getRandomNumber(l.size())) + " " + l.get(getRandomNumber(l.size()));
-
-		return  title;
-		
+		return title;
 	}
- 
-	
-	
-	
 
-	public String getCompleteSongString() {
-		String rs = new String(); 
-		//Title
-		rs = "\n" + title + "\n";
-		for (int i = 0; i < title.length(); i++) {
-			rs = rs + "-";
-		}  
-		rs = rs + "\n\n";
-		 
-		//Add Intro
-		rs = rs + "Intro: \n"+ intro + "\n\n";
-		
-		//Add Verse
-		rs = rs + "Verse: \n";
-		for (int i = 0; i < verseChords.size(); i++) {
-			rs = rs + verseChords.get(i);
-			if (i != verseChords.size() -1 )
-				rs = rs +", ";
-		}
-		rs = rs + "\n\n";
-
-		 //Add Chorus
-		rs= rs + "Chorus: \n";
-		for (int i = 0; i < chorusChords.size(); i++) {
-			rs = rs + chorusChords.get(i);
-			if (i != chorusChords.size() -1 )
-				rs = rs +", ";
-		}
-				
-		rs = rs + "\n\n";
-				
-		 //Add outro
-		 rs = rs +"Outro: \n"+ outro;
-		 
- 
-		return rs;
-	}
-	 
-	public String getCompleteSongStringHtmlFormat() {
-		String rs = new String(); 
-		//Title
-		rs = " <h1><u>" + title + "</u><br>";
-//		for (int i = 0; i < title.length(); i++) {
-//			rs = rs + "--";
-//		}  
-		rs = rs + "<br>";
-		 
-		//Add Intro
-		rs = rs + "Intro: <br>"+ intro + "<br><br>";
-		
-		//Add Verse
-		rs = rs + "Verse: <br>";
-		for (int i = 0; i < verseChords.size(); i++) {
-			rs = rs + verseChords.get(i);
-			if (i != verseChords.size() -1 )
-				rs = rs +", ";
-		}
-		rs = rs + "<br><br>";
-
-		 //Add Chorus
-		rs= rs + "Chorus: <br>";
-		for (int i = 0; i < chorusChords.size(); i++) {
-			rs = rs + chorusChords.get(i);
-			if (i != chorusChords.size() -1 )
-				rs = rs +", ";
-		}
-				
-		rs = rs + "<br><br>";
-				
-		 //Add outro
-		 rs = rs +"Outro: <br>"+ outro + "</h1>";
-		 
- 
-		return rs;
-	}
-	 
- 
-	 
 }
