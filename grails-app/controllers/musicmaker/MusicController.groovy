@@ -8,7 +8,7 @@ class MusicController {
 
     def index() {
         Song song = new Song(INTRO_NOTES, NUMBER_OF_CHORDS_IN_VERSE, NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO);
-        def songInView = song.getCompleteSongStringHtmlFormat();
+        def songInView = song.createCompleteSongStringHtmlFormat();
         [songInView: songInView]
     }
 

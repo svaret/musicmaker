@@ -3,6 +3,7 @@ target/
 .metadata/
 target-eclipse/
 bin/
+out/
 *.iml
 .settings/
 .project
