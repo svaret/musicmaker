@@ -9,7 +9,16 @@ public class Song {
     private final String[] notes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
 
     private enum ChordColor {
-        major, minor
+        MAJOR {
+        	public String toString() {
+        		return "";
+        	}
+        },
+        MINOR {
+        	public String toString() {
+        		return "minor";
+        	}
+        }
     };
 
 	private Title title;
@@ -30,20 +39,20 @@ public class Song {
     private List<String> createChordsSequence(int numberOfChords) {
         List<String> chords = new LinkedList<String>();
         for (int j = 0; j < numberOfChords; j++) {
-            String chord = getRandomNote() + " " + getChordColor();
+            String chord = getRandomNote() + " " + getChordColor().toString();
             chords.add(chord);
         }
         return chords;
     }
 
-    private String getChordColor() {
+    private ChordColor getChordColor() {
         Random randomGenerator = new Random();
 
         boolean minor = randomGenerator.nextBoolean();
         if (minor == false)
-            return ChordColor.minor.toString();
+            return ChordColor.MINOR;
         else
-            return "";// ChordColor.major.toString());
+            return ChordColor.MAJOR;
     }
 
     private String createRiff(int i) {
