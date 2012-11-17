@@ -3,24 +3,10 @@ package musicmaker;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+ 
 
 public class Song {
-
-    private final String[] notes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-
-    private enum ChordColor {
-        MAJOR {
-        	public String toString() {
-        		return "";
-        	}
-        },
-        MINOR {
-        	public String toString() {
-        		return "minor";
-        	}
-        }
-    };
-
+    String[] notes; 
 	private Title title;
 	private String intro;
 	private List<String> verseChords;
@@ -28,12 +14,26 @@ public class Song {
 	private String outro;
 	
 	Song(int numberOfNotesInIntro, int numberOfChordsInVerse, int numberOfChordsInChorus,
-		int numberOfNotesInOutro) {
+		int numberOfNotesInOutro) {		
+		fixNotes();  
 		title = TitleFactory.createTitle();
         intro = createRiff(numberOfNotesInIntro);
         verseChords = createChordsSequence(numberOfChordsInVerse);
 	    chorusChords = createChordsSequence(numberOfChordsInChorus);
 	    outro = createRiff(numberOfNotesInOutro);
+	}
+ 
+	//Osäker på namnsättningen här
+	private void fixNotes() {
+		notes = new String[12];
+	    Tone[] tones = Tone.A.getDeclaringClass().getEnumConstants();
+	 
+	    int i = 0 ;
+	    for(Tone t : tones)
+		    {
+		    	notes[i] = t.toString();
+		    	i++;
+		    }
 	} 
 
     private List<String> createChordsSequence(int numberOfChords) {
