@@ -23,7 +23,7 @@ public class Song {
 	    outro = createRiff(numberOfNotesInOutro);
 	}
  
-	//Osäker på namnsättningen här
+ 
 	private void fixNotes() {
 		notes = new String[12];
 	    Tone[] tones = Tone.A.getDeclaringClass().getEnumConstants();
