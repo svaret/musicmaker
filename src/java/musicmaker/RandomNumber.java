@@ -8,6 +8,4 @@ class RandomNumber {
 		Random randomGenerator = new Random();
 		return randomGenerator.nextInt(maxtal);
 	}
-
-	
 }
