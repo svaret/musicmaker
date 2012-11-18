@@ -8,7 +8,7 @@ public class Song {
 	private Title title;
 	private String intro;
 	private Verse verse;
-	private List<String> chorusChords;
+	private Chorus chorus;
 	private String outro;
 	
 	public Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords,
@@ -17,7 +17,8 @@ public class Song {
         intro = new Riff(numberOfIntroNotes).toneSequence;
         ChordSequence verseChordSequence = ChordSequenceFactory.createRandomSequence(numberOfVerseChords);
         verse = new Verse(verseChordSequence);
-	    chorusChords = new LinkedList<String>();
+        ChordSequence chorusChordSequence = ChordSequenceFactory.createRandomSequence(numberOfChorusChords);
+        chorus  = new Chorus(chorusChordSequence);
 	    outro = new Riff(numberOfOutroNotes).toneSequence;
 	}
 
@@ -37,11 +38,11 @@ public class Song {
 
 	private String addChorusHtml(String rs) {
 		rs = rs + "Chorus: <br>";
-        for (int i = 0; i < chorusChords.size(); i++) {
-            rs = rs + chorusChords.get(i);
-            if (i != chorusChords.size() - 1)
-                rs = rs + ", ";
+        for (Chord chord : chorus.getChords()) {
+            rs = rs + chord;
+            rs = rs + ", ";
         }
+        rs = rs.substring(0, rs.lastIndexOf(", "));
         rs = rs + "<br><br>";
 		return rs;
 	}

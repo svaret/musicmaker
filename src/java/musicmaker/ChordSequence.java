@@ -13,10 +13,5 @@ public class ChordSequence {
     public List<Chord> getChords() {
         return chords;
     }
-// 	public ChordSequence(int numberOfChords) {
-//        for (int j = 0; j < numberOfChords; j++) {
-//            String chord = new Chord().name;
-//            chords.add(chord);
-//        }
-//	}
+ 
  }	
