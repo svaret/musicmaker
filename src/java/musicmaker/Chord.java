@@ -1,22 +1,24 @@
 package musicmaker;
 
-import java.util.Random;
+public enum Chord {
+    C, C_SHARP("C#"), D, D_SHARP("D#"), E, F, F_SHARP("F#"), G, G_SHARP("G#"), A, A_SHARP("A#"), B;
 
-public class Chord {
-	public String name;	
- 
-	public Chord()
-	{
-		this.name = new RandomNote().name + " " + getChordColor().toString();
-	} 
-  
-    private ChordColor getChordColor() {
-        Random randomGenerator = new Random();
+    public String label;
 
-        boolean minor = randomGenerator.nextBoolean();
-        if (minor == false)
-            return ChordColor.MINOR;
-        else
-            return ChordColor.MAJOR;
-    }	
+    Chord(String label) {
+        this.label = label;
+    }
+
+    Chord() {
+        this.label = name();
+    }
+
+    public int size() {
+        return values().length;
+    }
+
+    public String toString() {
+        return label;
+    }
 }
+

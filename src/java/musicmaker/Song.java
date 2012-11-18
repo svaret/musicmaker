@@ -5,27 +5,24 @@ import java.util.List;
  
 
 public class Song {
-    String[] notes; 
 	private Title title;
 	private String intro;
-	private List<String> verseChords;
+	private Verse verse;
 	private List<String> chorusChords;
 	private String outro;
 	
-	Song(int numberOfNotesInIntro, int numberOfChordsInVerse, int numberOfChordsInChorus,
-		int numberOfNotesInOutro) {		  
+	public Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords,
+		int numberOfOutroNotes) {
 		title = TitleFactory.createTitle();
-        intro = new Riff(numberOfNotesInIntro).toneSequence;
-        verseChords = new ChordSequence(numberOfChordsInVerse).chords;
-	    chorusChords = new ChordSequence(numberOfChordsInChorus).chords;
-	    outro = new Riff(numberOfNotesInOutro).toneSequence;
+        intro = new Riff(numberOfIntroNotes).toneSequence;
+        ChordSequence verseChordSequence = ChordSequenceFactory.createRandomSequence(numberOfVerseChords);
+        verse = new Verse(verseChordSequence);
+	    chorusChords = new LinkedList<String>();
+	    outro = new Riff(numberOfOutroNotes).toneSequence;
 	}
- 
- 
 
     public String createCompleteSongStringHtmlFormat() {
-        String rs = new String();
-        rs = addTitleHtml();
+        String rs = addTitleHtml();
         rs = addIntroHtml(rs);
         rs = addVerseHtml(rs);
         rs = addChorusHtml(rs);
@@ -63,11 +60,11 @@ public class Song {
 
 	private String addVerseHtml(String rs) {
 		rs = rs + "Verse: <br>";
-        for (int i = 0; i < verseChords.size(); i++) {
-            rs = rs + verseChords.get(i);
-            if (i != verseChords.size() - 1)
-                rs = rs + ", ";
+        for (Chord chord : verse.getChords()) {
+            rs = rs + chord;
+            rs = rs + ", ";
         }
+        rs = rs.substring(0, rs.lastIndexOf(", "));
         rs = rs + "<br><br>";
 		return rs;
 	}
