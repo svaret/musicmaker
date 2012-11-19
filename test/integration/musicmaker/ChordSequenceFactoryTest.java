@@ -1,4 +1,8 @@
+package integration.musicmaker;
  
+
+import musicmaker.ChordSequence;
+import musicmaker.ChordSequenceFactory;
 
 import org.junit.Test;
 
