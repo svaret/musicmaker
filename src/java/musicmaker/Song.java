@@ -1,7 +1,4 @@
 package musicmaker;
-
-import java.util.LinkedList;
-import java.util.List;
  
 
 public class Song {
