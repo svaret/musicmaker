@@ -1,12 +1,16 @@
 package musicmaker;
 
+import java.util.List;
+
 public class Riff {
 
-	String toneSequence = "";
+	ToneSequence toneSequence;
 
-	public Riff(int numberOfNotes) {     
-        for (int j = 0; j < numberOfNotes; j++) {
-        	toneSequence = toneSequence + new RandomNote().name + " ";
-        }		
-	}
+	public Riff(ToneSequence toneSequence) {
+	    this.toneSequence = toneSequence;
+    }
+
+    public List<Tone> getTones() {
+        return toneSequence.getTones();
+    }
 }

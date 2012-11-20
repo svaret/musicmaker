@@ -1,69 +1,43 @@
 package musicmaker;
- 
 
 public class Song {
-	private Title title;
-	private String intro;
-	private Verse verse;
-	private Chorus chorus;
-	private String outro;
-	
-	public Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords,
-		int numberOfOutroNotes) {
-		title = TitleFactory.createTitle();
-        intro = new Riff(numberOfIntroNotes).toneSequence;
-        ChordSequence verseChordSequence = ChordSequenceFactory.createRandomSequence(numberOfVerseChords);
-        verse = new Verse(verseChordSequence);
-        ChordSequence chorusChordSequence = ChordSequenceFactory.createRandomSequence(numberOfChorusChords);
-        chorus  = new Chorus(chorusChordSequence);
-	    outro = new Riff(numberOfOutroNotes).toneSequence;
-	}
+    private Riff intro;
+    private Verse verse;
+    private Chorus chorus;
+    private Riff outro;
 
-    public String createCompleteSongStringHtmlFormat() {
-        String rs = addTitleHtml();
-        rs = addIntroHtml(rs);
-        rs = addVerseHtml(rs);
-        rs = addChorusHtml(rs);
-        rs = addOutroHtml(rs);
-        return rs;
+    public Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords, int numberOfOutroNotes) {
+        intro = new Riff(ToneSequenceFactory.createRandomSequence(numberOfIntroNotes));
+        verse = new Verse(ChordSequenceFactory.createRandomSequence(numberOfVerseChords));
+        chorus = new Chorus(ChordSequenceFactory.createRandomSequence(numberOfChorusChords));
+        outro = new Riff(ToneSequenceFactory.createRandomSequence(numberOfOutroNotes));
     }
 
-	private String addOutroHtml(String rs) {
-		rs = rs + "Outro: <br>" + outro + "</h1>";
-		return rs;
-	}
+    public String createCompleteSongStringHtmlFormat() {
+        return createTitleHtml() +
+                createIntroHtml() +
+                createVerseHtml() +
+                createChorusHtml() +
+                createOutroHtml();
+    }
 
-	private String addChorusHtml(String rs) {
-		rs = rs + "Chorus: <br>";
-        for (Chord chord : chorus.getChords()) {
-            rs = rs + chord;
-            rs = rs + ", ";
-        }
-        rs = rs.substring(0, rs.lastIndexOf(", "));
-        rs = rs + "<br><br>";
-		return rs;
-	}
+    private String createOutroHtml() {
+        return "Outro: <br>" + outro.getTones() + "</h1>";
+    }
 
-	private String addIntroHtml(String rs) {
-		rs = rs + "Intro: <br>" + intro + "<br><br>";
-		return rs;
-	}
+    private String createChorusHtml() {
+        return "Chorus: <br>" + chorus.getChords() + "<br><br>";
+    }
 
-	private String addTitleHtml() {
-		String rs;
-		rs = " <h1><u>" + title.generate() + "</u><br>";
-        rs = rs + "<br>";
-		return rs;
-	}
+    private String createIntroHtml() {
+        return "Intro: <br>" + intro.getTones() + "<br><br>";
+    }
 
-	private String addVerseHtml(String rs) {
-		rs = rs + "Verse: <br>";
-        for (Chord chord : verse.getChords()) {
-            rs = rs + chord;
-            rs = rs + ", ";
-        }
-        rs = rs.substring(0, rs.lastIndexOf(", "));
-        rs = rs + "<br><br>";
-		return rs;
-	}
+    private String createTitleHtml() {
+        return " <h1><u>" + TitleFactory.generate() + "</u><br>" + "<br>";
+    }
+
+    private String createVerseHtml() {
+        return "Verse: <br>" + verse.getChords() + "<br><br>";
+    }
 }

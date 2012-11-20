@@ -4,8 +4,8 @@ import java.util.Random;
 
 class RandomNumber {
 
-	public static int getRandomNumber(int maxtal) {
+	public static int getRandomNumber(int upperBound) {
 		Random randomGenerator = new Random();
-		return randomGenerator.nextInt(maxtal);
+		return randomGenerator.nextInt(upperBound);
 	}
 }

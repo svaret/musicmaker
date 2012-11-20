@@ -13,6 +13,7 @@ public class ChordSequenceFactory {
             Chord chord = Chord.values()[chordValueIndex];
             chordSequence.add(chord);
         }
+
         return chordSequence;
     }
 }
