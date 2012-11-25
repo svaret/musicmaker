@@ -1,5 +1,13 @@
 package musicmaker;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 import java.util.*;
 
 public class RandomWordFactory {
@@ -8,6 +16,12 @@ public class RandomWordFactory {
 
     public static String pickAmongTuneWords() {
         return tuneWords.get(new Random().nextInt(tuneWords.size()));
+    }
+
+    public static String pickFromWebService() {
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject("http://randomword.setgetgo.com/get.php", String.class);
+        return result.substring(3, 4).toUpperCase() + result.substring(4);
     }
 
     static {
