@@ -13,6 +13,9 @@ import java.util.*;
 public class RandomWordFactory {
 
     private static List<String> tuneWords;
+    private static final int FIRST_REAL_LETTER = 3;
+    private static final int END_INDEX = 4;
+    private static final int START_REST_OF_WORD = 4;
 
     public static String pickAmongTuneWords() {
         return tuneWords.get(new Random().nextInt(tuneWords.size()));
@@ -21,7 +24,11 @@ public class RandomWordFactory {
     public static String pickFromWebService() {
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject("http://randomword.setgetgo.com/get.php", String.class);
-        return result.substring(3, 4).toUpperCase() + result.substring(4);
+        return upperCaseFirstLetter(result);
+    }
+
+    private static String upperCaseFirstLetter(String result) {
+        return result.substring(FIRST_REAL_LETTER, END_INDEX).toUpperCase() + result.substring(START_REST_OF_WORD);
     }
 
     static {
