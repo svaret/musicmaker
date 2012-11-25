@@ -2,17 +2,16 @@ package musicmaker;
 
 import java.util.*;
 
-public class TitleFactory {
+public class RandomWordFactory {
 
-    private static List<String> titleWords;
+    private static List<String> tuneWords;
 
-    public static String generate() {
-        return titleWords.get(RandomNumber.getRandomNumber(titleWords.size())) + " "
-                + titleWords.get(RandomNumber.getRandomNumber(titleWords.size()));
+    public static String pickAmongTuneWords() {
+        return tuneWords.get(new Random().nextInt(tuneWords.size()));
     }
 
     static {
-        titleWords =
+        tuneWords =
                 Arrays.asList("Changes", "Wastle", "Bredon", "Coconuts", "Ned", "Margaret", "Wallflower",
                         "Rigged", "Bloomin", "Sheepfold", "James", "Lovely", "-", "3", "2", "1", "Rambling", "Buffalo",
                         "G", "A", "Kinmont", "B", "C", "N", "O", "I", "K", "T", "Q", "S", "R", "Stands", "Builder",
@@ -277,7 +276,5 @@ public class TitleFactory {
                         "Parted", "Hoose", "Words", "Waddles", "Nettle", "1958", "Dog", "Kemp", "Brief", "Kemo",
                         "Shackles", "Fill", "Hugh", "Paddy", "Ripple", "Tva", "Weapons", "Tub", "Drove", "Tail",
                         "Maiden", "Buckaroo");
-    }
-
-    ;
+    };
 }

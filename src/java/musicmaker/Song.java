@@ -34,7 +34,8 @@ public class Song {
     }
 
     private String createTitleHtml() {
-        return " <h1><u>" + TitleFactory.generate() + "</u><br>" + "<br>";
+        return " <h1><u>" + RandomWordFactory.pickAmongTuneWords() + " " + RandomWordFactory.pickAmongTuneWords() +
+                "</u><br>" + "<br>";
     }
 
     private String createVerseHtml() {

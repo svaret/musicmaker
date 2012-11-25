@@ -10,7 +10,7 @@ public class TitleTest {
 
     @Test
     public void createTitleShouldContainTwoWords() {
-        String title = TitleFactory.generate();
+        String title = RandomWordFactory.pickAmongTuneWords();
         assertEquals(2, new StringTokenizer(title).countTokens());
     }
 
