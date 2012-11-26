@@ -1,4 +1,4 @@
-package integration.musicmaker;
+package musicmaker.musicmaker;
  
 
 import musicmaker.ChordSequence;

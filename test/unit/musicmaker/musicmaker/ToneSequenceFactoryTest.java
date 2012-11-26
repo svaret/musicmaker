@@ -1,5 +1,7 @@
-package musicmaker;
+package musicmaker.musicmaker;
 
+import musicmaker.ToneSequence;
+import musicmaker.ToneSequenceFactory;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;

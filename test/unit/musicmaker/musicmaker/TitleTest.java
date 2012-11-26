@@ -1,7 +1,8 @@
-package musicmaker;
+package musicmaker.musicmaker;
 
 import static org.junit.Assert.*;
 
+import musicmaker.RandomWordFactory;
 import org.junit.Test;
 
 import java.util.StringTokenizer;
