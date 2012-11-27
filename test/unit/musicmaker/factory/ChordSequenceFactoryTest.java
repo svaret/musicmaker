@@ -1,8 +1,7 @@
 package musicmaker.factory;
- 
+
 
 import musicmaker.ChordSequence;
-
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;

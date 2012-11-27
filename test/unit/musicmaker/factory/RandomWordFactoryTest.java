@@ -1,6 +1,5 @@
 package musicmaker.factory;
 
-import musicmaker.factory.RandomWordFactory;
 import org.junit.Test;
 
 import java.util.StringTokenizer;
