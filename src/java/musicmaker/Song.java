@@ -1,5 +1,9 @@
 package musicmaker;
 
+import musicmaker.factory.ChordSequenceFactory;
+import musicmaker.factory.RandomWordFactory;
+import musicmaker.factory.ToneSequenceFactory;
+
 public class Song {
     private Riff intro;
     private Verse verse;

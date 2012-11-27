@@ -2,7 +2,7 @@ package musicmaker.musicmaker;
 
 import static org.junit.Assert.*;
 
-import musicmaker.RandomWordFactory;
+import musicmaker.factory.RandomWordFactory;
 import org.junit.Test;
 
 import java.util.StringTokenizer;

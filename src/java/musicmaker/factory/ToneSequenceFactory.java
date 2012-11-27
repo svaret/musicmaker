@@ -1,4 +1,7 @@
-package musicmaker;
+package musicmaker.factory;
+
+import musicmaker.Tone;
+import musicmaker.ToneSequence;
 
 public class ToneSequenceFactory {
 

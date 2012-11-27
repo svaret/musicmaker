@@ -1,4 +1,7 @@
-package musicmaker;
+package musicmaker.factory;
+
+import musicmaker.Chord;
+import musicmaker.ChordSequence;
 
 public class ChordSequenceFactory {
 

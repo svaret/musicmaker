@@ -2,7 +2,7 @@ package musicmaker.musicmaker;
  
 
 import musicmaker.ChordSequence;
-import musicmaker.ChordSequenceFactory;
+import musicmaker.factory.ChordSequenceFactory;
 
 import org.junit.Test;
 
