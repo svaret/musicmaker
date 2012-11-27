@@ -1,8 +1,7 @@
-package musicmaker.musicmaker;
+package musicmaker.factory;
  
 
 import musicmaker.ChordSequence;
-import musicmaker.factory.ChordSequenceFactory;
 
 import org.junit.Test;
 
