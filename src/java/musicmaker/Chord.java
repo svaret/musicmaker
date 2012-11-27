@@ -1,5 +1,10 @@
 package musicmaker;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 public enum Chord {
     C, C_MINOR("Cm"),
     C_SHARP("C#"), C_SHARP_MINOR("C#m"),
@@ -14,13 +19,16 @@ public enum Chord {
     A_SHARP("A#"), A_SHARP_MINOR("A#m"), 
     B, B_MINOR("Bm");
 
-    public String label;
+    private String label;
+    private static final List<Chord> CHORDS = Collections.unmodifiableList(Arrays.asList(values()));
+    private static final int SIZE = CHORDS.size();
+    private static final Random RANDOM = new Random();
 
-    Chord(String label) {
+    private Chord(String label) {
         this.label = label;
     }
 
-    Chord() {
+    private Chord() {
         this.label = name();
     }
 
@@ -28,8 +36,12 @@ public enum Chord {
         return values().length;
     }
 
+    public static Chord getRandom() {
+        return CHORDS.get(RANDOM.nextInt(SIZE));
+    }
+
     public String toString() {
         return label;
     }
-}
 
+}
