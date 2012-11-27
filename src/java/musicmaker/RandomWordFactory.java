@@ -20,10 +20,10 @@ public class RandomWordFactory {
     public static String pickFromWebService() {
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject("http://randomword.setgetgo.com/get.php", String.class);
-        return upperCaseFirstLetter(result);
+        return upperCaseFirstLetterAndRemoveLeadingGarbage(result);
     }
 
-    private static String upperCaseFirstLetter(String result) {
+    private static String upperCaseFirstLetterAndRemoveLeadingGarbage(String result) {
         return result.substring(FIRST_REAL_LETTER, END_INDEX).toUpperCase() + result.substring(START_REST_OF_WORD);
     }
 
