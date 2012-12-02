@@ -11,11 +11,11 @@ enum Chord {
     static final CHORDS = values()
     static final SIZE = CHORDS.size()
 
-    private Chord(String label) {
+    Chord(String label) {
         this.label = label
     }
 
-    private Chord() {
+    Chord() {
         label = name()
     }
 
