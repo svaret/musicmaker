@@ -1,6 +1,6 @@
-package musicmaker
+package musicmakerr
 
-class MusicController {
+class SongController {
     private static final int INTRO_NOTES = 2
     private static final int NUMBER_OF_CHORDS_IN_VERSE = 5
     private static final int NUMBER_OF_CHORDS_IN_CHORUS = 3
