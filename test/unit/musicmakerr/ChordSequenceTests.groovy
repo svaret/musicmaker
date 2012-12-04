@@ -4,6 +4,7 @@ import org.junit.Test
 import static groovy.util.GroovyTestCase.assertEquals
 
 class ChordSequenceTests {
+
     @Test
     void chordSequenceShouldContainOneMoreChordAfterAdd() {
         def chordSequence = new ChordSequence()
@@ -12,4 +13,5 @@ class ChordSequenceTests {
 
         assertEquals numberOfChordsBefore + 1, chordSequence.getSize()
     }
+
 }

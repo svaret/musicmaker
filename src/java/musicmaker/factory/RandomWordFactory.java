@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class RandomWordFactory {
 
-    private static List<String> tuneWords;
     private static final int FIRST_REAL_LETTER = 3;
     private static final int END_INDEX = 4;
     private static final int START_REST_OF_WORD = 4;
@@ -27,8 +26,7 @@ public class RandomWordFactory {
         return result.substring(FIRST_REAL_LETTER, END_INDEX).toUpperCase() + result.substring(START_REST_OF_WORD);
     }
 
-    static {
-        tuneWords =
+    private static List<String> tuneWords =
                 Arrays.asList("Changes", "Wastle", "Bredon", "Coconuts", "Ned", "Margaret", "Wallflower",
                         "Rigged", "Bloomin", "Sheepfold", "James", "Lovely", "-", "3", "2", "1", "Rambling", "Buffalo",
                         "G", "A", "Kinmont", "B", "C", "N", "O", "I", "K", "T", "Q", "S", "R", "Stands", "Builder",
@@ -293,5 +291,4 @@ public class RandomWordFactory {
                         "Parted", "Hoose", "Words", "Waddles", "Nettle", "1958", "Dog", "Kemp", "Brief", "Kemo",
                         "Shackles", "Fill", "Hugh", "Paddy", "Ripple", "Tva", "Weapons", "Tub", "Drove", "Tail",
                         "Maiden", "Buckaroo");
-    };
 }
