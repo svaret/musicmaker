@@ -8,13 +8,13 @@ class RandomWordFactory {
     private static START_INDEX_REST_OF_WORD = 4
     private static final RANDOM = new Random()
 
-    static String pickAmongTuneWords() {
+    static def pickAmongTuneWords() {
         tuneWords[RANDOM.nextInt(tuneWords.size())]
     }
 
-    static String pickFromWebService() {
-        RestTemplate restTemplate = new RestTemplate()
-        String result = restTemplate.getForObject("http://randomword.setgetgo.com/get.php", String.class)
+    static def pickFromWebService() {
+        def restTemplate = new RestTemplate()
+        def result = restTemplate.getForObject "http://randomword.setgetgo.com/get.php", String.class
         upperCaseFirstLetterAndRemoveLeadingGarbage result
     }
 
