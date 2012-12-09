@@ -1,14 +1,21 @@
-package musicmaker;
+package musicmaker.factory;
 
+<<<<<<< HEAD:src/java/musicmaker/RandomWordFactory.java
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.web.client.RestTemplate;
+=======
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+>>>>>>> 23767449024d96680ec4e92d6470e21e81289dde:src/java/musicmaker/factory/RandomWordFactory.java
 
 public class RandomWordFactory {
 
-    private static List<String> tuneWords;
     private static final int FIRST_REAL_LETTER = 3;
     private static final int END_INDEX = 4;
     private static final int START_REST_OF_WORD = 4;
@@ -20,15 +27,14 @@ public class RandomWordFactory {
     public static String pickFromWebService() {
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject("http://randomword.setgetgo.com/get.php", String.class);
-        return upperCaseFirstLetter(result);
+        return upperCaseFirstLetterAndRemoveLeadingGarbage(result);
     }
 
-    private static String upperCaseFirstLetter(String result) {
+    private static String upperCaseFirstLetterAndRemoveLeadingGarbage(String result) {
         return result.substring(FIRST_REAL_LETTER, END_INDEX).toUpperCase() + result.substring(START_REST_OF_WORD);
     }
 
-    static {
-        tuneWords =
+    private static List<String> tuneWords =
                 Arrays.asList("Changes", "Wastle", "Bredon", "Coconuts", "Ned", "Margaret", "Wallflower",
                         "Rigged", "Bloomin", "Sheepfold", "James", "Lovely", "-", "3", "2", "1", "Rambling", "Buffalo",
                         "G", "A", "Kinmont", "B", "C", "N", "O", "I", "K", "T", "Q", "S", "R", "Stands", "Builder",
@@ -293,5 +299,4 @@ public class RandomWordFactory {
                         "Parted", "Hoose", "Words", "Waddles", "Nettle", "1958", "Dog", "Kemp", "Brief", "Kemo",
                         "Shackles", "Fill", "Hugh", "Paddy", "Ripple", "Tva", "Weapons", "Tub", "Drove", "Tail",
                         "Maiden", "Buckaroo");
-    };
 }
