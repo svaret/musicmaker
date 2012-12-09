@@ -5,9 +5,9 @@ import musicmakerr.Chord
 
 class ChordSequenceFactory {
 
-    public static ChordSequence createRandomSequence(int numberOfChords) {
+    static ChordSequence createRandomSequence(int numberOfChords) {
         ChordSequence chordSequence = new ChordSequence();
-        (1..numberOfChords).each { chordSequence.add(Chord.getRandom()) }
+        (1..numberOfChords).each { chordSequence.add(Chord.random) }
         chordSequence
     }
 

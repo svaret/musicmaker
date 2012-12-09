@@ -8,10 +8,10 @@ class ChordSequenceTests {
     @Test
     void chordSequenceShouldContainOneMoreChordAfterAdd() {
         def chordSequence = new ChordSequence()
-        def numberOfChordsBefore = chordSequence.getSize()
+        def numberOfChordsBefore = chordSequence.size
         chordSequence.add(Chord.A)
 
-        assertEquals numberOfChordsBefore + 1, chordSequence.getSize()
+        assertEquals numberOfChordsBefore + 1, chordSequence.size
     }
 
 }

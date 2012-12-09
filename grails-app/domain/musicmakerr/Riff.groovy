@@ -1,11 +1,11 @@
 package musicmakerr
 
 class Riff {
-    ToneSequence toneSequence
+    def toneSequence
 
     static constraints = {}
 
-    Riff(ChordSequence toneSequence) {
+    Riff(def toneSequence) {
         this.toneSequence = toneSequence
     }
 }

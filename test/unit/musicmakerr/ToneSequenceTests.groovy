@@ -8,9 +8,9 @@ class ToneSequenceTests {
     @Test
     void toneSequenceShouldContainOneMoreToneAfterAdd() {
         def toneSequence = new ToneSequence()
-        def numberOfTonesBefore = toneSequence.getSize()
+        def numberOfTonesBefore = toneSequence.size
         toneSequence.add(Tone.A)
 
-        assertEquals numberOfTonesBefore + 1, toneSequence.getSize()
+        assertEquals numberOfTonesBefore + 1, toneSequence.size
     }
 }
