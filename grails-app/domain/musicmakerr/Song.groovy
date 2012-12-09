@@ -1,5 +1,8 @@
 package musicmakerr
 
+import musicmakerr.factory.ToneSequenceFactory
+import musicmakerr.factory.ChordSequenceFactory
+
 class Song {
     def intro
     def verse
@@ -7,6 +10,9 @@ class Song {
     def outro
 
     Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords, int numberOfOutroNotes) {
-        intro = new Riff()
+        intro = new Riff(ToneSequenceFactory.createRandomToneSequence(numberOfIntroNotes))
+        verse = new Verse(ChordSequenceFactory.createRandomSequence(numberOfVerseChords))
+        chorus = new Chorus(ChordSequenceFactory.createRandomSequence(numberOfChorusChords))
+        outro = new Riff(ToneSequenceFactory.createRandomToneSequence(numberOfOutroNotes))
     }
 }
