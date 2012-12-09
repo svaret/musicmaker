@@ -4,7 +4,7 @@ import org.junit.Test
 
 import static groovy.util.GroovyTestCase.assertEquals
 
-class RandomFactoryTest {
+class RandomWordFactoryTest {
 
     @Test
     void pickWordAmongTuneWordsShouldReturnOneWord() {
