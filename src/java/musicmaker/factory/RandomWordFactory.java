@@ -1,18 +1,10 @@
 package musicmaker.factory;
 
-<<<<<<< HEAD:src/java/musicmaker/RandomWordFactory.java
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.web.client.RestTemplate;
-=======
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
->>>>>>> 23767449024d96680ec4e92d6470e21e81289dde:src/java/musicmaker/factory/RandomWordFactory.java
 
 public class RandomWordFactory {
 
