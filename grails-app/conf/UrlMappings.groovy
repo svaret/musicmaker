@@ -1,7 +1,11 @@
 class UrlMappings {
 
 	static mappings = {
-		"/$controller/$action?/$id?"{
+        "/rest/$controller/list"(parseRequest:true){
+            action = [GET:"list", POST: "save"]
+        }
+
+        "/$controller/$action?/$id?"{
 			constraints {
 				// apply constraints here
 			}

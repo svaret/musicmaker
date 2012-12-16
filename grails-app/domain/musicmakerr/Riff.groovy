@@ -1,7 +1,7 @@
 package musicmakerr
 
 class Riff {
-    def toneSequence
+    ToneSequence toneSequence
 
     static constraints = {}
 

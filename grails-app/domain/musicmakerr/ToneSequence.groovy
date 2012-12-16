@@ -7,10 +7,6 @@ class ToneSequence {
     static constraints = {
     }
 
-    def getTones() {
-        tones
-    }
-
     void add(Tone tone) {
         tones.add(tone)
     }

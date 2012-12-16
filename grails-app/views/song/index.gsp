@@ -1,5 +1,5 @@
 <!doctype html>
-<%@ page import="musicmakerr.SongController" %>
+<%@ page import="musicmaker.SongController" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -54,7 +54,7 @@
 </head>
 
 <body>
-<h2>${songInView}
+<h2>${song}
 </h2>
 
 </body>
