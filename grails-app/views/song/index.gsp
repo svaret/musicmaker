@@ -54,8 +54,10 @@
 </head>
 
 <body>
-<h2>${song}
-</h2>
-
+<div align="center">
+    <h2>
+        ${song}
+    </h2>
+</div>
 </body>
 </html>
