@@ -10,12 +10,11 @@ class SongController {
     private static final int NUMBER_OF_CHORDS_IN_CHORUS = 3
     private static final int NUMBER_OF_NOTES_IN_OUTRO = 12
 
-//    def index = { action: list }
     def index = {
-        def song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE, NUMBER_OF_CHORDS_IN_CHORUS,
-                NUMBER_OF_NOTES_IN_OUTRO);
+        def song = new musicmakerr.Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
+                NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO);
         withFormat {
-            html { [song: SongHtmlFactory.createCompleteSongStringHtmlFormat(NUMBER_OF_NOTES_IN_INTRO,
+            html { [song: SongHtmlFactory.createCompleteSongHtml(NUMBER_OF_NOTES_IN_INTRO,
                     NUMBER_OF_CHORDS_IN_VERSE, NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)] }
             xml { render song as XML }
             json { render song.intro as JSON }

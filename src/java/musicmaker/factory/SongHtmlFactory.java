@@ -7,8 +7,8 @@ import musicmaker.Verse;
 
 public class SongHtmlFactory {
 
-    public static String createCompleteSongStringHtmlFormat(int numberOfIntroNotes, int numberOfVerseChords,
-                                                     int numberOfChorusChords, int numberOfOutroNotes) {
+    public static String createCompleteSongHtml(int numberOfIntroNotes, int numberOfVerseChords,
+                                                int numberOfChorusChords, int numberOfOutroNotes) {
         Song song = new Song(numberOfIntroNotes, numberOfVerseChords, numberOfChorusChords, numberOfOutroNotes);
         return createTitleHtml(song.getTitle()) +
                 createIntroHtml(song.getIntro()) +
