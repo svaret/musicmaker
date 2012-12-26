@@ -11,8 +11,8 @@
         margin: 2em 2em 1em;
         padding: 1em;
         width: 15em;
-        margin-left:auto;
-        margin-right:auto;
+        margin-left: auto;
+        margin-right: auto;
         -moz-box-shadow: 0px 0px 1.25em #ccc;
         -webkit-box-shadow: 0px 0px 1.25em #ccc;
         box-shadow: 0px 0px 1.25em #ccc;
@@ -72,7 +72,18 @@
             margin-top: 0;
         }
     }
+
+    #test {
+        text-decoration: underline;
+    }
+
+    .clickable {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #48802C;
+    }
     </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>
@@ -81,7 +92,26 @@
     <h1>Music Maker <g:meta name="app.version"/></h1>
     <ul>
         <li>This program will create new music!</li>
+        <span id="createSong" class="clickable">Click here to create a random tune</span>
     </ul>
 </div>
+
+<div align="center" id="song"/>
+
+<script>
+    $("#testa").click(function () {
+        $.getJSON("/musicmaker/song.json", function (result) {
+            $("#apa").append(result);
+        });
+    });
+    $("#createSong").click(function () {
+        $.getJSON("/musicmaker/song.json", function (result) {
+            console.log(result);
+            $("#song").html(result.title + "<br>" + result.intro + "<br>" +
+                    result.verse + "<br>" + result.chorus + "<br>" + result.outro);
+        });
+    });
+</script>
+
 </body>
 </html>
