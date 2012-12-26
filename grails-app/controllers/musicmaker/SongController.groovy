@@ -10,11 +10,12 @@ class SongController {
     private static final int NUMBER_OF_NOTES_IN_OUTRO = 12
 
     def index = {
-        def song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
+        Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
                 NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO);
+        SongView songView = new SongView(song)
         withFormat {
-            xml { render song as XML }
-            json { render song.intro as JSON }
+            xml { render songView as XML }
+            json { render songView as JSON }
         }
     }
 }
