@@ -1,4 +1,4 @@
-package musicmakerr
+package musicmaker
 
 enum Chord {
     C, C_MINOR("Cm"), C_SHARP("C#"), C_SHARP_MINOR("C#m"), D, D_MINOR("Dm"), D_SHARP("D#"), D_SHARP_MINOR("D#m"),

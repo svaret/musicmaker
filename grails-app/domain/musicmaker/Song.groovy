@@ -1,8 +1,8 @@
-package musicmakerr
+package musicmaker
 
-import musicmakerr.factory.RandomWordFactory
-import musicmakerr.factory.ToneSequenceFactory
-import musicmakerr.factory.ChordSequenceFactory
+import musicmaker.factory.RandomWordFactory
+import musicmaker.factory.ToneSequenceFactory
+import musicmaker.factory.ChordSequenceFactory
 
 class Song {
     String title = "TheTitle"

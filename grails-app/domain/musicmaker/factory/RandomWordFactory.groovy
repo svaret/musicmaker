@@ -1,4 +1,4 @@
-package musicmakerr.factory
+package musicmaker.factory
 
 import org.springframework.web.client.RestTemplate
 

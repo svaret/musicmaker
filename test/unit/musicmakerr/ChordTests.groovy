@@ -1,5 +1,6 @@
 package musicmakerr
 
+import musicmaker.Chord
 import org.junit.Test
 
 class ChordTests {

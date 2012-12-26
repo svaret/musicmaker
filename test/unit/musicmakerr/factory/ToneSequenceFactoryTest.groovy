@@ -1,9 +1,10 @@
 package musicmakerr.factory
 
+import musicmaker.factory.ToneSequenceFactory
 import org.junit.Test
 
 import static groovy.util.GroovyTestCase.assertEquals
-import musicmakerr.ToneSequence
+import musicmaker.ToneSequence
 
 class ToneSequenceFactoryTest {
 

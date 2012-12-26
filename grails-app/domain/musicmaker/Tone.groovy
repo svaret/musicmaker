@@ -1,4 +1,4 @@
-package musicmakerr
+package musicmaker
 
 enum Tone {
     C, C_SHARP("C#"), D, D_SHARP("D#"), E, F, F_SHARP("F#"), G, G_SHARP("G#"), A(), A_SHARP("A#"), B()

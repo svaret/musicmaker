@@ -1,5 +1,7 @@
 package musicmakerr
 
+import musicmaker.Chord
+import musicmaker.ChordSequence
 import org.junit.Test
 import static groovy.util.GroovyTestCase.assertEquals
 

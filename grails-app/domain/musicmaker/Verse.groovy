@@ -1,11 +1,11 @@
-package musicmakerr
+package musicmaker
 
-class Chorus {
+class Verse {
     ChordSequence chordSequence
 
     static constraints = {}
 
-    Chorus(ChordSequence chordSequence) {
+    Verse(ChordSequence chordSequence) {
         this.chordSequence = chordSequence
     }
 }

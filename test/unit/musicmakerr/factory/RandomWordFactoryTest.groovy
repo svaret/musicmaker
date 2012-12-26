@@ -1,5 +1,6 @@
 package musicmakerr.factory
 
+import musicmaker.factory.RandomWordFactory
 import org.junit.Test
 
 import static groovy.util.GroovyTestCase.assertEquals

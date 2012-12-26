@@ -1,7 +1,7 @@
-package musicmakerr.factory
+package musicmaker.factory
 
-import musicmakerr.ChordSequence
-import musicmakerr.Chord
+import musicmaker.ChordSequence
+import musicmaker.Chord
 
 class ChordSequenceFactory {
 

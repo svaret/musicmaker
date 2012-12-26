@@ -1,7 +1,7 @@
-package musicmakerr.factory
+package musicmaker.factory
 
-import musicmakerr.ToneSequence
-import musicmakerr.Tone
+import musicmaker.ToneSequence
+import musicmaker.Tone
 
 class ToneSequenceFactory {
 

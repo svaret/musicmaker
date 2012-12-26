@@ -1,4 +1,4 @@
-package musicmakerr
+package musicmaker
 
 class ChordSequence {
 
