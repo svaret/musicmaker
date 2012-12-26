@@ -48,6 +48,12 @@
         font-size: 1em;
     }
 
+    #song {
+        margin-top: 1em;
+        margin-bottom: 0.3em;
+        font-size: 1em;
+    }
+
     p {
         line-height: 1.5;
         margin: 0.25em 0;
@@ -73,10 +79,6 @@
         }
     }
 
-    #test {
-        text-decoration: underline;
-    }
-
     .clickable {
         text-decoration: underline;
         cursor: pointer;
@@ -94,9 +96,9 @@
         <li>This program will create new music!</li>
         <span id="createSong" class="clickable">Click here to create a random tune</span>
     </ul>
+    <div align="center" id="song"/>
 </div>
 
-<div align="center" id="song"/>
 
 <script>
     $("#createSong").click(function () {
