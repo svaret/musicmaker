@@ -5,7 +5,7 @@ import org.springframework.web.client.RestTemplate
 class RandomWordFactory {
 
     private static FIRST_REAL_LETTER = 3
-    private static START_INDEX_REST_OF_WORD = 3
+    private static START_INDEX_REST_OF_WORD = 4
     private static final RANDOM = new Random()
 
     static def pickAmongTuneWords() {
@@ -19,7 +19,7 @@ class RandomWordFactory {
     }
 
     private static def upperCaseFirstLetterAndRemoveLeadingGarbage(String result) {
-        result[FIRST_REAL_LETTER..START_INDEX_REST_OF_WORD].toUpperCase() +
+        result[FIRST_REAL_LETTER].toUpperCase() +
                 result[START_INDEX_REST_OF_WORD..result.length()-1]
     }
 
