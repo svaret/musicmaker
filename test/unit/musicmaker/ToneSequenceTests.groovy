@@ -1,4 +1,4 @@
-package musicmakerr
+package musicmaker
 
 import musicmaker.Tone
 import musicmaker.ToneSequence

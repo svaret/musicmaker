@@ -1,4 +1,4 @@
-package musicmakerr
+package musicmaker
 
 import musicmaker.Chord
 import org.junit.Test

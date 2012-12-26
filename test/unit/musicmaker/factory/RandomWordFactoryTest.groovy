@@ -1,4 +1,4 @@
-package musicmakerr.factory
+package musicmaker.factory
 
 import musicmaker.factory.RandomWordFactory
 import org.junit.Test

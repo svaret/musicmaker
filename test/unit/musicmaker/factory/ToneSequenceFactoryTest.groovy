@@ -1,4 +1,4 @@
-package musicmakerr.factory
+package musicmaker.factory
 
 import musicmaker.factory.ToneSequenceFactory
 import org.junit.Test
