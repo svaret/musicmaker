@@ -21,11 +21,11 @@
 <body>
 
 <div align="center" id="grailsLogo" role="banner">
-    <img src="${resource(dir: 'images', file: 'klyx.jpg')}" alt="Grails"/>
-    <img src="${resource(dir: 'images', file: 'klyx.jpg')}" alt="Grails"/>
-    <img src="${resource(dir: 'images', file: 'klyx.jpg')}" alt="Grails"/>
-    <img src="${resource(dir: 'images', file: 'klyx.jpg')}" alt="Grails"/>
-    <img src="${resource(dir: 'images', file: 'klyx.jpg')}" alt="Grails"/>
+    <img src="${resource(dir: 'images', file: 'musicmaker.jpg')}" alt="Grails"/>
+    <img src="${resource(dir: 'images', file: 'musicmaker.jpg')}" alt="Grails"/>
+    <img src="${resource(dir: 'images', file: 'musicmaker.jpg')}" alt="Grails"/>
+    <img src="${resource(dir: 'images', file: 'musicmaker.jpg')}" alt="Grails"/>
+    <img src="${resource(dir: 'images', file: 'musicmaker.jpg')}" alt="Grails"/>
 </div>
 
 <g:layoutBody/>
