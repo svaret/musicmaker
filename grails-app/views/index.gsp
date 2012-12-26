@@ -99,16 +99,10 @@
 <div align="center" id="song"/>
 
 <script>
-    $("#testa").click(function () {
-        $.getJSON("/musicmaker/song.json", function (result) {
-            $("#apa").append(result);
-        });
-    });
     $("#createSong").click(function () {
         $.getJSON("/musicmaker/song.json", function (result) {
-            console.log(result);
-            $("#song").html(result.title + "<br>" + result.intro + "<br>" +
-                    result.verse + "<br>" + result.chorus + "<br>" + result.outro);
+            $("#song").html(result.title + "<br>Intro: " + result.intro + "<br>Verse: " +
+                    result.verse + "<br>Chorus: " + result.chorus + "<br>Outro: " + result.outro);
         });
     });
 </script>
