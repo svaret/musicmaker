@@ -10,7 +10,7 @@
         border: .2em solid #fff;
         margin: 2em 2em 1em;
         padding: 1em;
-        width: 15em;
+        width: 30em;
         margin-left: auto;
         margin-right: auto;
         -moz-box-shadow: 0px 0px 1.25em #ccc;
