@@ -1,11 +1,14 @@
 package musicmaker
 
 class Verse {
-    ChordSequence chordSequence
+    static belongsTo = [song: Song]
+    static hasMany = [chord: Chord]
+
+    List chords = []
 
     static constraints = {}
 
-    Verse(ChordSequence chordSequence) {
-        this.chordSequence = chordSequence
+    Verse(List<Chord> chords) {
+        this.chords = chords
     }
 }

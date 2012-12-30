@@ -1,8 +1,7 @@
 package musicmaker.factory
 
-import musicmaker.factory.ChordSequenceFactory
+import musicmaker.Chord
 import org.junit.Test
-import musicmaker.ChordSequence
 
 import static groovy.util.GroovyTestCase.assertEquals
 
@@ -11,9 +10,9 @@ class ChordSequenceFactoryTest {
     @Test
     void createRandomSequenceShouldContainCorrectNumberOfChords() {
         int numberOfChords = 4
-        ChordSequence chordSequence = ChordSequenceFactory.createRandomSequence(numberOfChords)
+        List<Chord> chords = ChordSequenceFactory.createRandomSequence(numberOfChords)
 
-        assertEquals numberOfChords, chordSequence.getChords().size()
+        assertEquals numberOfChords, chords.size()
     }
 
 }

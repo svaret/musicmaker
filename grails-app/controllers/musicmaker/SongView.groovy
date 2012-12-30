@@ -9,9 +9,9 @@ class SongView {
 
     SongView(Song song) {
         this.title = song.title
-        this.intro = song.intro.toneSequence.tones
-        this.verse = song.verse.chordSequence.chords
-        this.chorus = song.chorus.chordSequence.chords
-        this.outro = song.outro.toneSequence.tones
+        this.intro = song.intro.tones
+        this.verse = song.verse.chords
+        this.chorus = song.chorus.chords
+        this.outro = song.outro.tones
     }
 }

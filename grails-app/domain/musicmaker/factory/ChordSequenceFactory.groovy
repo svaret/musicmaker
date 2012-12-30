@@ -1,14 +1,13 @@
 package musicmaker.factory
 
-import musicmaker.ChordSequence
 import musicmaker.Chord
 
 class ChordSequenceFactory {
 
-    static ChordSequence createRandomSequence(int numberOfChords) {
-        ChordSequence chordSequence = new ChordSequence();
-        (1..numberOfChords).each { chordSequence.add(Chord.random) }
-        chordSequence
+    static List<Chord> createRandomSequence(int numberOfChords) {
+        List<Chord> chords = []
+        (1..numberOfChords).each { chords.add(Chord.random) }
+        chords
     }
 
 }

@@ -1,11 +1,14 @@
 package musicmaker
 
 class Riff {
-    ToneSequence toneSequence
+    static belongsTo = [song: Song]
+    static hasMany = [tones: Tone]
+
+    List<Tone> tones
 
     static constraints = {}
 
-    Riff(def toneSequence) {
-        this.toneSequence = toneSequence
+    Riff(List<Tone> tones) {
+        this.tones = tones
     }
 }

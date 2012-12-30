@@ -1,14 +1,13 @@
 package musicmaker.factory
 
-import musicmaker.ToneSequence
 import musicmaker.Tone
 
 class ToneSequenceFactory {
 
-    public static ToneSequence createRandomToneSequence(int numberOfTones) {
-        ToneSequence toneSequence = new ToneSequence();
-        (1..numberOfTones).each { toneSequence.add(Tone.getRandom()) }
-        toneSequence
+    public static List<Tone> createRandomToneSequence(int numberOfTones) {
+        List<Tone> tones = []
+        (1..numberOfTones).each { tones.add(Tone.getRandom()) }
+        tones
     }
 
 }
