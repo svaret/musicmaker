@@ -11,7 +11,8 @@ class SongController {
 
     def index = {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
-                NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO);
+                NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)
+        song.save()
         SongView songView = new SongView(song)
         withFormat {
             xml { render songView as XML }
