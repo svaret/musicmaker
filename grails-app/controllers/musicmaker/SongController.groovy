@@ -19,4 +19,10 @@ class SongController {
             json { render songView as JSON }
         }
     }
+	
+//	blir det en getmetod här?
+	def get = {
+		
+		}
+	
 }

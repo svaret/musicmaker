@@ -110,5 +110,20 @@
     });
 </script>
 
+<%--pekr test begin--%>
+<%-- implementeras kanske som det här exemplet:
+http://www.html-form-guide.com/jquery/drop-down-list-jquery.html --%>
+No of chords:
+<select name='mylist' id='mylist' size='1'>
+<?php
+while($rec = mysql_fetch_assoc($result))
+{
+    echo "<option>".$rec['Intro']."</option>";
+}
+?>
+</select> 
+<%--pekr test end--%>
+ 
+
 </body>
 </html>
