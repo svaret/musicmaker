@@ -45,7 +45,8 @@
     h2 {
         margin-top: 1em;
         margin-bottom: 0.3em;
-        font-size: 1em;
+        font-size: 1.1em;
+        text-decoration:underline; 
     }
 
     #song {
@@ -103,7 +104,7 @@
 <script>
     $("#createSong").click(function () {
         $.getJSON("/musicmaker/song.json", function (result) {
-            $("#song").html(result.title + "<br>Intro: " + result.intro + "<br>Verse: " +
+            $("#song").html("<h2>" + result.title + "</h2>" + "Intro: " + result.intro + "<br>Verse: " +
                     result.verse + "<br>Chorus: " + result.chorus + "<br>Outro: " + result.outro);
         });
     });
