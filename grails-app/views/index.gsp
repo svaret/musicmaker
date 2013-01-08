@@ -46,7 +46,7 @@
         margin-top: 1em;
         margin-bottom: 0.3em;
         font-size: 1.1em;
-        text-decoration:underline; 
+        text-decoration: underline;
     }
 
     #song {
@@ -97,9 +97,15 @@
         <li>This program will create new music!</li>
         <span id="createSong" class="clickable">Click here to create a random tune</span>
     </ul>
+
     <div align="center" id="song"/>
 </div>
 
+<div align="center" id="list" role="complementary">
+    <span id="listSongs" class="clickable">Click here to list songs</span>
+
+    <div align="center" id="songList"/>
+</div>
 
 <script>
     $("#createSong").click(function () {
@@ -108,22 +114,15 @@
                     result.verse + "<br>Chorus: " + result.chorus + "<br>Outro: " + result.outro);
         });
     });
+    $("#listSongs").click(function () {
+        $.getJSON("/musicmaker/song/list.json", function (result) {
+            $("#songList").html("")
+            $.each(result, function (i, field) {
+                $("#songList").append(field.title + "<br>");
+            });
+        });
+    });
 </script>
-
-<%--pekr test begin--%>
-<%-- implementeras kanske som det här exemplet:
-http://www.html-form-guide.com/jquery/drop-down-list-jquery.html --%>
-No of chords:
-<select name='mylist' id='mylist' size='1'>
-<?php
-while($rec = mysql_fetch_assoc($result))
-{
-    echo "<option>".$rec['Intro']."</option>";
-}
-?>
-</select> 
-<%--pekr test end--%>
- 
 
 </body>
 </html>

@@ -37,9 +37,11 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.20'
         compile 'org.apache.httpcomponents:httpclient:4.2.2'
+        compile 'com.gmongo:gmongo:1.0'
     }
 
     plugins {
+        runtime ':mongodb:1.1.0.GA'
         runtime ":jquery:1.7.2"
         runtime ":resources:1.1.6"
 
@@ -51,6 +53,5 @@ grails.project.dependency.resolution = {
         build ":tomcat:$grailsVersion"
 
         compile ':cache:1.0.0'
-        runtime ':mongodb:1.1.0.GA'
     }
 }
