@@ -1,6 +1,5 @@
 package musicmaker
 
-import com.gmongo.GMongo
 import grails.converters.JSON
 import grails.converters.XML
 import groovy.json.JsonBuilder
@@ -20,6 +19,7 @@ class SongController {
         def db = mongo.getDB("musicmaker")
         def builder = new JsonBuilder()
         builder.setContent(songView)
+        db.song.remove([:])
         db.song.insert(com.mongodb.util.JSON.parse(builder.toString()))
         withFormat {
             xml { render songView as XML }
