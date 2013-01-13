@@ -85,43 +85,93 @@
         cursor: pointer;
         color: #48802C;
     }
+    
+ 
+.css_btn_class {
+	font-size:16px;
+	font-family:Arial;
+	font-weight:normal;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:1px solid #dcdcdc;
+	padding:9px 18px;
+	text-decoration:none;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #ededed), color-stop(100%, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	background:-ms-linear-gradient( top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	color:#777777;
+	display:inline-block;
+	text-shadow:1px 1px 0px #ffffff;
+ 	-webkit-box-shadow:inset 1px 1px 0px 0px #ffffff;
+ 	-moz-box-shadow:inset 1px 1px 0px 0px #ffffff;
+ 	box-shadow:inset 1px 1px 0px 0px #ffffff;
+}.css_btn_class:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(5%, #dfdfdf), color-stop(100%, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	background:-ms-linear-gradient( top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}.css_btn_class:active {
+	position:relative;
+	top:1px;
+}
+ 
+    
+    
+    
     </style>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>
 
-<div align="center" id="status" role="complementary">
-    <h1>Music Maker <g:meta name="app.version"/></h1>
-    <ul>
-        <li>This program will create new music!</li>
-        <span id="createSong" class="clickable">Click here to create a random tune</span>
-    </ul>
 
+
+<div align="center" id="status" role="complementary">
+    <h1>Music Maker <g:meta name="app.version"/></h1>    
+        <span id="createSong" class="clickable"><a href="#" class="css_btn_class">create new song</a></span> 
+        <span id="listSongs" class="clickable"><a href="#" class="css_btn_class">list old songs</a></span>
     <div align="center" id="song"/>
 </div>
 
-<div align="center" id="list" role="complementary">
-    <span id="listSongs" class="clickable">Click here to list songs</span>
 
+
+<div align="center" id="list" role="complementary">
     <div align="center" id="songList"/>
 </div>
+
+
+
+
+
+
+
+
 
 <script>
     $("#createSong").click(function () {
         $.getJSON("/musicmaker/song.json", function (result) {
-            $("#song").html("<h2>" + result.title + "</h2>" + "Intro: " + result.intro + "<br>Verse: " +
+            $("#songList").html("<h2>" + result.title + "</h2>" + "Intro: " + result.intro + "<br>Verse: " +
                     result.verse + "<br>Chorus: " + result.chorus + "<br>Outro: " + result.outro);
         });
+        $("#songList").html("")
     });
+
     $("#listSongs").click(function () {
         $.getJSON("/musicmaker/song/list.json", function (result) {
             $("#songList").html("")
             $.each(result, function (i, field) {
-                $("#songList").append(field.title + "<br>");
+                $("#songList ").append(field.title + "<br>");
             });
         });
+        $("#song").html("")
     });
+
+ 
+    
 </script>
 
 </body>
