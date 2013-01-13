@@ -133,31 +133,32 @@
 <div align="center" id="status" role="complementary">
     <h1>Music Maker <g:meta name="app.version"/></h1>    
         <span id="createSong" class="clickable"><a href="#" class="css_btn_class">create new song</a></span> 
-        <span id="listSongs" class="clickable"><a href="#" class="css_btn_class">list old songs</a></span>
+        <span id="listSongs" class="clickable"><a href="#" class="css_btn_class">song archive</a></span>
     <div align="center" id="song"/>
 </div>
 
 
 
 <div align="center" id="list" role="complementary">
-    <div align="center" id="songList"/>
+    <div contenteditable align="center" id="songList"/>
 </div>
 
 
 
+<div align="center" id="buttonlist"  role="complementary">
+     <span id="save" class="clickable" visible="false"><a href="#"   class="css_btn_class">save changes</a></span>
+</div>
 
 
-
-
-
-
+ 
 <script>
     $("#createSong").click(function () {
+ 
         $.getJSON("/musicmaker/song.json", function (result) {
-            $("#songList").html("<h2>" + result.title + "</h2>" + "Intro: " + result.intro + "<br>Verse: " +
+            $("#songList").html("<h2>" + result.title + " NOW EDITABLE!!! </h2>"  + "Intro: " + result.intro + "<br>Verse: " +
                     result.verse + "<br>Chorus: " + result.chorus + "<br>Outro: " + result.outro);
         });
-        $("#songList").html("")
+        $("#buttonlistdiv").visible
     });
 
     $("#listSongs").click(function () {
@@ -167,7 +168,7 @@
                 $("#songList ").append(field.title + "<br>");
             });
         });
-        $("#song").html("")
+        
     });
 
  
