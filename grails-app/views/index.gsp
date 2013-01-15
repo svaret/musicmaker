@@ -133,6 +133,7 @@
     <h1>Music Maker <g:meta name="app.version"/></h1>
     <span id="createRandomSong" class="css_btn_class">Create random song</span>
     <span id="songArchive" class="css_btn_class">Song archive</span>
+    <span id="chordList" class="css_btn_class">Chord list</span>
     <div id="songList" contenteditable/>
 </div>
 
@@ -152,7 +153,16 @@
         $.getJSON("/musicmaker/song/list.json", function (result) {
             $("#songList").html("")
             $.each(result, function (i, field) {
-                $("#songList ").append(field.title + "</br>");
+                $("#songList").append(field.title + "</br>");
+            });
+        });
+    });
+
+    $("#chordList").click(function () {
+        $.getJSON("/musicmaker/chord/list.json", function (result) {
+            $("#songList").html("")
+            $.each(result, function (i, field) {
+                $("#songList").append(field.chord + " ");
             });
         });
     });
