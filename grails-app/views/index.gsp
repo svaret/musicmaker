@@ -133,8 +133,9 @@
     <h1>Music Maker <g:meta name="app.version"/></h1>
     <span id="createRandomSong" class="css_btn_class">Create random song</span>
     <span id="songArchive" class="css_btn_class">Song archive</span>
-    <span id="chordList" class="css_btn_class">Chord list</span>
-    <div id="songList" contenteditable/>
+    <span id="chordListButton" class="css_btn_class">Chord list</span>
+    <div id="songList"/>
+    <select id="chordSelect"></select>
 </div>
 
 <div id="saveButton" align="center" role="complementary">
@@ -158,15 +159,14 @@
         });
     });
 
-    $("#chordList").click(function () {
+    $("#chordListButton").click(function () {
         $.getJSON("/musicmaker/chord/list.json", function (result) {
-            $("#songList").html("")
-            $.each(result, function (i, field) {
-                $("#songList").append(field.chord + " ");
+            var options = $("#chordSelect");
+            $.each(result, function() {
+                options.append($("<option />").val(this.chord).text(this.chord));
             });
         });
     });
 </script>
-
 </body>
 </html>
