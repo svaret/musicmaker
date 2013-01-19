@@ -20,6 +20,8 @@
         -webkit-border-radius: 0.6em;
         border-radius: 0.6em;
     }
+    
+ 
 
     .ie6 #status {
         display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
@@ -133,16 +135,18 @@
     <h1>Music Maker <g:meta name="app.version"/></h1>
     <span id="createRandomSong" class="css_btn_class">Create random song</span>
     <span id="songArchive" class="css_btn_class">Song archive</span>
-    <span id="chordListButton" class="css_btn_class">Chord list</span>
-    <div id="songList"/>
     <select id="chordSelect"></select>
 </div>
+
+<div id="songList" align="center" role="complementary"/>
+
 
 <div id="saveButton" align="center" role="complementary">
     <span id="save" class="css_btn_class">Save</span>
 </div>
 
 <script>
+
     $("#createRandomSong").click(function () {
         $.getJSON("/musicmaker/song.json", function (result) {
             $("#songList").html("<h2>" + result.title + "</h2>" + "Intro: " + result.intro + "</br>Verse: " +
@@ -159,14 +163,16 @@
         });
     });
 
-    $("#chordListButton").click(function () {
+
+    jQuery(document).ready(function(){
         $.getJSON("/musicmaker/chord/list.json", function (result) {
             var options = $("#chordSelect");
             $.each(result, function() {
                 options.append($("<option />").val(this.chord).text(this.chord));
-            });
-        });
+            });     
+   		 });
     });
-</script>
+    
+    </script>
 </body>
 </html>
