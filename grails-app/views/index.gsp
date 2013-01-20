@@ -132,26 +132,37 @@
 <body>
 
 <div id="status" align="center" role="complementary">
+
     <h1>Music Maker <g:meta name="app.version"/></h1>
+
     <span id="createRandomSong" class="css_btn_class">Create random song</span>
+
     <span id="songArchive" class="css_btn_class">Song archive</span>
+
     <select id="chordSelect"></select>
+    
+    <span id="dropDatabase" class="css_btn_class">Drop Database</span>
+        
 </div>
 
-<div id="songList" align="center" role="complementary"/>
+<div id="songList" align="center" role="complementary"> </div>
 
-
-<div id="saveButton" align="center" role="complementary">
-    <span id="save" class="css_btn_class">Save</span>
+<div id ="saveList" align="center" role="complementary"><span id="save" align="center" class="css_btn_class">Save</span>
 </div>
 
 <script>
 
     $("#createRandomSong").click(function () {
         $.getJSON("/musicmaker/song.json", function (result) {
-            $("#songList").html("<h2>" + result.title + "</h2>" + "Intro: " + result.intro + "</br>Verse: " +
-                    result.verse + "</br>Chorus: " + result.chorus + "</br>Outro: " + result.outro);
+            $("#songList").html(
+                    "<h2>" + result.title + "</h2>" + 
+                    "Intro: " + result.intro + 
+                    "</br>Verse: " +  result.verse + 
+                    "</br>Chorus: " + result.chorus + 
+                    "</br>Outro: " + result.outro +
+                    "</br>" );
         });
+        
     });
 
     $("#songArchive").click(function () {
@@ -164,6 +175,13 @@
     });
 
 
+    $("#dropDatabase").click(function () {
+        $.getJSON("/musicmaker/song/dropDatabase.json", function (result) {
+             $("#songList").html("");       
+        });
+    });
+
+    
     jQuery(document).ready(function(){
         $.getJSON("/musicmaker/chord/list.json", function (result) {
             var options = $("#chordSelect");
@@ -172,7 +190,7 @@
             });     
    		 });
 
-
+        
      $("#chordSelect").change(function() {
       	alert("Du valde: "+$("#chordSelect").val());  	  
         	}); 

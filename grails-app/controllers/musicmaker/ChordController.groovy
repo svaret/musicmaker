@@ -10,7 +10,6 @@ class ChordController {
         for(Chord chord : Chord.values()) {
             chordViews.add(new ChordView(chord.toString()))
         }
-
         withFormat {
           json { render chordViews as JSON }
         }
