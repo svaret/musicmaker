@@ -171,6 +171,11 @@
                 options.append($("<option />").val(this.chord).text(this.chord));
             });     
    		 });
+
+
+     $("#chordSelect").change(function() {
+      	alert("Du valde: "+$("#chordSelect").val());  	  
+        	}); 
     });
     
     </script>
