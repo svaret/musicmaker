@@ -1,8 +1,11 @@
 class UrlMappings {
 
 	static mappings = {
-        "/rest/$controller/list"(parseRequest:true) {
-            action = [GET:"list", POST: "save"]
+        //"/song/$id?"(resource: "song")
+
+        "/$aController"{
+                    controller = {"${params.aController}"}
+                    action = [GET: "show", POST: "save"]
         }
 
         "/$controller/$action?/$id?"{

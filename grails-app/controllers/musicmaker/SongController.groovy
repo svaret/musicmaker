@@ -12,7 +12,7 @@ class SongController {
 
     def mongo
 
-    def index() {
+    def show() {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
                 NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)
         SongView songView = new SongView(song)
