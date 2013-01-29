@@ -145,15 +145,15 @@
         
 </div>
 
-<div id="songList" align="center" role="complementary"> </div>
+<div id="presentationArea" align="center" role="complementary"> </div>
 
-<div id ="saveList" align="center" role="complementary"><span id="save" align="center" class="css_btn_class">Save</span>
+<div id ="saveSong" align="center" role="complementary"><span id="save" align="center" class="css_btn_class">Save</span>
 </div>
 
 <script>
     $("#createRandomSong").click(function () {
-        $.getJSON("/musicmaker/song/random.json", function (result) {
-            $("#songList").html(
+        $.getJSON("/musicmaker/songs/random.json", function (result) {
+            $("#presentationArea").html(
                     "<h2>" + result.title + "</h2>" +
                             "Intro: " + result.intro +
                             "</br>Verse: " + result.verse +
@@ -164,24 +164,24 @@
     });
 
     $("#songArchive").click(function () {
-        $.getJSON("/musicmaker/song.json", function (result) {
-            $("#songList").html("")
+        $.getJSON("/musicmaker/songs.json", function (result) {
+            $("#presentationArea").html("")
             $.each(result, function (i, field) {
-                $("#songList").append(field.title + "</br>");
+                $("#presentationArea").append(field.title + "</br>");
             });
         });
     });
 
 
     $("#dropDatabase").click(function () {
-        $.getJSON("/musicmaker/song/dropDatabase.json", function (result) {
-            $("#songList").html("");
+        $.getJSON("/musicmaker/songs/dropDatabase.json", function (result) {
+            $("#presentationArea").html("");
         });
     });
 
 
     jQuery(document).ready(function () {
-        $.getJSON("/musicmaker/chord/list.json", function (result) {
+        $.getJSON("/musicmaker/chords.json", function (result) {
             var options = $("#chordSelect");
             $.each(result, function () {
                 options.append($("<option />").val(this.chord).text(this.chord));
