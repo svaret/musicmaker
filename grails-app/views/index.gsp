@@ -151,22 +151,20 @@
 </div>
 
 <script>
-
     $("#createRandomSong").click(function () {
-        $.getJSON("/musicmaker/song.json", function (result) {
+        $.getJSON("/musicmaker/song/random.json", function (result) {
             $("#songList").html(
-                    "<h2>" + result.title + "</h2>" + 
-                    "Intro: " + result.intro + 
-                    "</br>Verse: " +  result.verse + 
-                    "</br>Chorus: " + result.chorus + 
-                    "</br>Outro: " + result.outro +
-                    "</br>" );
+                    "<h2>" + result.title + "</h2>" +
+                            "Intro: " + result.intro +
+                            "</br>Verse: " + result.verse +
+                            "</br>Chorus: " + result.chorus +
+                            "</br>Outro: " + result.outro +
+                            "</br>");
         });
-        
     });
 
     $("#songArchive").click(function () {
-        $.getJSON("/musicmaker/song/list.json", function (result) {
+        $.getJSON("/musicmaker/song.json", function (result) {
             $("#songList").html("")
             $.each(result, function (i, field) {
                 $("#songList").append(field.title + "</br>");
@@ -177,25 +175,25 @@
 
     $("#dropDatabase").click(function () {
         $.getJSON("/musicmaker/song/dropDatabase.json", function (result) {
-             $("#songList").html("");       
+            $("#songList").html("");
         });
     });
 
-    
-    jQuery(document).ready(function(){
+
+    jQuery(document).ready(function () {
         $.getJSON("/musicmaker/chord/list.json", function (result) {
             var options = $("#chordSelect");
-            $.each(result, function() {
+            $.each(result, function () {
                 options.append($("<option />").val(this.chord).text(this.chord));
-            });     
-   		 });
+            });
+        });
 
-        
-     $("#chordSelect").change(function() {
-      	alert("Du valde: "+$("#chordSelect").val());  	  
-        	}); 
+
+        $("#chordSelect").change(function () {
+            alert("Du valde: " + $("#chordSelect").val());
+        });
     });
-    
-    </script>
+
+</script>
 </body>
 </html>

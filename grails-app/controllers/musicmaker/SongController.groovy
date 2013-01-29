@@ -13,13 +13,19 @@ class SongController {
     def mongo
 
     def show() {
+        def db = mongo.getDB("musicmaker")
+        withFormat {
+            json { render com.mongodb.util.JSON.serialize(db.song.find()) }
+        }
+    }
+
+    def random() {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
                 NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)
         SongView songView = new SongView(song)
         def db = mongo.getDB("musicmaker")
         def builder = new JsonBuilder()
         builder.setContent(songView)
-//        db.song.remove([:])
         db.song.insert(com.mongodb.util.JSON.parse(builder.toString()))
         withFormat {
             xml { render songView as XML }
@@ -33,14 +39,6 @@ class SongController {
           json { render com.mongodb.util.JSON.serialize(db.song.find().limit( 8 )) }
         }
     }
-	
-	def listAll() {
-		def db = mongo.getDB("musicmaker")
-		withFormat {
-		  json { render com.mongodb.util.JSON.serialize(db.song.find()) }
-		}
-	}
-	
 	
 	def dropDatabase() {
 		def db = mongo.getDB("musicmaker")
