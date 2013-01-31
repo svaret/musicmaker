@@ -1,11 +1,13 @@
 package musicmaker
 
+import musicmaker.factory.ChordSequenceFactory
 import musicmaker.factory.RandomWordFactory
 import musicmaker.factory.ToneSequenceFactory
-import musicmaker.factory.ChordSequenceFactory
+import org.bson.types.ObjectId
 
 class Song {
-    String title = "TheTitle"
+    ObjectId id
+    String title
     Riff intro
     Verse verse
     Chorus chorus

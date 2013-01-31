@@ -125,6 +125,7 @@
         cursor: pointer;
         position: relative;
         top: 1px;
+    }
     </style>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
@@ -167,7 +168,7 @@
         $.getJSON("/musicmaker/songs.json", function (result) {
             $("#presentationArea").html("")
             $.each(result, function (i, field) {
-                $("#presentationArea").append(field.title + "</br>");
+                $("#presentationArea").append(field._id.$oid + ": " + field.title + "</br>");
             });
         });
     });
@@ -179,6 +180,9 @@
         });
     });
 
+    $("#chordSelect").change(function () {
+        alert("Du valde: " + $("#chordSelect").val());
+    });
 
     jQuery(document).ready(function () {
         $.getJSON("/musicmaker/chords.json", function (result) {
@@ -186,11 +190,6 @@
             $.each(result, function () {
                 options.append($("<option />").val(this.chord).text(this.chord));
             });
-        });
-
-
-        $("#chordSelect").change(function () {
-            alert("Du valde: " + $("#chordSelect").val());
         });
     });
 
