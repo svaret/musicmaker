@@ -125,8 +125,14 @@
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
-        {{title}} <span id="save" align="center" class="css_btn_class">Save</span></br>
-        <input id="songId" value="{{_id.$oid}}" type="hidden">
+        <ul>
+            {{#songs}}
+            <li>
+                {{title}} {{intro}} {{verse}} {{chorus}} {{outro}}<button class="save">Save</button>
+                <input id="songId" value="{{_id.$oid}}" type="hidden">
+            </li>
+            {{/songs}}
+        </ul>
     </script>
 </head>
 
@@ -142,7 +148,6 @@ d<body>
 
 <div id="presentationArea" align="center" role="complementary"/>
 
-
 <script>
     $("#createRandomSong").click(function () {
         $.getJSON("/musicmaker/songs/random.json", function (result) {
@@ -153,13 +158,11 @@ d<body>
     });
 
     $("#songArchive").click(function () {
-        $.getJSON("/musicmaker/songs.json", function (result) {
-            $("#presentationArea").html("");
+        $.getJSON("/musicmaker/songs.json", function (songs) {
+            $("#presentationArea").empty();
             var template = $('#songArchiveTemplate').html();
-            $.each(result, function (i, field) {
-                var html = Mustache.to_html(template, field);
-                $('#presentationArea').append(html);
-            });
+            var html = Mustache.to_html(template, {songs: songs});
+            $('#presentationArea').html(html);
         });
     });
 
