@@ -1,8 +1,12 @@
 package musicmaker
 
+import com.mongodb.BasicDBObject
+import com.mongodb.DBCollection
+import com.mongodb.DBObject
 import grails.converters.JSON
 import grails.converters.XML
 import groovy.json.JsonBuilder
+import org.bson.types.ObjectId
 
 class SongsController {
     private static final int NUMBER_OF_NOTES_IN_INTRO = 2
@@ -12,28 +16,12 @@ class SongsController {
 
     def mongo
 
-/**    def apa = Song.list() {
-        println it.title
-        //it.riff.tones.collect {
-        //  [tone: it.toString()]
-        //}
-    }*/
-
     def show() {
         def db = mongo.getDB("musicmaker")
-        def songs = db.song.find()
-        songs.each {
-            //it._id.collect {
-            //    println "apa" + it
-            //}
-            println ""
-            println it._id.toString()
-            println it.get("_id")
-            println it.intro
-        }
-        def apa = songs.collect {
-            [id: it._id.toString(), title: it.title]
-        }
+        String idString = "5106e1ec0364cfa1d16c7bc3";
+        DBCollection coll = db.getCollection("song");
+        DBObject searchById = new BasicDBObject("_id", new ObjectId(idString));
+        DBObject found = coll.findOne(searchById);
         withFormat {
             json { render com.mongodb.util.JSON.serialize(db.song.find()) }
         }

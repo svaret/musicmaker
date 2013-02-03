@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main"/>
     <title>Music Maker</title>
@@ -20,8 +20,6 @@
         -webkit-border-radius: 0.6em;
         border-radius: 0.6em;
     }
-    
- 
 
     .ie6 #status {
         display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
@@ -51,12 +49,6 @@
         text-decoration: underline;
     }
 
-    #song {
-        margin-top: 1em;
-        margin-bottom: 0.3em;
-        font-size: 1em;
-    }
-
     p {
         line-height: 1.5;
         margin: 0.25em 0;
@@ -80,12 +72,6 @@
         #page-body h1 {
             margin-top: 0;
         }
-    }
-
-    .clickable {
-        text-decoration: underline;
-        cursor: pointer;
-        color: #48802C;
     }
 
     .css_btn_class {
@@ -127,52 +113,55 @@
         top: 1px;
     }
     </style>
+
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
+    <script id="songTemplate" type="text/template">
+        <h2>{{title}}</h2>
+        Intro: {{intro}}</br>
+        Verse: {{verse}}</br>
+        Chorus: {{chorus}}</br>
+        Outro: {{outro}}</br>
+    </script>
+
+    <script id="songArchiveTemplate" type="text/template">
+        {{title}} <span id="save" align="center" class="css_btn_class">Save</span></br>
+        <input id="songId" value="{{_id.$oid}}" type="hidden">
+    </script>
 </head>
 
-<body>
+d<body>
 
 <div id="status" align="center" role="complementary">
-
     <h1>Music Maker <g:meta name="app.version"/></h1>
-
     <span id="createRandomSong" class="css_btn_class">Create random song</span>
-
     <span id="songArchive" class="css_btn_class">Song archive</span>
-
     <select id="chordSelect"></select>
-    
     <span id="dropDatabase" class="css_btn_class">Drop Database</span>
-        
 </div>
 
-<div id="presentationArea" align="center" role="complementary"> </div>
+<div id="presentationArea" align="center" role="complementary"/>
 
-<div id ="saveSong" align="center" role="complementary"><span id="save" align="center" class="css_btn_class">Save</span>
-</div>
 
 <script>
     $("#createRandomSong").click(function () {
         $.getJSON("/musicmaker/songs/random.json", function (result) {
-            $("#presentationArea").html(
-                    "<h2>" + result.title + "</h2>" +
-                            "Intro: " + result.intro +
-                            "</br>Verse: " + result.verse +
-                            "</br>Chorus: " + result.chorus +
-                            "</br>Outro: " + result.outro +
-                            "</br>");
+            var template = $('#songTemplate').html();
+            var html = Mustache.to_html(template, result);
+            $('#presentationArea').html(html);
         });
     });
 
     $("#songArchive").click(function () {
         $.getJSON("/musicmaker/songs.json", function (result) {
-            $("#presentationArea").html("")
+            $("#presentationArea").html("");
+            var template = $('#songArchiveTemplate').html();
             $.each(result, function (i, field) {
-                $("#presentationArea").append(field._id.$oid + ": " + field.title + "</br>");
+                var html = Mustache.to_html(template, field);
+                $('#presentationArea').append(html);
             });
         });
     });
-
 
     $("#dropDatabase").click(function () {
         $.getJSON("/musicmaker/songs/dropDatabase.json", function (result) {
@@ -192,7 +181,7 @@
             });
         });
     });
-
 </script>
+
 </body>
 </html>
