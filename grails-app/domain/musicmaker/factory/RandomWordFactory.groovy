@@ -20,7 +20,7 @@ class RandomWordFactory {
 
     private static def upperCaseFirstLetterAndRemoveLeadingGarbage(String result) {
         result[FIRST_REAL_LETTER].toUpperCase() +
-                result[START_INDEX_REST_OF_WORD..result.length()-1]
+                result[START_INDEX_REST_OF_WORD..result.length()-3]
     }
 
     private static final tuneWords =
