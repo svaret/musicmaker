@@ -18,10 +18,6 @@ class SongsController {
 
     def show() {
         def db = mongo.getDB("musicmaker")
-        String idString = "5106e1ec0364cfa1d16c7bc3";
-        DBCollection coll = db.getCollection("song");
-        DBObject searchById = new BasicDBObject("_id", new ObjectId(idString));
-        DBObject found = coll.findOne(searchById);
         withFormat {
             json { render com.mongodb.util.JSON.serialize(db.song.find()) }
         }
@@ -36,18 +32,17 @@ class SongsController {
         def db = mongo.getDB("musicmaker")
         db.song.insert(com.mongodb.util.JSON.parse(builder.toString()))
         withFormat {
-            xml { render songView as XML }
             json { render songView as JSON }
         }
     }
 
-    def list() {
+    def update() {
+        def id = request.JSON.id
+        def title = request.JSON.title
         def db = mongo.getDB("musicmaker")
-        withFormat {
-          json { render com.mongodb.util.JSON.serialize(db.song.find().limit(8)) }
-        }
+        db.song.update([_id: new ObjectId(id)], [$set:[title: title]])
     }
-	
+
 	def dropDatabase() {
 		def db = mongo.getDB("musicmaker")
         db.song.remove([:])

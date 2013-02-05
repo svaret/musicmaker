@@ -129,13 +129,13 @@
         <table>
             {{#songs}}
             <tr>
-                <td>{{title}}</td>
+                <td><input value="{{title}}"/></td>
                 <td>{{intro}}</td>
                 <td>{{verse}}</td>
                 <td>{{chorus}}</td>
                 <td>{{outro}}</td>
                 <td><button class="saveSong">Save</button></td>
-                <td><input id="songId" value="{{_id.$oid}}" type="hidden" class="name"></td>
+                <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
             {{/songs}}
         </table>
@@ -191,7 +191,19 @@ d<body>
         });
 
         $("body").on("click", ".saveSong", function () {
-            console.log($(this).parents("tr").children("td").last().children("input").val());
+            var columns = $(this).parents("tr").children("td");
+            var songId = columns.last().children("input").val();
+            var title = columns.first().children("input").val();
+            $.ajax({
+                url: "/musicmaker/songs",
+                contentType: "application/json",
+                type: "PUT",
+                dataType: "json",
+                data: JSON.stringify({'id': songId, 'title': title}),
+                success: function (msg) {
+                    console.log('updated...')
+                }
+            });
         });
     });
 </script>
