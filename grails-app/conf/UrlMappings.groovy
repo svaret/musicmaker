@@ -1,7 +1,7 @@
 class UrlMappings {
 
     static mappings = {
-        "/$aController" {
+        "/$aController/$id?" {
             controller = { "${params.aController}" }
             action = [GET: "show", POST: "save", PUT: "update"]
         }

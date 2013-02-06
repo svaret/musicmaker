@@ -37,10 +37,11 @@ class SongsController {
     }
 
     def update() {
-        def id = request.JSON.id
+        def id = params.id
         def title = request.JSON.title
         def db = mongo.getDB("musicmaker")
         db.song.update([_id: new ObjectId(id)], [$set:[title: title]])
+        render {field : "hej"} as JSON
     }
 
 	def dropDatabase() {

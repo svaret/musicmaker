@@ -165,7 +165,7 @@ d<body>
         });
 
         $("#songArchive").click(function () {
-            $.getJSON("/musicmaker/songs.json", function (songs) {
+            $.getJSON("/musicmaker/songs", function (songs) {
                 $("#presentationArea").empty();
                 var template = $('#songArchiveTemplate').html();
                 var html = Mustache.to_html(template, {songs: songs});
@@ -195,17 +195,27 @@ d<body>
             var songId = columns.last().children("input").val();
             var title = columns.first().children("input").val();
             $.ajax({
-                url: "/musicmaker/songs",
+                url: "/musicmaker/songs/" + songId,
                 contentType: "application/json",
                 type: "PUT",
                 dataType: "json",
-                data: JSON.stringify({'id': songId, 'title': title}),
-                success: function (msg) {
-                    console.log('updated...')
+                data: JSON.stringify({'title': title}),
+                success: function () {
+                    alert('success');
                 }
-            });
+            }).fail(function (jqXHR, textStatus) {
+                        alert(jqXHR + " " + textStatus);
+                    });
         });
     });
+
+    //    var request = $.ajax({
+    //        type: 'POST',
+    //        url: 'mmm.php',
+    //        data: { abc: "abcdefghijklmnopqrstuvwxyz" } })
+    //            .done(function(data) { alert("success"+data.slice(0, 100)); })
+    //            .fail(function() { alert("error"); })
+    //            .always(function() { alert("complete"); });
 </script>
 
 </body>
