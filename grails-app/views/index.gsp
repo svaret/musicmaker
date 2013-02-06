@@ -157,7 +157,7 @@ d<body>
 <script>
     $(document).ready(function () {
         $("#createRandomSong").click(function () {
-            $.getJSON("/musicmaker/songs/random.json", function (result) {
+            $.getJSON("/musicmaker/songs/random", function (result) {
                 var template = $('#songTemplate').html();
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
@@ -200,22 +200,11 @@ d<body>
                 type: "PUT",
                 dataType: "json",
                 data: JSON.stringify({'title': title}),
-                success: function () {
-                    alert('success');
-                }
             }).fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
                     });
         });
     });
-
-    //    var request = $.ajax({
-    //        type: 'POST',
-    //        url: 'mmm.php',
-    //        data: { abc: "abcdefghijklmnopqrstuvwxyz" } })
-    //            .done(function(data) { alert("success"+data.slice(0, 100)); })
-    //            .fail(function() { alert("error"); })
-    //            .always(function() { alert("complete"); });
 </script>
 
 </body>

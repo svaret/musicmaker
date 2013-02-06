@@ -18,9 +18,7 @@ class SongsController {
 
     def show() {
         def db = mongo.getDB("musicmaker")
-        withFormat {
-            json { render com.mongodb.util.JSON.serialize(db.song.find()) }
-        }
+        render com.mongodb.util.JSON.serialize(db.song.find())
     }
 
     def random() {
@@ -31,21 +29,19 @@ class SongsController {
         builder.setContent(songView)
         def db = mongo.getDB("musicmaker")
         db.song.insert(com.mongodb.util.JSON.parse(builder.toString()))
-        withFormat {
-            json { render songView as JSON }
-        }
+        render songView as JSON
     }
 
     def update() {
         def id = params.id
         def title = request.JSON.title
         def db = mongo.getDB("musicmaker")
-        db.song.update([_id: new ObjectId(id)], [$set:[title: title]])
-        render {field : "hej"} as JSON
+        db.song.update([_id: new ObjectId(id)], [$set: [title: title]])
+        render new Status() as JSON
     }
 
-	def dropDatabase() {
-		def db = mongo.getDB("musicmaker")
+    def dropDatabase() {
+        def db = mongo.getDB("musicmaker")
         db.song.remove([:])
-	}
+    }
 }
