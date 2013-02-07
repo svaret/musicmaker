@@ -13,11 +13,12 @@ class SongsController {
     private static final int NUMBER_OF_CHORDS_IN_VERSE = 5
     private static final int NUMBER_OF_CHORDS_IN_CHORUS = 3
     private static final int NUMBER_OF_NOTES_IN_OUTRO = 12
+    private static final String MUSICMAKER_DB = "musicmaker"
 
     def mongo
 
     def create() {
-        def db = mongo.getDB("musicmaker")
+        def db = mongo.getDB(MUSICMAKER_DB)
         db.song.insert([title : request.JSON.title])
 
         def result = [status : "OK"]
@@ -25,7 +26,7 @@ class SongsController {
     }
 
     def read() {
-        def db = mongo.getDB("musicmaker")
+        def db = mongo.getDB(MUSICMAKER_DB)
         render com.mongodb.util.JSON.serialize(db.song.find())
     }
 
@@ -35,7 +36,7 @@ class SongsController {
         SongView songView = new SongView(song)
         def jsonBuilder = new JsonBuilder()
         jsonBuilder.setContent(songView)
-        def db = mongo.getDB("musicmaker")
+        def db = mongo.getDB(MUSICMAKER_DB)
         def json = jsonBuilder.toString()
         db.song.insert(com.mongodb.util.JSON.parse(json))
 
@@ -45,7 +46,7 @@ class SongsController {
     def update() {
         def id = params.id
         def title = request.JSON.title
-        def db = mongo.getDB("musicmaker")
+        def db = mongo.getDB(MUSICMAKER_DB)
         db.song.update([_id: new ObjectId(id)], [$set: [title: title]])
 
         def result = [status : "OK"]
@@ -53,7 +54,7 @@ class SongsController {
     }
 
     def delete() {
-        def db = mongo.getDB("musicmaker")
+        def db = mongo.getDB(MUSICMAKER_DB)
         db.song.remove([:])
 
         def result = [status : "OK"]

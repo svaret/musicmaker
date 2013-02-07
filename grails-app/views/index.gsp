@@ -150,7 +150,7 @@
     <span id="createRandomSong" class="css_btn_class">Create random song</span>
     <span id="songArchive" class="css_btn_class">Song archive</span>
     <select id="chordSelect"></select>
-    <span id="dropDatabase" class="css_btn_class">Drop Database</span>
+    <span id="deleteAllSongs" class="css_btn_class">Delete all songs</span>
 </div>
 
 <div id="presentationArea" align="center" role="complementary"/>
@@ -186,13 +186,11 @@
             });
         });
 
-        $("#dropDatabase").click(function () {
+        $("#deleteAllSongs").click(function () {
         	   $.ajax({
                    url: "/musicmaker/songs",
-                   contentType: "application/json",
-                   type: "DELETE",
-                   dataType: "json",
-                   data: JSON.stringify({'title': $("#randomSongTitle").text()})
+                   //contentType: "application/json",
+                   type: "DELETE"//,
                }).fail(function (jqXHR, textStatus) {
                            alert(jqXHR + " " + textStatus);
                        });
