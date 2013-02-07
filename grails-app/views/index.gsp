@@ -131,10 +131,6 @@
             {{#songs}}
             <tr>
                 <td><input value="{{title}}"/></td>
-                <td>{{intro}}</td>
-                <td>{{verse}}</td>
-                <td>{{chorus}}</td>
-                <td>{{outro}}</td>
                 <td><button class="updateSong">Save</button></td>
                 <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
