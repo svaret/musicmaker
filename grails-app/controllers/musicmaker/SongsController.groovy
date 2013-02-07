@@ -16,7 +16,15 @@ class SongsController {
 
     def mongo
 
-    def show() {
+    def create() {
+        def db = mongo.getDB("musicmaker")
+        db.song.insert([title : request.JSON.title])
+
+        def result = [status : "OK"]
+        render result as JSON
+    }
+
+    def read() {
         def db = mongo.getDB("musicmaker")
         render com.mongodb.util.JSON.serialize(db.song.find())
     }
@@ -25,10 +33,12 @@ class SongsController {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
                 NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)
         SongView songView = new SongView(song)
-        def builder = new JsonBuilder()
-        builder.setContent(songView)
+        def jsonBuilder = new JsonBuilder()
+        jsonBuilder.setContent(songView)
         def db = mongo.getDB("musicmaker")
-        db.song.insert(com.mongodb.util.JSON.parse(builder.toString()))
+        def json = jsonBuilder.toString()
+        db.song.insert(com.mongodb.util.JSON.parse(json))
+
         render songView as JSON
     }
 
@@ -37,11 +47,16 @@ class SongsController {
         def title = request.JSON.title
         def db = mongo.getDB("musicmaker")
         db.song.update([_id: new ObjectId(id)], [$set: [title: title]])
-        render new Status() as JSON
+
+        def result = [status : "OK"]
+        render result as JSON
     }
 
     def dropDatabase() {
         def db = mongo.getDB("musicmaker")
         db.song.remove([:])
+
+        def result = [status : "OK"]
+        render result as JSON
     }
 }

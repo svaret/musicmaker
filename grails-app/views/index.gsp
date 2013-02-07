@@ -117,12 +117,13 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
 
-    <script id="songTemplate" type="text/template">
-        <h2>{{title}}</h2>
-        Intro: {{intro}}</br>
+    <script id="randomSongTemplate" type="text/template">
+        <h2><span id="randomSongTitle">{{title}}</span></h2>
+        Intro: <span id="randomSongIntro">{{intro}}</span></br>
         Verse: {{verse}}</br>
         Chorus: {{chorus}}</br>
         Outro: {{outro}}</br>
+        <span id="saveRandomSong" class="css_btn_class">Save</span>
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
@@ -134,7 +135,7 @@
                 <td>{{verse}}</td>
                 <td>{{chorus}}</td>
                 <td>{{outro}}</td>
-                <td><button class="saveSong">Save</button></td>
+                <td><button class="updateSong">Save</button></td>
                 <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
             {{/songs}}
@@ -142,7 +143,7 @@
     </script>
 </head>
 
-d<body>
+<body>
 
 <div id="status" align="center" role="complementary">
     <h1>Music Maker <g:meta name="app.version"/></h1>
@@ -158,10 +159,22 @@ d<body>
     $(document).ready(function () {
         $("#createRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (result) {
-                var template = $('#songTemplate').html();
+                var template = $('#randomSongTemplate').html();
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
+        });
+
+        $("body").on("click", "#saveRandomSong", function () {
+            $.ajax({
+                url: "/musicmaker/songs",
+                contentType: "application/json",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({'title': $("#randomSongTitle").text()})
+            }).fail(function (jqXHR, textStatus) {
+                        alert(jqXHR + " " + textStatus);
+                    });
         });
 
         $("#songArchive").click(function () {
@@ -174,7 +187,7 @@ d<body>
         });
 
         $("#dropDatabase").click(function () {
-            $.getJSON("/musicmaker/songs/dropDatabase.json", function (result) {
+            $.getJSON("/musicmaker/songs/dropDatabase", function (result) {
                 $("#presentationArea").html("");
             });
         });
@@ -183,14 +196,14 @@ d<body>
             alert("Du valde: " + $("#chordSelect").val());
         });
 
-        $.getJSON("/musicmaker/chords.json", function (result) {
+        $.getJSON("/musicmaker/chords", function (result) {
             var options = $("#chordSelect");
             $.each(result, function () {
                 options.append($("<option />").val(this.chord).text(this.chord));
             });
         });
 
-        $("body").on("click", ".saveSong", function () {
+        $("body").on("click", ".updateSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
             var title = columns.first().children("input").val();
@@ -199,7 +212,7 @@ d<body>
                 contentType: "application/json",
                 type: "PUT",
                 dataType: "json",
-                data: JSON.stringify({'title': title}),
+                data: JSON.stringify({'title': title})
             }).fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
                     });

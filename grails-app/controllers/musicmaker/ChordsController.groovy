@@ -5,13 +5,12 @@ import grails.converters.XML
 import groovy.json.JsonBuilder
 
 class ChordsController {
-    def show() {
+    def read() {
         List<ChordView> chordViews = []
-        for(Chord chord : Chord.values()) {
+        for (Chord chord : Chord.values()) {
             chordViews.add(new ChordView(chord.toString()))
         }
-        withFormat {
-          json { render chordViews as JSON }
-        }
+
+        render chordViews as JSON
     }
 }
