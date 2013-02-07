@@ -5,13 +5,13 @@ class UrlMappings {
             action = [GET:"random"]
         }
 
-        "/$controller/dropDatabase" {
-            action = [GET:"dropDatabase"]
+        "/$controller/delete" {
+            action = [GET:"delete"]
         }
 
         "/$aController/$id?" {
             controller = { "${params.aController}" }
-            action = [GET: "read", POST: "create", PUT: "update"]
+            action = [GET: "read", POST: "create", PUT: "update", DELETE: "delete"]
         }
 
         "/$controller/$action?/$id?" {

@@ -187,7 +187,7 @@
         });
 
         $("#dropDatabase").click(function () {
-            $.getJSON("/musicmaker/songs/dropDatabase", function (result) {
+            $.getJSON("/musicmaker/songs/delete", function (result) {
                 $("#presentationArea").html("");
             });
         });

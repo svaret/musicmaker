@@ -52,7 +52,7 @@ class SongsController {
         render result as JSON
     }
 
-    def dropDatabase() {
+    def delete() {
         def db = mongo.getDB("musicmaker")
         db.song.remove([:])
 
