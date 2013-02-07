@@ -187,9 +187,16 @@
         });
 
         $("#dropDatabase").click(function () {
-            $.getJSON("/musicmaker/songs/delete", function (result) {
-                $("#presentationArea").html("");
-            });
+        	   $.ajax({
+                   url: "/musicmaker/songs",
+                   contentType: "application/json",
+                   type: "DELETE",
+                   dataType: "json",
+                   data: JSON.stringify({'title': $("#randomSongTitle").text()})
+               }).fail(function (jqXHR, textStatus) {
+                           alert(jqXHR + " " + textStatus);
+                       });
+        	   $("#presentationArea").html("");
         });
 
         $("#chordSelect").change(function () {
