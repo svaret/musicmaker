@@ -5,8 +5,6 @@ class UrlMappings {
             action = [GET:"random"]
         }
 
-
-
         "/$aController/$id?" {
             controller = { "${params.aController}" }
             action = [GET: "read", POST: "create", PUT: "update", DELETE: "delete"]
