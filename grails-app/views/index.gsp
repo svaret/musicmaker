@@ -119,10 +119,22 @@
 
     <script id="randomSongTemplate" type="text/template">
         <h2><span id="randomSongTitle">{{title}}</span></h2>
-        Intro: <span id="randomSongIntro">{{intro}}</span></br>
-        Verse: {{verse}}</br>
-        Chorus: {{chorus}}</br>
-        Outro: {{outro}}</br>
+        Intro:
+        {{#intro}}
+        <span class="randomSongIntro">{{.}}</span>
+        {{/intro}}</br>
+        Verse:
+        {{#verse}}
+        <span id="randomSongVerse">{{.}}</span>
+        {{/verse}}</br>
+        Chorus:
+        {{#chorus}}
+        <span id="randomSongChorus">{{.}}</span>
+        {{/chorus}}</br>
+        Outro:
+        {{#outro}}
+        <span id="randomSongOutro">{{.}}</span>
+        {{/outro}}</br>
         <span id="saveRandomSong" class="css_btn_class">Save</span>
     </script>
 
@@ -130,7 +142,7 @@
         <table>
             {{#songs}}
             <tr>
-                <td><input value="{{title}}"/></td>
+                <td>{{title}}</td>
                 <td><button class="updateSong">Save</button></td>
                 <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
@@ -162,12 +174,27 @@
         });
 
         $("body").on("click", "#saveRandomSong", function () {
+            var introParts = $(".randomSongIntro").map(
+                    function () {
+                        return $(this).text();
+                    });
+            console.log(introParts);
+            var apa = [];
+            for(var i = 0; i < introParts.length; i++) {
+                apa[i] = introParts[i];
+            }
             $.ajax({
                 url: "/musicmaker/songs",
                 contentType: "application/json",
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify({'title': $("#randomSongTitle").text()})
+                data: JSON.stringify({
+                    'title': $("#randomSongTitle").text(),
+                    'intro': apa,
+                    'verse': $("#randomSongVerse").val(),
+                    'chorus': $("#randomSongChorus").val(),
+                    'outro': $("#randomSongOutro").val()
+                })
             }).fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
                     });
@@ -183,14 +210,13 @@
         });
 
         $("#deleteAllSongs").click(function () {
-        	   $.ajax({
-                   url: "/musicmaker/songs",
-                   //contentType: "application/json",
-                   type: "DELETE"//,
-               }).fail(function (jqXHR, textStatus) {
-                           alert(jqXHR + " " + textStatus);
-                       });
-        	   $("#presentationArea").html("");
+            $.ajax({
+                url: "/musicmaker/songs",
+                type: "DELETE"
+            }).fail(function (jqXHR, textStatus) {
+                        alert(jqXHR + " " + textStatus);
+                    });
+            $("#presentationArea").html("");
         });
 
         $("#chordSelect").change(function () {
