@@ -26,10 +26,14 @@ class SongsController {
     }
 
     def read() {
+		def id = params.id
         def db = mongo.getDB(MUSICMAKER_DB)
-        render com.mongodb.util.JSON.serialize(db.song.find())
+		if (id !=  null)
+        render com.mongodb.util.JSON.serialize(db.song.find( user_id: /id/))
+		else 
+		render com.mongodb.util.JSON.serialize(db.song.find())
     }
-
+	
     def random() {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
                 NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)

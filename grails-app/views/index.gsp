@@ -143,7 +143,8 @@
             {{#songs}}
             <tr>
                 <td>{{title}}</td>
-                <td><button class="updateSong">Save</button></td>
+                <td><button class="updateSong">Update</button></td>
+                <td><button class="editSong">Edit</button></td>
                 <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
             {{/songs}}
@@ -172,6 +173,16 @@
                 $('#presentationArea').html(html);
             });
         });
+
+        $("body").on("click", ".editSong", function () {
+            var columns = $(this).parents("tr").children("td");
+            var songId = columns.last().children("input").val();
+            $.getJSON("/musicmaker/songs/songId", function (result) {
+                var template = $('#randomSongTemplate').html();
+                var html = Mustache.to_html(template, result);
+                $('#presentationArea').html(html);
+            });
+        });        
 
         $("body").on("click", "#saveRandomSong", function () {
             var introParts = $(".randomSongIntro").map(
@@ -244,6 +255,8 @@
                         alert(jqXHR + " " + textStatus);
                     });
         });
+
+
     });
 </script>
 
