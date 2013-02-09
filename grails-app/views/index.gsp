@@ -177,8 +177,9 @@
         $("body").on("click", ".editSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
-            $.getJSON("/musicmaker/songs/songId", function (result) {
+            $.getJSON("/musicmaker/songs/" + songId, function (result) {
                 var template = $('#randomSongTemplate').html();
+                console.log(result.title);
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
@@ -189,10 +190,9 @@
                     function () {
                         return $(this).text();
                     });
-            console.log(introParts);
-            var apa = [];
+            var values = [];
             for(var i = 0; i < introParts.length; i++) {
-                apa[i] = introParts[i];
+                values[i] = introParts[i];
             }
             $.ajax({
                 url: "/musicmaker/songs",
@@ -201,7 +201,7 @@
                 dataType: "json",
                 data: JSON.stringify({
                     'title': $("#randomSongTitle").text(),
-                    'intro': apa,
+                    'intro': values,
                     'verse': $("#randomSongVerse").val(),
                     'chorus': $("#randomSongChorus").val(),
                     'outro': $("#randomSongOutro").val()
