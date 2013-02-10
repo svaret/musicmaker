@@ -14,26 +14,37 @@
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
    	<script src="js/bootstrap.js"></script>
 
-    <script id="randomSongTemplate" type="text/template">
-        <h2><span id="randomSongTitle">{{title}}</span></h2>
-        Intro:
-        {{#intro}}
-        <span class="randomSongIntro">{{.}}</span>
-        {{/intro}}</br>
-        Verse:
-        {{#verse}}
-        <span id="randomSongVerse">{{.}}</span>
-        {{/verse}}</br>
-        Chorus:
-        {{#chorus}}
-        <span id="randomSongChorus">{{.}}</span>
-        {{/chorus}}</br>
-        Outro:
-        {{#outro}}
-        <span id="randomSongOutro">{{.}}</span>
-        {{/outro}}</br>
-        <input type="button" id="createRandomSong" class="btn btn-success createRandomSong" value="New Song"/>
-        <input type="button" id="saveRandomSong" class="btn btn-success" value="Save Song"/>
+   <script id="randomSongTemplate" type="text/template">
+        <table border="1">
+            <b><th id="randomSongTitle">{{title}}</th></b>
+            <tr>
+                <td>Intro:</td>
+                {{#intro}}
+                <td><span class="randomSongIntro">{{.}}</span></td>
+                {{/intro}}</br>
+            </tr>
+            <tr>
+                <td>Verse:</td>
+                {{#verse}}
+                <td><span id="randomSongVerse">{{.}}</span></td>
+                {{/verse}}</br>
+            </tr>
+            <tr>
+                <td>Chorus:</td>
+                {{#chorus}}
+                <td><span id="randomSongChorus">{{.}}</span></td>
+                {{/chorus}}</br>
+            </tr>
+            <tr>
+                <td>Outro:</td>
+                {{#outro}}
+                <td><span id="randomSongOutro">{{.}}</span></td>
+                {{/outro}}</br>
+            </tr>
+        </table>
+        <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
+        <input type="button" id="editRandomSong" class="btn btn-success" value="Edit"/>
+        <input type="button" id="generateNewRandomSong" class="btn btn-success" value="Generate new"/>
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
@@ -54,16 +65,26 @@
 
 <div id="status" align="center" role="complementary">
     <h1>Music Maker <g:meta name="app.version"/></h1>
-    <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song" />
-    <input type="button" id="songArchive" class="btn btn-success" value="Song archive" />
-    <input type="button" id="deleteAllSongs" class="btn btn-success" value="Delete all songs"/>
+<input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
+<input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
+<input type="button" id="deleteAllSongs" class="btn btn-success" value="Delete all songs"/>
 </div>
 
-<div class="well well-small" id="presentationArea" align="center"  />
+<div class="well well-small" id="presentationArea" align="center"/>
 
 <script>
     $(document).ready(function () {
         $("#createRandomSong").click(function () {
+            $.getJSON("/musicmaker/songs/random", function (result) {
+                var template = $('#randomSongTemplate').html();
+                var html = Mustache.to_html(template, result);
+                $('#presentationArea').html(html);
+            });
+        });
+
+        $("body").on("click", "#generateNewRandomSong", function () {
+            var columns = $(this).parents("tr").children("td");
+            var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/random", function (result) {
                 var template = $('#randomSongTemplate').html();
                 var html = Mustache.to_html(template, result);
@@ -80,7 +101,7 @@
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
-        });        
+        });
 
         $("body").on("click", "#saveRandomSong", function () {
             var introParts = $(".randomSongIntro").map(
@@ -88,7 +109,7 @@
                         return $(this).text();
                     });
             var values = [];
-            for(var i = 0; i < introParts.length; i++) {
+            for (var i = 0; i < introParts.length; i++) {
                 values[i] = introParts[i];
             }
             $.ajax({
@@ -169,9 +190,9 @@
                 var html = Mustache.to_html(template, {songs: songs});
                 $('#presentationArea').html(html);
             });
-            
+
         });
-        
+
 
     });
 </script>
