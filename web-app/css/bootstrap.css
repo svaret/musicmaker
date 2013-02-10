@@ -733,17 +733,7 @@ a.text-success:focus {
   text-align: center;
 }
 
-h1
-  {
-  margin: 10px 0;
-  font-family: inherit;
-  font-weight: bold;
-  line-height: 20px;
-  color: white;
-  text-rendering: optimizelegibility;
-}
-
- 
+h1,
 h2,
 h3,
 h4,
@@ -753,7 +743,7 @@ h6 {
   font-family: inherit;
   font-weight: bold;
   line-height: 20px;
-  color: inherit;
+  color: white;
   text-rendering: optimizelegibility;
 }
 
