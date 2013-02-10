@@ -143,8 +143,8 @@
             {{#songs}}
             <tr>
                 <td>{{title}}</td>
-                <td><button class="updateSong">Update</button></td>
                 <td><button class="editSong">Edit</button></td>
+                <td><button class="deleteSong">Delete</button></td>
                 <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
             {{/songs}}
@@ -256,6 +256,24 @@
                     });
         });
 
+        $("body").on("click", ".deleteSong", function () {
+            var columns = $(this).parents("tr").children("td");
+            var songId = columns.last().children("input").val();
+            $.ajax({
+                url: "/musicmaker/songs/" + songId,
+                contentType: "application/json",
+                type: "DELETE",
+            }).fail(function (jqXHR, textStatus) {
+                        alert(jqXHR + " " + textStatus);
+                    });
+            $.getJSON("/musicmaker/songs", function (songs) {
+                $("#presentationArea").empty();
+                var template = $('#songArchiveTemplate').html();
+                var html = Mustache.to_html(template, {songs: songs});
+                $('#presentationArea').html(html);
+            });
+        });
+        
 
     });
 </script>

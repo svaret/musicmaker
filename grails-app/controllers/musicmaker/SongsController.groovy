@@ -58,10 +58,13 @@ class SongsController {
     }
 
     def delete() {
+		def id = params.id
         def db = mongo.getDB(MUSICMAKER_DB)
-        db.song.remove([:])
-
-        def result = [status: "OK"]
+		if (id == null)
+			db.song.remove([:])
+        else
+			db.song.remove(_id: new ObjectId(id))
+		def result = [status: "OK"]
         render result as JSON
     }
 }
