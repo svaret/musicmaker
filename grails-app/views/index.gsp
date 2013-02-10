@@ -8,13 +8,13 @@
 	<meta name="keywords" content="">
 
 	<link href="css/bootstrap.css" rel="stylesheet">
-</head>
-
+	
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
    	<script src="js/bootstrap.js"></script>
-   	
- 
+</head>
+
+
 
     <script id="randomSongTemplate" type="text/template">
         <h2><span id="randomSongTitle">{{title}}</span></h2>
@@ -34,7 +34,8 @@
         {{#outro}}
         <span id="randomSongOutro">{{.}}</span>
         {{/outro}}</br>
-        <span id="saveRandomSong" class="css_btn_class">Save</span>
+        <input type="button" id="createRandomSong" class="btn btn-success createRandomSong" value="New Song"/>
+        <input type="button" id="saveRandomSong" class="btn btn-success" value="Save Song"/>
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
