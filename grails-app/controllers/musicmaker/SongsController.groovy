@@ -1,11 +1,6 @@
 package musicmaker
 
-import com.mongodb.BasicDBObject
-import com.mongodb.DBCollection
-import com.mongodb.DBObject
 import grails.converters.JSON
-import grails.converters.XML
-import groovy.json.JsonBuilder
 import org.bson.types.ObjectId
 
 class SongsController {

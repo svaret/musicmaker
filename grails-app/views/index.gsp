@@ -9,7 +9,6 @@
 	<meta name="keywords" content="">
 
 	<link href="css/bootstrap.css" rel="stylesheet">
-</head>
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
@@ -138,8 +137,12 @@
                     'chorus': getTextValuesFromElementArray($(".randomSongChorus")),
                     'outro': getTextValuesFromElementArray($(".randomSongOutro"))
                 })
-            }).fail(function (jqXHR, textStatus) {
+            })
+                    .fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
+                    })
+                    .success(function () {
+                        $("#saveRandomSong").prop('disabled', true);
                     });
         });
 
