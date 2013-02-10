@@ -19,7 +19,7 @@ class SongsController {
 
     def create() {
         def db = mongo.getDB(MUSICMAKER_DB)
-        db.song.insert([title: request.JSON.title])
+        db.song.insert(request.JSON)
 
         def result = [status: "OK"]
         render result as JSON

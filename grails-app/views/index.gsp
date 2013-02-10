@@ -26,19 +26,19 @@
             <tr>
                 <td>Verse:</td>
                 {{#verse}}
-                <td><span id="randomSongVerse">{{.}}</span></td>
+                <td><span class="randomSongVerse">{{.}}</span></td>
                 {{/verse}}</br>
             </tr>
             <tr>
                 <td>Chorus:</td>
                 {{#chorus}}
-                <td><span id="randomSongChorus">{{.}}</span></td>
+                <td><span class="randomSongChorus">{{.}}</span></td>
                 {{/chorus}}</br>
             </tr>
             <tr>
                 <td>Outro:</td>
                 {{#outro}}
-                <td><span id="randomSongOutro">{{.}}</span></td>
+                <td><span class="randomSongOutro">{{.}}</span></td>
                 {{/outro}}</br>
             </tr>
         </table>
@@ -64,7 +64,7 @@
 <body>
 
 <div id="status" align="center" role="complementary">
-    <h1>Music Maker <g:meta name="app.version"/></h1>
+    <h1>Music maker</h1>
 <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
 <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
 <input type="button" id="deleteAllSongs" class="btn btn-success" value="Delete all songs"/>
@@ -73,6 +73,14 @@
 <div class="well well-small" id="presentationArea" align="center"/>
 
 <script>
+
+    function getTextValuesFromElementArray(elementArray) {
+        return elementArray.map(
+            function () {
+                return $(this).text();
+             }).toArray();
+    }
+
     $(document).ready(function () {
         $("#createRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (result) {
@@ -104,14 +112,6 @@
         });
 
         $("body").on("click", "#saveRandomSong", function () {
-            var introParts = $(".randomSongIntro").map(
-                    function () {
-                        return $(this).text();
-                    });
-            var values = [];
-            for (var i = 0; i < introParts.length; i++) {
-                values[i] = introParts[i];
-            }
             $.ajax({
                 url: "/musicmaker/songs",
                 contentType: "application/json",
@@ -119,10 +119,10 @@
                 dataType: "json",
                 data: JSON.stringify({
                     'title': $("#randomSongTitle").text(),
-                    'intro': values,
-                    'verse': $("#randomSongVerse").val(),
-                    'chorus': $("#randomSongChorus").val(),
-                    'outro': $("#randomSongOutro").val()
+                    'intro': getTextValuesFromElementArray($(".randomSongIntro")),
+                    'verse': getTextValuesFromElementArray($(".randomSongVerse")),
+                    'chorus': getTextValuesFromElementArray($(".randomSongChorus")),
+                    'outro': getTextValuesFromElementArray($(".randomSongOutro"))
                 })
             }).fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
