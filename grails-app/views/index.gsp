@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="UTF-8">
 	<title>Music Maker</title>
@@ -15,7 +16,8 @@
    	<script src="js/bootstrap.js"></script>
 
    <script id="randomSongTemplate" type="text/template">
-        <table border="1">
+   <div class="well">
+        <table class="table table-bordered">
             <b><th id="randomSongTitle">{{title}}</th></b>
             <tr>
                 <td>Intro:</td>
@@ -42,13 +44,14 @@
                 {{/outro}}</br>
             </tr>
         </table>
+        </div>
         <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
         <input type="button" id="editRandomSong" class="btn btn-success" value="Edit"/>
         <input type="button" id="generateNewRandomSong" class="btn btn-success" value="Generate new"/>
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
-        <table>
+        <table class="table table-striped table-hover table-condensed">
             {{#songs}}
             <tr>
                 <td>{{title}}</td>
@@ -63,14 +66,24 @@
 
 <body>
 
-<div id="status" align="center" role="complementary">
-    <h1>Music maker</h1>
-    <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
-    <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
-    <input type="button" id="deleteAllSongs" class="btn btn-success" value="Delete all songs"/>
+ %{--<div class="navbar navbar-inverse" span8 offset3>--}%
+  %{--<div class="navbar-inner ">--}%
+   %{--<ul class="nav">--}%
+    %{--<li><a href="#" id="createRandomSong">Create random song</a></li>--}%
+    %{--<li><a href="#" id="songArchive">Song archive</a></li>--}%
+    %{--<li><a href="#" id="deleteAllSongs">Delete all songs</a></li>--}%
+   %{--</ul>--}%
+  %{--</div>--}%
+ %{--</div>--}%
+
+<div class="container-fluid span8 offset1" id="menuarea"   />
+    <h1>Music Maker <g:meta name="app.version"/></h1>
+<input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
+<input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
+<br><br>
 </div>
 
-<div class="well well-small" id="presentationArea" align="center"/>
+<div class="container-fluid span8 offset1" id="presentationArea"/>
 
 <script>
     function getTextValuesFromElementArray(elementArray) {
