@@ -9,12 +9,15 @@
 
 	<link href="css/bootstrap.css" rel="stylesheet">
 </head>
+ 
+  
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
    	<script src="js/bootstrap.js"></script>
 
     <script id="randomSongTemplate" type="text/template">
+		<div class="well">
         <h2><span id="randomSongTitle">{{title}}</span></h2>
         Intro:
         {{#intro}}
@@ -37,7 +40,8 @@
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
-        <table>
+	<div class="well">
+        <table class="table table-striped table-hover table-condensed">
             {{#songs}}
             <tr>
                 <td>{{title}}</td>
@@ -52,14 +56,20 @@
 
 <body>
 
-<div id="status" align="center" role="complementary">
+
+<div class="container-fluid span6 offset4" id="menuarea"   />
+ 
     <h1>Music Maker <g:meta name="app.version"/></h1>
     <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song" />
     <input type="button" id="songArchive" class="btn btn-success" value="Song archive" />
     <input type="button" id="deleteAllSongs" class="btn btn-success" value="Delete all songs"/>
+    <br><br>
 </div>
 
-<div class="well well-small" id="presentationArea" align="center"  />
+ 
+
+
+<div class="container-fluid span6 offset4" id="presentationArea"   />
 
 <script>
     $(document).ready(function () {

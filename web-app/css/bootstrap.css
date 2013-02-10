@@ -228,6 +228,7 @@ body {
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
+  background-image: url('../img/knappar.jpg');
 }
 
 a {
@@ -732,7 +733,17 @@ a.text-success:focus {
   text-align: center;
 }
 
-h1,
+h1
+  {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 20px;
+  color: white;
+  text-rendering: optimizelegibility;
+}
+
+ 
 h2,
 h3,
 h4,
