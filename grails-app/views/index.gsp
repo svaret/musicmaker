@@ -17,6 +17,7 @@
    <script id="randomSongTemplate" >
    <div class="well">
    <table class="table table-bordered">
+   			<h2>{{title}}</h2>
             <b><th id="randomSongTitle">{{title}}</th></b>
             <tr>
                 <td>Intro:</td>
@@ -71,7 +72,6 @@
  <div class="navbar navbar-inverse" span8 offset3>
   <div class="navbar-inner ">
    <ul class="nav">
-    <li><a href="#" id="createRandomSong">Create random song</a></li>
     <li><a href="#" id="songArchive">Song archive</a></li>
     <li><a href="#" id="deleteAllSongs">Delete all songs</a></li>
    </ul>
@@ -81,7 +81,6 @@
 <div class="container-fluid span8 offset1" id="menuarea"   />
     <h1>Music Maker <g:meta name="app.version"/></h1> 
     <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song" />
-    <input type="button" id="songArchive" class="btn btn-success" value="Song archive" />
     <br><br>
 </div>
 
@@ -147,12 +146,24 @@
         });
 
         $("#songArchive").click(function () {
+
+            <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong>  
+            </div>
+            try{
             $.getJSON("/musicmaker/songs", function (songs) {
                 $("#presentationArea").empty();
                 var template = $('#songArchiveTemplate').html();
                 var html = Mustache.to_html(template, {songs: songs});
                 $('#presentationArea').html(html);
             });
+            }catch Error e{
+                <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Warning!</strong>  
+                </div>
+                }
         });
 
         $("#deleteAllSongs").click(function () {
