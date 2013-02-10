@@ -8,13 +8,11 @@
 	<meta name="keywords" content="">
 
 	<link href="css/bootstrap.css" rel="stylesheet">
-	
+</head>
+
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
    	<script src="js/bootstrap.js"></script>
-</head>
-
-
 
     <script id="randomSongTemplate" type="text/template">
         <h2><span id="randomSongTitle">{{title}}</span></h2>
@@ -61,7 +59,7 @@
     <input type="button" id="deleteAllSongs" class="btn btn-success" value="Delete all songs"/>
 </div>
 
-<div id="presentationArea" align="center" role="complementary"/>
+<div class="well well-small" id="presentationArea" align="center"  />
 
 <script>
     $(document).ready(function () {
