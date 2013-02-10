@@ -51,6 +51,7 @@
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
+        <div class="well">
         <table class="table table-striped table-hover table-condensed">
             {{#songs}}
             <tr>
@@ -61,6 +62,7 @@
             </tr>
             {{/songs}}
         </table>
+        </div>
     </script>
 </head>
 
