@@ -156,27 +156,6 @@
             });
         });
 
-        $("#deleteAllSongs").click(function () {
-            $.ajax({
-                url: "/musicmaker/songs",
-                type: "DELETE"
-            }).fail(function (jqXHR, textStatus) {
-                        alert(jqXHR + " " + textStatus);
-                    });
-            $("#presentationArea").html("");
-        });
-
-        $("#chordSelect").change(function () {
-            alert("Du valde: " + $("#chordSelect").val());
-        });
-
-        $.getJSON("/musicmaker/chords", function (result) {
-            var options = $("#chordSelect");
-            $.each(result, function () {
-                options.append($("<option />").val(this.chord).text(this.chord));
-            });
-        });
-
         $("body").on("click", ".updateSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
