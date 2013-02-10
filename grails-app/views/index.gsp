@@ -17,30 +17,41 @@
    <script id="randomSongTemplate" type="text/template">
    <div class="well">
         <table class="table table-bordered">
-            <b><th id="randomSongTitle">{{title}}</th></b>
+            <tr>
+                <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
+                <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
+            </tr>
             <tr>
                 <td>Intro:</td>
                 {{#intro}}
                 <td><span class="randomSongIntro">{{.}}</span></td>
                 {{/intro}}</br>
+                <td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td><td></td>
+                <td><input type="button" class="editIntro btn btn-success" value="Edit"/></td>
             </tr>
             <tr>
                 <td>Verse:</td>
                 {{#verse}}
                 <td><span class="randomSongVerse">{{.}}</span></td>
                 {{/verse}}</br>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><input type="button" class="editVerse btn btn-success" value="Edit"/></td>
             </tr>
             <tr>
                 <td>Chorus:</td>
                 {{#chorus}}
                 <td><span class="randomSongChorus">{{.}}</span></td>
                 {{/chorus}}</br>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><input type="button" class="editVerse btn btn-success" value="Edit"/></td>
             </tr>
             <tr>
                 <td>Outro:</td>
                 {{#outro}}
                 <td><span class="randomSongOutro">{{.}}</span></td>
                 {{/outro}}</br>
+                <td><input type="button" class="editVerse btn btn-success" value="Edit"/></td>
             </tr>
         </table>
         </div>
@@ -86,9 +97,9 @@
 
     $(document).ready(function () {
         $("#createRandomSong").click(function () {
-            $.getJSON("/musicmaker/songs/random", function (result) {
+            $.getJSON("/musicmaker/songs/random", function (song) {
                 var template = $('#randomSongTemplate').html();
-                var html = Mustache.to_html(template, result);
+                var html = Mustache.to_html(template, song);
                 $('#presentationArea').html(html);
             });
         });
