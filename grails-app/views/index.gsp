@@ -66,8 +66,8 @@
             {{#songs}}
             <tr>
                 <td>{{title}}</td>
- 			    <td><input type="button" id="editSong" class="btn btn-success editSong" value="Edit" /></td>
- 			    <td><input type="button" id="deleteSong" class="btn btn-success deleteSong" value="Delete" /></td>
+ 			    <td><input type="button" class="btn btn-success viewSong" value="View"/></td>
+ 			    <td><input type="button" class="btn btn-success deleteSong" value="Delete"/></td>
                 <td><input value="{{_id.$oid}}" type="hidden"></td>
             </tr>
             {{/songs}}
@@ -114,7 +114,7 @@
             });
         });
 
-        $("body").on("click", ".editSong", function () {
+        $("body").on("click", ".viewSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/" + songId, function (result) {
