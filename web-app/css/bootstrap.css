@@ -228,6 +228,7 @@ body {
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
+  background-image: url('../img/knappar.jpg');
 }
 
 a {
@@ -742,7 +743,7 @@ h6 {
   font-family: inherit;
   font-weight: bold;
   line-height: 20px;
-  color: inherit;
+  color: white;
   text-rendering: optimizelegibility;
 }
 
