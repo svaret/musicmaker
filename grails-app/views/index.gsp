@@ -18,15 +18,19 @@
     <script id="randomSongTemplate" type="text/template">
         <div class="well">
             <table class="table table-striped table-hover table-condensed">
+<%--				<tr>--%>
+<%--					<td id="randomSongAuthor">{{author}}</td>--%>
+<%--				</tr>--%>
                 <tr>
                     <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
                     <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
                 </tr>
-                <tr>
+               
+			     <tr>
                     <td>Intro:</td>
                     {{#intro}}
                     <td class="randomSongIntro">{{.}}</td>
-                    {{/intro}}</br>
+                    {{/intro}}
                     <td></td><td></td><td></td><td></td><td></td>
                     <td></td><td></td><td></td><td></td><td></td>
                     <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
@@ -35,7 +39,7 @@
                     <td>Verse:</td>
                     {{#verse}}
                     <td class="randomSongVerse">{{.}}</td>
-                    {{/verse}}</br>
+                    {{/verse}}
                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
                 </tr>
@@ -43,7 +47,7 @@
                     <td>Chorus:</td>
                     {{#chorus}}
                     <td class="randomSongChorus">{{.}}</td>
-                    {{/chorus}}</br>
+                    {{/chorus}}
                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                     <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
                 </tr>
@@ -51,7 +55,7 @@
                     <td>Outro:</td>
                     {{#outro}}
                     <td class="randomSongOutro">{{.}}</td>
-                    {{/outro}}</br>
+                    {{/outro}}
                     <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
                 </tr>
             </table>
@@ -66,6 +70,7 @@
                 {{#songs}}
                 <tr>
                     <td>{{title}}</td>
+<%--                    <td>{{author}}</td>--%>
                     <td><input type="button" class="btn btn-success viewSong" value="View"/></td>
                     <td><input type="button" class="btn btn-success deleteSong" value="Delete"/></td>
                     <td><input value="{{_id.$oid}}" type="hidden"></td>
@@ -107,7 +112,7 @@
 </div>
 
 
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="about" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true">
   <div class="modal-header">
   	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <br> 
@@ -145,6 +150,7 @@
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/random", function (result) {
+                console.log(result);
                 var template = $('#randomSongTemplate').html();
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
@@ -156,7 +162,7 @@
             var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/" + songId, function (result) {
                 var template = $('#randomSongTemplate').html();
-                console.log(result.title);
+                console.log(result);
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
@@ -170,6 +176,7 @@
                 dataType: "json",
                 data: JSON.stringify({
                     'title': $("#randomSongTitle").text(),
+<%--                    'author': $("#randomSongAuthor").text(),--%>
                     'intro': getTextValuesFromElementArray($(".randomSongIntro")),
                     'verse': getTextValuesFromElementArray($(".randomSongVerse")),
                     'chorus': getTextValuesFromElementArray($(".randomSongChorus")),
@@ -234,7 +241,7 @@
         });
 
         $("#aboutModal").click(function () {
-	       	$('#myModal').modal('show');	
+	       	$('#about').modal('show');	
         });
 
     });

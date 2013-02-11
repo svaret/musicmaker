@@ -6,12 +6,14 @@ class SongView {
     List<String> verse
     List<String> chorus
     List<String> outro
+	String author
 
     SongView(Song song) {
         title = song.title
-        intro = song.intro.tones.collect{ it.label }
+        intro = song.intro.tones.collect{ it.label }	
         verse = song.verse.chords.collect{ it.label }
         chorus = song.chorus.chords.collect{ it.label }
         outro = song.outro.tones.collect{ it.label }
+		author = song.author
     }
 }
