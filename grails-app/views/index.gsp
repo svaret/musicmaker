@@ -15,7 +15,6 @@
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 
-
     <script id="randomSongTemplate" type="text/template">
         <div class="well">
             <table class="table table-striped table-hover table-condensed">
@@ -56,9 +55,9 @@
                     <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
                 </tr>
             </table>
-        </div>
         <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
         <input type="button" id="generateNewRandomSong" class="btn btn-success" value="Generate new"/>
+        </div>
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
@@ -76,12 +75,14 @@
         </div>
     </script>
     
-        <script id="aboutTemplate" type="text/template">
+    <script id="aboutTemplate" type="text/template">
         <div class="well">
             <table class="table">
                 <tr>
-                    <td>About Music Maker</td>
-                    <td>Version X</td>
+                    <td>Number of users:</td><br>
+                </tr>    
+                <tr>
+                    <td>Number of songs since start:</td><br>
                 </tr>             
             </table>
         </div>
@@ -91,22 +92,33 @@
 
 <body>
 
-
-
- <div class="navbar navbar-inverse" span8 offset3>
-  <div class="navbar-inner">
-   <ul class="nav">
-    <li><a href="#" id="about">About</a></li>
-   </ul>
-  </div>
+ <div class="navbar navbar-inverse">
+   <div class="navbar-inner">
+   <ul class="nav"><li><a href="#" id="statistics">Statistics</a></li></ul>
+   <ul class="nav"><li><a href="#" id="aboutModal">About</a></li></ul>
+   </div>
  </div>
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
+  <h1>Music Maker</h1>
+  <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
+  <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/> 
+  <br><br>
+</div>
 
-<h1>Music Maker</h1>
-<input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
-<input type="button" id="songArchive" class="btn btn-success" value="Song archive"/> 
-<br><br>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+  	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <br> 
+    <div class="left"><img src="${resource(dir: 'img', file:'leeperry.jpg')}" alt="Grails"/></div>
+    <div class="right">    
+    Version: 0.1<br>
+    Build Id:   <br> 
+    <div class="left"><img src="${resource(dir: 'img', file:'nextit.png')}" alt="Grails"/></div>
+    <img src="${resource(dir: 'img', file:'M.ico')}" alt="Grails"/> usic  <img src="${resource(dir: 'img', file:'M.ico')}" alt="Grails"/> aker  
+    </div>
+   </div> 
 </div>
 
 <div class="container-fluid span8 offset1" id="presentationArea"/>
@@ -120,6 +132,7 @@
     }
 
     $(document).ready(function () {
+        
         $("#createRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
                 var template = $('#randomSongTemplate').html();
@@ -214,16 +227,17 @@
 
         });
 
-        $("#about").click(function () {
+        $("#statistics").click(function () {
             var template = $('#aboutTemplate').html();
-				var html = Mustache.to_html(template);
-                $('#presentationArea').html(html);
-             
+ 			var html = Mustache.to_html(template); 
+            $('#presentationArea').html(html);           
         });
 
+        $("#aboutModal").click(function () {
+	       	$('#myModal').modal('show');	
+        });
 
     });
 </script>
-
 </body>
 </html>
