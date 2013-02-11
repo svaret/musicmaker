@@ -1,11 +1,6 @@
 package musicmaker
 
-import com.mongodb.BasicDBObject
-import com.mongodb.DBCollection
-import com.mongodb.DBObject
 import grails.converters.JSON
-import grails.converters.XML
-import groovy.json.JsonBuilder
 import org.bson.types.ObjectId
 
 class SongsController {
@@ -25,14 +20,14 @@ class SongsController {
         render result as JSON
     }
 
-    def read(){		 
+    def read() {
         def id = params.id
         def db = mongo.getDB(MUSICMAKER_DB)
-	    if (id != null)
+        if (id != null)
             render com.mongodb.util.JSON.serialize(db.song.findOne(_id: new ObjectId(id)))
         else
             render com.mongodb.util.JSON.serialize(db.song.find())
-    	}
+    }
 
     def random() {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
@@ -53,13 +48,13 @@ class SongsController {
     }
 
     def delete() {
-		def id = params.id
+def id = params.id
         def db = mongo.getDB(MUSICMAKER_DB)
-		if (id == null)
-			db.song.remove([:])
+if (id == null)
+db.song.remove([:])
         else
-			db.song.remove(_id: new ObjectId(id))
-		def result = [status: "OK"]
+db.song.remove(_id: new ObjectId(id))
+def result = [status: "OK"]
         render result as JSON
     }
 }
