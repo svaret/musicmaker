@@ -56,7 +56,6 @@
             </table>
         </div>
         <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
-        <input type="button" id="editRandomSong" class="btn btn-success" value="Edit"/>
         <input type="button" id="generateNewRandomSong" class="btn btn-success" value="Generate new"/>
     </script>
 
