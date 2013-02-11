@@ -16,49 +16,52 @@
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 
 
-    <script id="randomSongTemplate" type="text/template">
+    <script id="songTemplate" type="text/template">
         <div class="well">
-            <table class="table table-striped table-hover table-condensed">
+            <table class="table-striped table-hover table-condensed">
                 <tr>
-                    <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
-                    <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
+                    <td id="songTitle" colspan="13"><b>{{title}}</b></td>
+                    <td align="right"><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
                 </tr>
                 <tr>
                     <td>Intro:</td>
                     {{#intro}}
-                    <td class="randomSongIntro">{{.}}</td>
+                    <td class="span2 songIntro">{{.}}</td>
                     {{/intro}}</br>
-                    <td></td><td></td><td></td><td></td><td></td>
-                    <td></td><td></td><td></td><td></td><td></td>
-                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                    <td align="right" colspan="11">
+                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Verse:</td>
                     {{#verse}}
-                    <td class="randomSongVerse">{{.}}</td>
+                    <td class="span2 songVerse">{{.}}</td>
                     {{/verse}}</br>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                    <td align="right" colspan="8">
+                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Chorus:</td>
                     {{#chorus}}
-                    <td class="randomSongChorus">{{.}}</td>
+                    <td class="span2 songChorus">{{.}}</td>
                     {{/chorus}}</br>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                    <td align="right" colspan="10">
+                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Outro:</td>
                     {{#outro}}
-                    <td class="randomSongOutro">{{.}}</td>
+                    <td class="span2 songOutro">{{.}}</td>
                     {{/outro}}</br>
-                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                    <td align="right">
+                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
+                    </td>
                 </tr>
             </table>
         </div>
         <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
-        <input type="button" id="generateNewRandomSong" class="btn btn-success" value="Generate new"/>
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
@@ -104,7 +107,7 @@
 <div class="container-fluid span8 offset1" id="menuarea"/>
 
 <h1>Music Maker</h1>
-<input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
+<input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>
 <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/> 
 <br><br>
 </div>
@@ -120,20 +123,10 @@
     }
 
     $(document).ready(function () {
-        $("#createRandomSong").click(function () {
+        $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
-                var template = $('#randomSongTemplate').html();
+                var template = $('#songTemplate').html();
                 var html = Mustache.to_html(template, song);
-                $('#presentationArea').html(html);
-            });
-        });
-
-        $("body").on("click", "#generateNewRandomSong", function () {
-            var columns = $(this).parents("tr").children("td");
-            var songId = columns.last().children("input").val();
-            $.getJSON("/musicmaker/songs/random", function (result) {
-                var template = $('#randomSongTemplate').html();
-                var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
         });
@@ -142,7 +135,7 @@
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/" + songId, function (result) {
-                var template = $('#randomSongTemplate').html();
+                var template = $('#songTemplate').html();
                 console.log(result.title);
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
