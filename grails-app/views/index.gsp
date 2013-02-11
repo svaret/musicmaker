@@ -24,34 +24,34 @@
             <tr>
                 <td>Intro:</td>
                 {{#intro}}
-                <td><span class="randomSongIntro">{{.}}</span></td>
+                <td class="randomSongIntro">{{.}}</td>
                 {{/intro}}</br>
                 <td></td><td></td><td></td><td></td><td></td>
                 <td></td><td></td><td></td><td></td><td></td>
-                <td><input type="button" class="editIntro btn btn-success" value="Edit"/></td>
+                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
             </tr>
             <tr>
                 <td>Verse:</td>
                 {{#verse}}
-                <td><span class="randomSongVerse">{{.}}</span></td>
+                <td class="randomSongVerse">{{.}}</td>
                 {{/verse}}</br>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td><input type="button" class="editVerse btn btn-success" value="Edit"/></td>
+                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
             </tr>
             <tr>
                 <td>Chorus:</td>
                 {{#chorus}}
-                <td><span class="randomSongChorus">{{.}}</span></td>
+                <td class="randomSongChorus">{{.}}</td>
                 {{/chorus}}</br>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td><input type="button" class="editVerse btn btn-success" value="Edit"/></td>
+                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
             </tr>
             <tr>
                 <td>Outro:</td>
                 {{#outro}}
-                <td><span class="randomSongOutro">{{.}}</span></td>
+                <td class="randomSongOutro">{{.}}</td>
                 {{/outro}}</br>
-                <td><input type="button" class="editVerse btn btn-success" value="Edit"/></td>
+                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
             </tr>
         </table>
         </div>
