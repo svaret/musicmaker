@@ -2,58 +2,58 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html">
 <head>
-	<meta charset="UTF-8">
-	<title>Music Maker</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
+    <meta charset="UTF-8">
+    <title>Music Maker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-	<link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
-   	<script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.js"></script>
 
-   <script id="randomSongTemplate" type="text/template">
-   <div class="well">
-        <table class="table table-bordered">
-            <tr>
-                <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
-                <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
-            </tr>
-            <tr>
-                <td>Intro:</td>
-                {{#intro}}
-                <td class="randomSongIntro">{{.}}</td>
-                {{/intro}}</br>
-                <td></td><td></td><td></td><td></td><td></td>
-                <td></td><td></td><td></td><td></td><td></td>
-                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
-            </tr>
-            <tr>
-                <td>Verse:</td>
-                {{#verse}}
-                <td class="randomSongVerse">{{.}}</td>
-                {{/verse}}</br>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
-            </tr>
-            <tr>
-                <td>Chorus:</td>
-                {{#chorus}}
-                <td class="randomSongChorus">{{.}}</td>
-                {{/chorus}}</br>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
-            </tr>
-            <tr>
-                <td>Outro:</td>
-                {{#outro}}
-                <td class="randomSongOutro">{{.}}</td>
-                {{/outro}}</br>
-                <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
-            </tr>
-        </table>
+    <script id="randomSongTemplate" type="text/template">
+        <div class="well">
+            <table class="table table-striped table-hover table-condensed">
+                <tr>
+                    <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
+                    <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
+                </tr>
+                <tr>
+                    <td>Intro:</td>
+                    {{#intro}}
+                    <td class="randomSongIntro">{{.}}</td>
+                    {{/intro}}</br>
+                    <td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                </tr>
+                <tr>
+                    <td>Verse:</td>
+                    {{#verse}}
+                    <td class="randomSongVerse">{{.}}</td>
+                    {{/verse}}</br>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                </tr>
+                <tr>
+                    <td>Chorus:</td>
+                    {{#chorus}}
+                    <td class="randomSongChorus">{{.}}</td>
+                    {{/chorus}}</br>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                </tr>
+                <tr>
+                    <td>Outro:</td>
+                    {{#outro}}
+                    <td class="randomSongOutro">{{.}}</td>
+                    {{/outro}}</br>
+                    <td><input type="button" class="editPartOfSong btn btn-success" value="Edit"/></td>
+                </tr>
+            </table>
         </div>
         <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
         <input type="button" id="editRandomSong" class="btn btn-success" value="Edit"/>
@@ -62,24 +62,25 @@
 
     <script id="songArchiveTemplate" type="text/template">
         <div class="well">
-        <table class="table table-striped table-hover table-condensed">
-            {{#songs}}
-            <tr>
-                <td>{{title}}</td>
- 			    <td><input type="button" class="btn btn-success viewSong" value="View"/></td>
- 			    <td><input type="button" class="btn btn-success deleteSong" value="Delete"/></td>
-                <td><input value="{{_id.$oid}}" type="hidden"></td>
-            </tr>
-            {{/songs}}
-        </table>
+            <table class="table table-striped table-hover table-condensed">
+                {{#songs}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td><input type="button" class="btn btn-success viewSong" value="View"/></td>
+                    <td><input type="button" class="btn btn-success deleteSong" value="Delete"/></td>
+                    <td><input value="{{_id.$oid}}" type="hidden"></td>
+                </tr>
+                {{/songs}}
+            </table>
         </div>
     </script>
 </head>
 
 <body>
 
-<div class="container-fluid span8 offset1" id="menuarea"   />
-    <h1>Music Maker</h1>
+<div class="container-fluid span8 offset1" id="menuarea"/>
+
+<h1>Music Maker</h1>
 <input type="button" id="createRandomSong" class="btn btn-success" value="Create random song"/>
 <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
 <br><br>
@@ -90,9 +91,9 @@
 <script>
     function getTextValuesFromElementArray(elementArray) {
         return elementArray.map(
-            function () {
-                return $(this).text();
-             }).toArray();
+                function () {
+                    return $(this).text();
+                }).toArray();
     }
 
     $(document).ready(function () {
