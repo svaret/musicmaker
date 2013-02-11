@@ -13,7 +13,8 @@
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+
 
     <script id="randomSongTemplate" type="text/template">
         <div class="well">
