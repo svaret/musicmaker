@@ -19,7 +19,7 @@ class SongsController {
 
     def create() {
         def db = mongo.getDB(MUSICMAKER_DB)
-        db.song.insert([title: request.JSON.title])
+        db.song.insert(request.JSON)
 
         def result = [status: "OK"]
         render result as JSON
@@ -38,11 +38,6 @@ class SongsController {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
                 NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)
         SongView songView = new SongView(song)
-        def jsonBuilder = new JsonBuilder()
-        jsonBuilder.setContent(songView)
-        def db = mongo.getDB(MUSICMAKER_DB)
-        def json = jsonBuilder.toString()
-        db.song.insert(com.mongodb.util.JSON.parse(json))
 
         render songView as JSON
     }
