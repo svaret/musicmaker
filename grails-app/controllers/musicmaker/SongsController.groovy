@@ -31,7 +31,7 @@ class SongsController {
 
     def random() {
         Song song = new Song(NUMBER_OF_NOTES_IN_INTRO, NUMBER_OF_CHORDS_IN_VERSE,
-                NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO)
+                NUMBER_OF_CHORDS_IN_CHORUS, NUMBER_OF_NOTES_IN_OUTRO, "Author" )
         SongView songView = new SongView(song)
 
         render songView as JSON
@@ -43,18 +43,18 @@ class SongsController {
         def db = mongo.getDB(MUSICMAKER_DB)
         db.song.update([_id: new ObjectId(id)], [$set: [title: title]])
 
-        def result = [status: "OK"]
-        render result as JSON
-    }
+		def result = [status: "OK"]
+		render result as JSON
+	}
 
-    def delete() {
-def id = params.id
-        def db = mongo.getDB(MUSICMAKER_DB)
-if (id == null)
-db.song.remove([:])
-        else
-db.song.remove(_id: new ObjectId(id))
-def result = [status: "OK"]
-        render result as JSON
-    }
+	def delete() {
+		def id = params.id
+		def db = mongo.getDB(MUSICMAKER_DB)
+		if (id == null)
+			db.song.remove([:])
+		else
+			db.song.remove(_id: new ObjectId(id))
+		def result = [status: "OK"]
+		render result as JSON
+	}
 }

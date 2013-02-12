@@ -20,8 +20,8 @@
         <div class="well">
             <table class="table-striped table-hover table-condensed">
                 <tr>
-                    <td id="songTitle" colspan="13"><b>{{title}}</b></td>
-                    <td align="right"><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
+                    <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
+                    <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
                 </tr>
                 <tr>
                     <td>Intro:</td>
@@ -105,11 +105,24 @@
  </div>
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
-
 <h1>Music Maker</h1>
 <input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>
-<input type="button" id="songArchive" class="btn btn-success" value="Song archive"/> 
+<input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
 <br><br>
+</div>
+
+<div id="about" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true">
+  <div class="modal-header">
+  	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <br> 
+    <div class="left"><img src="${resource(dir: 'img', file:'leeperry.jpg')}" alt="Grails"/></div>
+    <div class="right">    
+    Version: 0.1<br>
+    Build Id:   <br> 
+    <div class="left"><img src="${resource(dir: 'img', file:'nextit.png')}" alt="Grails"/></div>
+    <img src="${resource(dir: 'img', file:'M.ico')}" alt="Grails"/> usic  <img src="${resource(dir: 'img', file:'M.ico')}" alt="Grails"/> aker  
+    </div>
+   </div> 
 </div>
 
 <div class="container-fluid span8 offset1" id="presentationArea"/>
@@ -125,7 +138,7 @@
     $(document).ready(function () {
         $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
-                var template = $('#songTemplate').html();
+                var template = $('#randomSongTemplate').html();
                 var html = Mustache.to_html(template, song);
                 $('#presentationArea').html(html);
             });
