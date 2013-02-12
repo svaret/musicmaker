@@ -9,7 +9,7 @@
     <meta name="keywords" content="">
 
     <link href="css/bootstrap.css" rel="stylesheet">
-   	<link rel="shortcut icon" href="img/M.ico">
+    <link rel="shortcut icon" href="img/M.ico">
 
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
@@ -27,7 +27,7 @@
                     <td>Intro:</td>
                     {{#intro}}
                     <td class="span2 songIntro">{{.}}</td>
-                    {{/intro}}</br>
+                    {{/intro}}
                     <td align="right" colspan="11">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -36,7 +36,7 @@
                     <td>Verse:</td>
                     {{#verse}}
                     <td class="span2 songVerse">{{.}}</td>
-                    {{/verse}}</br>
+                    {{/verse}}
                     <td align="right" colspan="8">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -45,7 +45,7 @@
                     <td>Chorus:</td>
                     {{#chorus}}
                     <td class="span2 songChorus">{{.}}</td>
-                    {{/chorus}}</br>
+                    {{/chorus}}
                     <td align="right" colspan="10">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -54,7 +54,7 @@
                     <td>Outro:</td>
                     {{#outro}}
                     <td class="span2 songOutro">{{.}}</td>
-                    {{/outro}}</br>
+                    {{/outro}}
                     <td align="right">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -78,33 +78,32 @@
             </table>
         </div>
     </script>
-    
-        <script id="aboutTemplate" type="text/template">
+
+    <script id="aboutTemplate" type="text/template">
         <div class="well">
             <table class="table">
                 <tr>
                     <td>About Music Maker</td>
                     <td>Version X</td>
-                </tr>             
+                </tr>
             </table>
         </div>
     </script>
-    
+
 </head>
 
 <body>
 
-
-
- <div class="navbar navbar-inverse" span8 offset3>
-  <div class="navbar-inner">
-   <ul class="nav">
-    <li><a href="#" id="about">About</a></li>
-   </ul>
-  </div>
- </div>
+<div class="navbar navbar-inverse" span8 offset3>
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</div>
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
+
 <h1>Music Maker</h1>
 <input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>
 <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
@@ -112,17 +111,21 @@
 </div>
 
 <div id="about" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="aboutLabel" aria-hidden="true">
-  <div class="modal-header">
-  	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <br> 
-    <div class="left"><img src="${resource(dir: 'img', file:'leeperry.jpg')}" alt="Grails"/></div>
-    <div class="right">    
-    Version: 0.1<br>
-    Build Id:   <br> 
-    <div class="left"><img src="${resource(dir: 'img', file:'nextit.png')}" alt="Grails"/></div>
-    <img src="${resource(dir: 'img', file:'M.ico')}" alt="Grails"/> usic  <img src="${resource(dir: 'img', file:'M.ico')}" alt="Grails"/> aker  
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <br>
+
+        <div class="left"><img src="${resource(dir: 'img', file: 'leeperry.jpg')}" alt="Grails"/></div>
+
+        <div class="right">
+            Version: 0.1<br>
+            Build Id:   <br>
+
+            <div class="left"><img src="${resource(dir: 'img', file: 'nextit.png')}" alt="Grails"/></div>
+            <img src="${resource(dir: 'img', file: 'M.ico')}" alt="Grails"/> usic  <img
+                src="${resource(dir: 'img', file: 'M.ico')}" alt="Grails"/> aker
+        </div>
     </div>
-   </div> 
 </div>
 
 <div class="container-fluid span8 offset1" id="presentationArea"/>
@@ -138,7 +141,7 @@
     $(document).ready(function () {
         $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
-                var template = $('#randomSongTemplate').html();
+                var template = $('#songTemplate').html();
                 var html = Mustache.to_html(template, song);
                 $('#presentationArea').html(html);
             });
@@ -222,12 +225,9 @@
 
         $("#about").click(function () {
             var template = $('#aboutTemplate').html();
-				var html = Mustache.to_html(template);
-                $('#presentationArea').html(html);
-             
+            var html = Mustache.to_html(template);
+            $('#presentationArea').html(html);
         });
-
-
     });
 </script>
 
