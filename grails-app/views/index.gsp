@@ -153,6 +153,7 @@
             $.getJSON("/musicmaker/songs/" + songId, function (result) {
                 var template = $('#songTemplate').html();
                 console.log(result.title);
+                console.log(result.intro);
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
@@ -166,10 +167,10 @@
                 dataType: "json",
                 data: JSON.stringify({
                     'title': $("#randomSongTitle").text(),
-                    'intro': getTextValuesFromElementArray($(".randomSongIntro")),
-                    'verse': getTextValuesFromElementArray($(".randomSongVerse")),
-                    'chorus': getTextValuesFromElementArray($(".randomSongChorus")),
-                    'outro': getTextValuesFromElementArray($(".randomSongOutro"))
+                    'intro': getTextValuesFromElementArray($(".songIntro")),
+                    'verse': getTextValuesFromElementArray($(".songVerse")),
+                    'chorus': getTextValuesFromElementArray($(".songChorus")),
+                    'outro': getTextValuesFromElementArray($(".songOutro"))
                 })
             })
                     .fail(function (jqXHR, textStatus) {
