@@ -2,6 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html">
 <head>
+    <style>
+    .select-mini {
+        font-size: 11px;
+        height: 30px;
+        width: 50px;
+    }
+    </style>
+
     <meta charset="UTF-8">
     <title>Music Maker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +24,14 @@
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 
 
+    <script id="chordsTemplate" type="text/template">
+        <select class="select-mini">
+            {{#chords}}
+            <option value="{{chord}}">{{chord}}</option>
+            {{/chords}}
+        </select>
+    </script>
+
     <script id="songTemplate" type="text/template">
         <div class="well">
             <table class="table-striped table-hover table-condensed">
@@ -26,7 +42,7 @@
                 <tr>
                     <td>Intro:</td>
                     {{#intro}}
-                    <td class="span2 songIntro">{{.}}</td>
+                    <td class="span2 songPart">{{.}}</td>
                     {{/intro}}
                     <td align="right" colspan="11">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
@@ -35,7 +51,7 @@
                 <tr>
                     <td>Verse:</td>
                     {{#verse}}
-                    <td class="span2 songVerse">{{.}}</td>
+                    <td class="span2 songPart">{{.}}</td>
                     {{/verse}}
                     <td align="right" colspan="8">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
@@ -44,7 +60,7 @@
                 <tr>
                     <td>Chorus:</td>
                     {{#chorus}}
-                    <td class="span2 songChorus">{{.}}</td>
+                    <td class="span2 songPart">{{.}}</td>
                     {{/chorus}}
                     <td align="right" colspan="10">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
@@ -53,7 +69,7 @@
                 <tr>
                     <td>Outro:</td>
                     {{#outro}}
-                    <td class="span2 songOutro">{{.}}</td>
+                    <td class="span2 songPart">{{.}}</td>
                     {{/outro}}
                     <td align="right">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
@@ -156,6 +172,18 @@
                 console.log(result.intro);
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
+            });
+        });
+
+        $("body").on("click", ".editPartOfSong", function () {
+            var columns = $(this).parents("tr").children("td.songPart");
+            var chordsSelect;
+            $.getJSON("/musicmaker/chords", function (chords) {
+                var template = $('#chordsTemplate').html();
+                chordsSelect = Mustache.to_html(template, {chords: chords});
+                columns.each(function() {
+                   $(this).html(chordsSelect);
+                });
             });
         });
 
