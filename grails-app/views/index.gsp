@@ -71,7 +71,7 @@
                 <tr>
                     <td>{{title}}</td>
                     <td><input type="button" class="btn btn-success viewSong" value="View"/></td>
-                    <td><input type="button" class="btn btn-success deleteSong" value="Delete"/></td>
+                    <td><input type="button" class="btn btn-danger deleteSong" value="Delete"/></td>
                     <td><input value="{{_id.$oid}}" type="hidden"></td>
                 </tr>
                 {{/songs}}
@@ -122,8 +122,8 @@
             Build Id:   <br>
 
             <div class="left"><img src="${resource(dir: 'img', file: 'nextit.png')}" alt="Grails"/></div>
-            <img src="${resource(dir: 'img', file: 'M.ico')}" alt="Grails"/> usic  <img
-                src="${resource(dir: 'img', file: 'M.ico')}" alt="Grails"/> aker
+            <img src="${resource(dir: 'img', file: 'M.ico')}" alt="Grails"/> usic
+            <img src="${resource(dir: 'img', file: 'M.ico')}" alt="Grails"/> aker
         </div>
     </div>
 </div>
