@@ -42,8 +42,9 @@
                 <tr>
                     <td>Intro:</td>
                     {{#intro}}
-                    <td class="span2 songPart"><input type="button" class="editPartOfSong btn btn-mini" value="{{.}}"/>
-                    {{/intro}}
+                    <td class="span2 songPart"><input type="button" class="songIntro editPartOfSong btn btn-mini"
+                                                      value="{{.}}"/>
+                        {{/intro}}
                     <td align="right" colspan="11">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -51,8 +52,9 @@
                 <tr>
                     <td>Verse:</td>
                     {{#verse}}
-                    <td class="span2 songPart"><input type="button" class="editPartOfSong btn btn-mini" value="{{.}}"/>
-                    {{/verse}}
+                    <td class="span2 songPart"><input type="button" class="songVerse editPartOfSong btn btn-mini"
+                                                      value="{{.}}"/>
+                        {{/verse}}
                     <td align="right" colspan="8">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -60,8 +62,9 @@
                 <tr>
                     <td>Chorus:</td>
                     {{#chorus}}
-                    <td class="span2 songPart"><input type="button" class="editPartOfSong btn btn-mini" value="{{.}}"/>
-                    {{/chorus}}
+                    <td class="span2 songPart"><input type="button" class="songChorus editPartOfSong btn btn-mini"
+                                                      value="{{.}}"/>
+                        {{/chorus}}
                     <td align="right" colspan="10">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -69,8 +72,9 @@
                 <tr>
                     <td>Outro:</td>
                     {{#outro}}
-                    <td class="span2 songPart"><input type="button" class="editPartOfSong btn btn-mini" value="{{.}}"/>
-                    {{/outro}}
+                    <td class="span2 songPart"><input type="button" class="songOutro editPartOfSong btn btn-mini"
+                                                      value="{{.}}"/>
+                        {{/outro}}
                     <td align="right">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -150,7 +154,7 @@
     function getTextValuesFromElementArray(elementArray) {
         return elementArray.map(
                 function () {
-                    return $(this).text();
+                    return $(this).val();
                 }).toArray();
     }
 
@@ -168,8 +172,6 @@
             var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/" + songId, function (result) {
                 var template = $('#songTemplate').html();
-                console.log(result.title);
-                console.log(result.intro);
                 var html = Mustache.to_html(template, result);
                 $('#presentationArea').html(html);
             });
@@ -181,8 +183,8 @@
             $.getJSON("/musicmaker/chords", function (chords) {
                 var template = $('#chordsTemplate').html();
                 chordsSelect = Mustache.to_html(template, {chords: chords});
-                columns.each(function() {
-                   $(this).html(chordsSelect);
+                columns.each(function () {
+                    $(this).html(chordsSelect);
                 });
             });
         });
