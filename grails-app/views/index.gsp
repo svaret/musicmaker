@@ -35,7 +35,7 @@
         <div class="well">
             <table class="table-striped table-hover table-condensed">
                 <tr>
-                    <td colspan="13" id="songTitle"><b>{{song.title}}</b></td>
+                    <td colspan={{colSpan}} id="songTitle"><b>{{song.title}}</b></td>
                     <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
                 </tr>
                 <tr>
@@ -164,10 +164,7 @@
         var template = $('#songTemplate').html();
         var html = Mustache.to_html(template, {song: song,
             saveAction: saveAction,
-            introColSpan: maxLength - song.intro.length + 1,
-            verseColSpan: maxLength - song.verse.length + 1,
-            chorusColSpan: maxLength - song.chorus.length + 1,
-            outroColSpan: maxLength - song.outro.length + 1});
+            colSpan: maxLength});
         $('#presentationArea').html(html);
     }
 
@@ -211,7 +208,7 @@
         })
                 .fail(function (jqXHR, textStatus) {
                     alert(jqXHR + " " + textStatus);
-                }).success(function() {
+                }).success(function () {
                     renderSongArchive();
                 });
     }
