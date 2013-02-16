@@ -46,7 +46,7 @@
                         <input type="button" class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.intro}}
-                    <td align="right" colspan="11">
+                    <td align="right" colspan="{{introColSpan}}">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
@@ -57,7 +57,7 @@
                         <input type="button" class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.verse}}
-                    <td align="right" colspan="8">
+                    <td align="right" colspan="{{verseColSpan}}>">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
@@ -68,7 +68,7 @@
                         <input type="button" class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.chorus}}
-                    <td align="right" colspan="10">
+                    <td align="right" colspan="{{chorusColSpan}}>">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
@@ -79,7 +79,7 @@
                         <input type="button" class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.outro}}
-                    <td align="right">
+                    <td align="right" colspan="{{outroColSpan}}>">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
@@ -163,12 +163,25 @@
                 }).toArray();
     }
 
+    function renderSong(song, saveAction) {
+        var maxLength = song.intro.length;
+        if (song.verse.length > maxLength) maxLength = song.verse.length;
+        if (song.chorus.length > maxLength) maxLength = song.chorus.length;
+        if (song.outro.length > maxLength) maxLength = song.outro.length;
+        var template = $('#songTemplate').html();
+        var html = Mustache.to_html(template, {song: song,
+            saveAction: saveAction,
+            introColSpan: maxLength - song.intro.length + 1,
+            verseColSpan: maxLength - song.verse.length + 1,
+            chorusColSpan: maxLength - song.chorus.length + 1,
+            outroColSpan: maxLength - song.outro.length + 1});
+        $('#presentationArea').html(html);
+    }
+
     $(document).ready(function () {
         $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
-                var template = $('#songTemplate').html();
-                var html = Mustache.to_html(template, {song: song, saveAction: "saveRandomSong"});
-                $('#presentationArea').html(html);
+                renderSong(song, "saveRandomSong");
             });
         });
 
@@ -176,9 +189,7 @@
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
             $.getJSON("/musicmaker/songs/" + songId, function (song) {
-                var template = $('#songTemplate').html();
-                var html = Mustache.to_html(template, {song: song, saveAction: "saveExistingSong"});
-                $('#presentationArea').html(html);
+                renderSong(song, "saveExistingSong");
             });
         });
 
