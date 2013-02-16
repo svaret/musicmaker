@@ -36,56 +36,57 @@
         <div class="well">
             <table class="table-striped table-hover table-condensed">
                 <tr>
-                    <td colspan="13" id="randomSongTitle"><b>{{title}}</b></td>
+                    <td colspan="13" id="songTitle"><b>{{song.title}}</b></td>
                     <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
                 </tr>
                 <tr>
                     <td>Intro:</td>
-                    {{#intro}}
+                    {{#song.intro}}
                     <td id="songIntro" class="span2">
                         <input type="button" class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
-                    {{/intro}}
+                    {{/song.intro}}
                     <td align="right" colspan="11">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Verse:</td>
-                    {{#verse}}
+                    {{#song.verse}}
                     <td id="songVerse" class="span2">
                         <input type="button" class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
-                    {{/verse}}
+                    {{/song.verse}}
                     <td align="right" colspan="8">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Chorus:</td>
-                    {{#chorus}}
+                    {{#song.chorus}}
                     <td id="songChorus" class="span2">
                         <input type="button" class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
-                    {{/chorus}}
+                    {{/song.chorus}}
                     <td align="right" colspan="10">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Outro:</td>
-                    {{#outro}}
+                    {{#song.outro}}
                     <td id="songOutro" class="span2">
                         <input type="button" class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
-                    {{/outro}}
+                    {{/song.outro}}
                     <td align="right">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
                 </tr>
             </table>
         </div>
-        <input type="button" id="saveRandomSong" class="btn btn-success" value="Save"/>
+        <input type="button" id="{{saveAction}}" class="btn btn-success" value="Save"/>
+        <input id="songId" value="{{song._id.$oid}}" type="hidden">
     </script>
 
     <script id="songArchiveTemplate" type="text/template">
@@ -166,7 +167,7 @@
         $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
                 var template = $('#songTemplate').html();
-                var html = Mustache.to_html(template, song);
+                var html = Mustache.to_html(template, {song: song, saveAction: "saveRandomSong"});
                 $('#presentationArea').html(html);
             });
         });
@@ -174,9 +175,9 @@
         $("body").on("click", ".viewSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
-            $.getJSON("/musicmaker/songs/" + songId, function (result) {
+            $.getJSON("/musicmaker/songs/" + songId, function (song) {
                 var template = $('#songTemplate').html();
-                var html = Mustache.to_html(template, result);
+                var html = Mustache.to_html(template, {song: song, saveAction: "saveExistingSong"});
                 $('#presentationArea').html(html);
             });
         });
@@ -199,7 +200,7 @@
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify({
-                    'title': $("#randomSongTitle").text(),
+                    'title': $("#songTitle").text(),
                     'intro': getTextValuesFromElementArray($(".songIntro")),
                     'verse': getTextValuesFromElementArray($(".songVerse")),
                     'chorus': getTextValuesFromElementArray($(".songChorus")),
@@ -223,19 +224,31 @@
             });
         });
 
-        $("body").on("click", ".updateSong", function () {
+        $("body").on("click", "#saveExistingSong", function () {
             var columns = $(this).parents("tr").children("td");
-            var songId = columns.last().children("input").val();
+            var songId = $("#songId").val();
+            console.log(songId);
             var title = columns.first().children("input").val();
             $.ajax({
                 url: "/musicmaker/songs/" + songId,
                 contentType: "application/json",
                 type: "PUT",
                 dataType: "json",
-                data: JSON.stringify({'title': title})
-            }).fail(function (jqXHR, textStatus) {
+                data: JSON.stringify({
+                    'title': $("#songTitle").text(),
+                    'intro': getTextValuesFromElementArray($(".songIntro")),
+                    'verse': getTextValuesFromElementArray($(".songVerse")),
+                    'chorus': getTextValuesFromElementArray($(".songChorus")),
+                    'outro': getTextValuesFromElementArray($(".songOutro"))
+                })
+            })
+                    .fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
+                    })
+                    .success(function () {
+                        $("#saveExistingSong").prop('disabled', true);
                     });
+
         });
 
         $("body").on("click", ".deleteSong", function () {

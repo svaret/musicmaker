@@ -41,7 +41,8 @@ class SongsController {
         def id = params.id
         def title = request.JSON.title
         def db = mongo.getDB(MUSICMAKER_DB)
-        db.song.update([_id: new ObjectId(id)], [$set: [title: title]])
+        db.song.update([_id: new ObjectId(id)],
+                [$set: request.JSON])
 
 		def result = [status: "OK"]
 		render result as JSON
