@@ -23,7 +23,6 @@
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 
-
     <script id="chordsTemplate" type="text/template">
         <select class="select-mini btn-mini {{songPartId}}">
             {{#chords}}
@@ -85,7 +84,7 @@
                 </tr>
             </table>
         </div>
-        <input type="button" id="{{saveAction}}" class="btn btn-success" value="Save"/>
+        <input type="button" id="{{saveAction}}" class="btn btn-success saveSongButton" value="Save"/>
         <input id="songId" value="{{song._id.$oid}}" type="hidden">
     </script>
 
@@ -178,6 +177,29 @@
         $('#presentationArea').html(html);
     }
 
+    function saveSong(url, method) {
+        return $.ajax({
+            url: url,
+            contentType: "application/json",
+            type: method,
+            dataType: "json",
+            data: JSON.stringify({
+                'title': $("#songTitle").text(),
+                'intro': getTextValuesFromElementArray($(".songIntro")),
+                'verse': getTextValuesFromElementArray($(".songVerse")),
+                'chorus': getTextValuesFromElementArray($(".songChorus")),
+                'outro': getTextValuesFromElementArray($(".songOutro"))
+            })
+        });
+    }
+
+    function getSongById(songId) {
+        $.getJSON("/musicmaker/songs/" + songId, function (song) {
+            renderSong(song, "saveExistingSong");
+            $("#saveExistingSong").prop('disabled', true);
+        });
+    }
+
     $(document).ready(function () {
         $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
@@ -188,9 +210,7 @@
         $("body").on("click", ".viewSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
-            $.getJSON("/musicmaker/songs/" + songId, function (song) {
-                renderSong(song, "saveExistingSong");
-            });
+            getSongById(songId);
         });
 
         $("body").on("click", ".editPartOfSong", function () {
@@ -201,28 +221,19 @@
                 var template = $('#chordsTemplate').html();
                 chordsSelect = Mustache.to_html(template, {chords: chords, songPartId: songPartId});
                 songPart.html(chordsSelect);
+                $(".saveSongButton").prop('disabled', false);
             });
         });
 
         $("body").on("click", "#saveRandomSong", function () {
-            $.ajax({
-                url: "/musicmaker/songs",
-                contentType: "application/json",
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify({
-                    'title': $("#songTitle").text(),
-                    'intro': getTextValuesFromElementArray($(".songIntro")),
-                    'verse': getTextValuesFromElementArray($(".songVerse")),
-                    'chorus': getTextValuesFromElementArray($(".songChorus")),
-                    'outro': getTextValuesFromElementArray($(".songOutro"))
-                })
-            })
+            var songId;
+            saveSong("/musicmaker/songs", "POST")
                     .fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
                     })
-                    .success(function () {
-                        $("#saveRandomSong").prop('disabled', true);
+                    .success(function (result) {
+                        $(".saveSongButton").prop('disabled', true);
+                        getSongById(result.songId);
                     });
         });
 
@@ -238,28 +249,14 @@
         $("body").on("click", "#saveExistingSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = $("#songId").val();
-            console.log(songId);
-            var title = columns.first().children("input").val();
-            $.ajax({
-                url: "/musicmaker/songs/" + songId,
-                contentType: "application/json",
-                type: "PUT",
-                dataType: "json",
-                data: JSON.stringify({
-                    'title': $("#songTitle").text(),
-                    'intro': getTextValuesFromElementArray($(".songIntro")),
-                    'verse': getTextValuesFromElementArray($(".songVerse")),
-                    'chorus': getTextValuesFromElementArray($(".songChorus")),
-                    'outro': getTextValuesFromElementArray($(".songOutro"))
-                })
-            })
+            saveSong("/musicmaker/songs/" + songId, "PUT")
                     .fail(function (jqXHR, textStatus) {
                         alert(jqXHR + " " + textStatus);
                     })
                     .success(function () {
                         $("#saveExistingSong").prop('disabled', true);
+                        getSongById(songId);
                     });
-
         });
 
         $("body").on("click", ".deleteSong", function () {

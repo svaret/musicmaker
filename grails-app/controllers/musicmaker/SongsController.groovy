@@ -1,5 +1,6 @@
 package musicmaker
 
+import com.mongodb.BasicDBObject
 import grails.converters.JSON
 import org.bson.types.ObjectId
 
@@ -14,9 +15,11 @@ class SongsController {
 
     def create() {
         def db = mongo.getDB(MUSICMAKER_DB)
-        db.song.insert(request.JSON)
+        BasicDBObject dbObject = new BasicDBObject(request.JSON)
+        db.song.insert(dbObject)
+        ObjectId songId = (ObjectId)dbObject.get( "_id" );
 
-        def result = [status: "OK"]
+        def result = [status: "OK", songId: songId.toString()]
         render result as JSON
     }
 
@@ -39,7 +42,6 @@ class SongsController {
 
     def update() {
         def id = params.id
-        def title = request.JSON.title
         def db = mongo.getDB(MUSICMAKER_DB)
         db.song.update([_id: new ObjectId(id)],
                 [$set: request.JSON])
