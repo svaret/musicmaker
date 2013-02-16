@@ -45,9 +45,6 @@
                         <input type="button" class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.intro}}
-                    <td align="right" colspan="{{introColSpan}}">
-                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
-                    </td>
                 </tr>
                 <tr>
                     <td>Verse:</td>
@@ -56,9 +53,6 @@
                         <input type="button" class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.verse}}
-                    <td align="right" colspan="{{verseColSpan}}>">
-                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
-                    </td>
                 </tr>
                 <tr>
                     <td>Chorus:</td>
@@ -67,9 +61,6 @@
                         <input type="button" class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.chorus}}
-                    <td align="right" colspan="{{chorusColSpan}}>">
-                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
-                    </td>
                 </tr>
                 <tr>
                     <td>Outro:</td>
@@ -78,9 +69,6 @@
                         <input type="button" class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.outro}}
-                    <td align="right" colspan="{{outroColSpan}}>">
-                        <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
-                    </td>
                 </tr>
             </table>
         </div>
@@ -91,6 +79,12 @@
     <script id="songArchiveTemplate" type="text/template">
         <div class="well">
             <table class="table table-striped table-hover table-condensed">
+                <tr>
+                    <td/><td/>
+                    <td align="right">
+                        <input id="deleteSongs" type="button" class="btn btn-danger" value="Delete All"/>
+                    </td>
+                </tr>
                 {{#songs}}
                 <tr>
                     <td>{{title}}</td>
@@ -200,6 +194,28 @@
         });
     }
 
+    function renderSongArchive() {
+        $.getJSON("/musicmaker/songs", function (songs) {
+            $("#presentationArea").empty();
+            var template = $('#songArchiveTemplate').html();
+            var html = Mustache.to_html(template, {songs: songs});
+            $('#presentationArea').html(html);
+        });
+    }
+
+    function deleteSong(url) {
+        $.ajax({
+            url: url,
+            contentType: "application/json",
+            type: "DELETE"
+        })
+                .fail(function (jqXHR, textStatus) {
+                    alert(jqXHR + " " + textStatus);
+                }).success(function() {
+                    renderSongArchive();
+                });
+    }
+
     $(document).ready(function () {
         $("#generateRandomSong").click(function () {
             $.getJSON("/musicmaker/songs/random", function (song) {
@@ -238,12 +254,7 @@
         });
 
         $("#songArchive").click(function () {
-            $.getJSON("/musicmaker/songs", function (songs) {
-                $("#presentationArea").empty();
-                var template = $('#songArchiveTemplate').html();
-                var html = Mustache.to_html(template, {songs: songs});
-                $('#presentationArea').html(html);
-            });
+            renderSongArchive();
         });
 
         $("body").on("click", "#saveExistingSong", function () {
@@ -262,20 +273,11 @@
         $("body").on("click", ".deleteSong", function () {
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
-            $.ajax({
-                url: "/musicmaker/songs/" + songId,
-                contentType: "application/json",
-                type: "DELETE"
-            }).fail(function (jqXHR, textStatus) {
-                        alert(jqXHR + " " + textStatus);
-                    });
-            $.getJSON("/musicmaker/songs", function (songs) {
-                $("#presentationArea").empty();
-                var template = $('#songArchiveTemplate').html();
-                var html = Mustache.to_html(template, {songs: songs});
-                $('#presentationArea').html(html);
-            });
+            deleteSong("/musicmaker/songs/" + songId);
+        });
 
+        $("body").on("click", "#deleteSongs", function () {
+            deleteSong("/musicmaker/songs");
         });
 
         $("#about").click(function () {
