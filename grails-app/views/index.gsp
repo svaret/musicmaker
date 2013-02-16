@@ -25,7 +25,7 @@
 
 
     <script id="chordsTemplate" type="text/template">
-        <select class="select-mini btn-mini">
+        <select class="select-mini btn-mini {{songPartId}}">
             {{#chords}}
             <option value="{{chord}}">{{chord}}</option>
             {{/chords}}
@@ -42,9 +42,10 @@
                 <tr>
                     <td>Intro:</td>
                     {{#intro}}
-                    <td class="span2 songPart"><input type="button" class="songIntro editPartOfSong btn btn-mini"
-                                                      value="{{.}}"/>
-                        {{/intro}}
+                    <td id="songIntro" class="span2">
+                        <input type="button" class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
+                    </td>
+                    {{/intro}}
                     <td align="right" colspan="11">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -52,9 +53,10 @@
                 <tr>
                     <td>Verse:</td>
                     {{#verse}}
-                    <td class="span2 songPart"><input type="button" class="songVerse editPartOfSong btn btn-mini"
-                                                      value="{{.}}"/>
-                        {{/verse}}
+                    <td id="songVerse" class="span2">
+                        <input type="button" class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
+                    </td>
+                    {{/verse}}
                     <td align="right" colspan="8">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -62,9 +64,10 @@
                 <tr>
                     <td>Chorus:</td>
                     {{#chorus}}
-                    <td class="span2 songPart"><input type="button" class="songChorus editPartOfSong btn btn-mini"
-                                                      value="{{.}}"/>
-                        {{/chorus}}
+                    <td id="songChorus" class="span2">
+                        <input type="button" class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
+                    </td>
+                    {{/chorus}}
                     <td align="right" colspan="10">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -72,9 +75,10 @@
                 <tr>
                     <td>Outro:</td>
                     {{#outro}}
-                    <td class="span2 songPart"><input type="button" class="songOutro editPartOfSong btn btn-mini"
-                                                      value="{{.}}"/>
-                        {{/outro}}
+                    <td id="songOutro" class="span2">
+                        <input type="button" class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
+                    </td>
+                    {{/outro}}
                     <td align="right">
                         <input type="button" class="editPartOfSong btn btn-success" value="Edit"/>
                     </td>
@@ -178,14 +182,13 @@
         });
 
         $("body").on("click", ".editPartOfSong", function () {
-            var columns = $(this).parents("tr").children("td.songPart");
+            var songPart = $(this).parents("td");
+            var songPartId = songPart.attr('id');
             var chordsSelect;
             $.getJSON("/musicmaker/chords", function (chords) {
                 var template = $('#chordsTemplate').html();
-                chordsSelect = Mustache.to_html(template, {chords: chords});
-                columns.each(function () {
-                    $(this).html(chordsSelect);
-                });
+                chordsSelect = Mustache.to_html(template, {chords: chords, songPartId: songPartId});
+                songPart.html(chordsSelect);
             });
         });
 
