@@ -8,6 +8,9 @@
         height: 30px;
         width: 50px;
     }
+    td {
+        width: 250px;
+    }
     </style>
 
     <meta charset="UTF-8">
@@ -51,7 +54,7 @@
                     <td>Intro:</td>
                     {{#song.intro}}
                     <td id="songIntro" class="span2">
-                        <input type="button" class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.intro}}
                 </tr>
@@ -59,7 +62,7 @@
                     <td>Verse:</td>
                     {{#song.verse}}
                     <td id="songVerse" class="span2">
-                        <input type="button" class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.verse}}
                 </tr>
@@ -67,7 +70,7 @@
                     <td>Chorus:</td>
                     {{#song.chorus}}
                     <td id="songChorus" class="span2">
-                        <input type="button" class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.chorus}}
                 </tr>
@@ -75,7 +78,7 @@
                     <td>Outro:</td>
                     {{#song.outro}}
                     <td id="songOutro" class="span2">
-                        <input type="button" class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
                     </td>
                     {{/song.outro}}
                 </tr>
