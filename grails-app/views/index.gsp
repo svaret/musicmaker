@@ -89,8 +89,7 @@
         <div class="well">
             <table class="table table-striped table-hover table-condensed">
                 <tr>
-                    <td/><td/>
-                    <td align="right">
+                    <td colspan="4">
                         <input id="deleteSongs" type="button" class="btn btn-danger" value="Delete All"/>
                     </td>
                 </tr>
