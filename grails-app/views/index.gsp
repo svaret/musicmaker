@@ -22,6 +22,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://github.com/janl/mustache.js/raw/master/mustache.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+    <g:javascript src="songevents.js"/>
 
     <script id="chordsTemplate" type="text/template">
         <select class="select-mini btn-mini {{songPartId}}">
@@ -51,7 +52,8 @@
                     <td>Intro:</td>
                     {{#song.intro}}
                     <td id="songIntro" class="span2">
-                        <input type="button" style="width: 35px " class="songIntro editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songIntro editPartOfSong btn btn-mini"
+                               value="{{.}}"/>
                     </td>
                     {{/song.intro}}
                 </tr>
@@ -59,7 +61,8 @@
                     <td>Verse:</td>
                     {{#song.verse}}
                     <td id="songVerse" class="span2">
-                        <input type="button" style="width: 35px " class="songVerse editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songVerse editPartOfSong btn btn-mini"
+                               value="{{.}}"/>
                     </td>
                     {{/song.verse}}
                 </tr>
@@ -67,7 +70,8 @@
                     <td>Chorus:</td>
                     {{#song.chorus}}
                     <td id="songChorus" class="span2">
-                        <input type="button" style="width: 35px " class="songChorus editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songChorus editPartOfSong btn btn-mini"
+                               value="{{.}}"/>
                     </td>
                     {{/song.chorus}}
                 </tr>
@@ -75,7 +79,8 @@
                     <td>Outro:</td>
                     {{#song.outro}}
                     <td id="songOutro" class="span2">
-                        <input type="button" style="width: 35px " class="songOutro editPartOfSong btn btn-mini" value="{{.}}"/>
+                        <input type="button" style="width: 35px " class="songOutro editPartOfSong btn btn-mini"
+                               value="{{.}}"/>
                     </td>
                     {{/song.outro}}
                 </tr>
@@ -132,7 +137,6 @@
 </div>
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
-
 <h1>Music Maker</h1>
 <input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>
 <input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
@@ -158,157 +162,6 @@
 </div>
 
 <div id="presentationArea" class="container-fluid span8 offset1"/>
-
-<script>
-    function getTextValuesFromElementArray(elementArray) {
-        return elementArray.map(
-                function () {
-                    return $(this).val();
-                }).toArray();
-    }
-
-    function renderSong(song, saveAction) {
-        var maxLength = song.intro.length;
-        if (song.verse.length > maxLength) maxLength = song.verse.length;
-        if (song.chorus.length > maxLength) maxLength = song.chorus.length;
-        if (song.outro.length > maxLength) maxLength = song.outro.length;
-        var template = $('#songTemplate').html();
-        var html = Mustache.to_html(template, {song: song,
-            saveAction: saveAction,
-            colSpan: maxLength});
-        $('#presentationArea').html(html);
-    }
-
-    function saveSong(url, method) {
-        return $.ajax({
-            url: url,
-            contentType: "application/json",
-            type: method,
-            dataType: "json",
-            data: JSON.stringify({
-                'title': $(".songTitle").val(),
-                'intro': getTextValuesFromElementArray($(".songIntro")),
-                'verse': getTextValuesFromElementArray($(".songVerse")),
-                'chorus': getTextValuesFromElementArray($(".songChorus")),
-                'outro': getTextValuesFromElementArray($(".songOutro")),
-                'author': $("#songAuthor").val()
-            })
-        });
-    }
-
-    function getSongById(songId) {
-        $.getJSON("/musicmaker/songs/" + songId, function (song) {
-            renderSong(song, "saveExistingSong");
-            $("#saveExistingSong").prop('disabled', true);
-        });
-    }
-
-    function renderSongArchive() {
-        $.getJSON("/musicmaker/songs", function (songs) {
-            $("#presentationArea").empty();
-            var template = $('#songArchiveTemplate').html();
-            var html = Mustache.to_html(template, {songs: songs});
-            $('#presentationArea').html(html);
-        });
-    }
-
-    function deleteSong(url) {
-        $.ajax({
-            url: url,
-            contentType: "application/json",
-            type: "DELETE"
-        })
-                .fail(function (jqXHR, textStatus) {
-                    alert(jqXHR + " " + textStatus);
-                }).success(function () {
-                    renderSongArchive();
-                });
-    }
-
-    $(document).ready(function () {
-        $("#generateRandomSong").click(function () {
-            $.getJSON("/musicmaker/songs/random", function (song) {
-                renderSong(song, "saveRandomSong");
-            });
-        });
-
-        $("body").on("click", ".viewSong", function () {
-            var columns = $(this).parents("tr").children("td");
-            var songId = columns.last().children("input").val();
-            getSongById(songId);
-        });
-
-        $("body").on("click", "#editSongTitle", function () {
-            var songTitle = $("#songTitle").text().trim();
-            var template = $("#editSongTitleTemplate").html();
-            var editSongHtml = Mustache.to_html(template, {title: songTitle});
-            $("#songTitle").html(editSongHtml);
-            $("#editSongTitle").prop('disabled', true);
-            $(".saveSongButton").prop('disabled', false);
-        });
-
-        $("body").on("click", ".editPartOfSong", function () {
-            var songPart = $(this).parents("td");
-            var songPartId = songPart.attr('id');
-            var chordsSelect;
-            $.getJSON("/musicmaker/chords", function (chords) {
-                var template = $('#chordsTemplate').html();
-                chordsSelect = Mustache.to_html(template, {chords: chords, songPartId: songPartId});
-                songPart.html(chordsSelect);
-                $(".saveSongButton").prop('disabled', false);
-            });
-        });
-
-        $("body").on("click", "#saveRandomSong", function () {
-            var songId;
-            saveSong("/musicmaker/songs", "POST")
-                    .fail(function (jqXHR, textStatus) {
-                        alert(jqXHR + " " + textStatus);
-                    })
-                    .success(function (result) {
-                        $(".saveSongButton").prop('disabled', true);
-                        getSongById(result.songId);
-                    });
-        });
-
-        $("#songArchive").click(function () {
-            renderSongArchive();
-        });
-
-        $("body").on("click", "#saveExistingSong", function () {
-            var columns = $(this).parents("tr").children("td");
-            var songId = $("#songId").val();
-            saveSong("/musicmaker/songs/" + songId, "PUT")
-                    .fail(function (jqXHR, textStatus) {
-                        alert(jqXHR + " " + textStatus);
-                    })
-                    .success(function () {
-                        $("#saveExistingSong").prop('disabled', true);
-                        getSongById(songId);
-                    });
-        });
-
-        $("body").on("click", ".deleteSong", function () {
-            var columns = $(this).parents("tr").children("td");
-            var songId = columns.last().children("input").val();
-            deleteSong("/musicmaker/songs/" + songId);
-        });
-
-        $("body").on("click", "#deleteSongs", function () {
-            deleteSong("/musicmaker/songs");
-        });
-
-        $("#about_variant").click(function () {
-            var template = $('#aboutTemplate').html();
-            var html = Mustache.to_html(template);
-            $('#presentationArea').html(html);
-        });
-
-        $("#aboutModal").click(function () {
-            $('#about').modal('show');
-        });
-    });
-</script>
 
 </body>
 </html>
