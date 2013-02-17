@@ -39,12 +39,12 @@
         <div class="well">
             <table class="table-striped table-hover table-condensed">
                 <tr>
+                    <td>
+                        <input id="editSongTitle" type="button" class="btn btn-mini btn-success" value="Edit"/>
+                    </td>
                     <td id="songTitle" colspan={{colSpan}}>
                         <input class="songTitle" type="hidden" value="{{song.title}}"/>
                         <b>{{song.title}}</b>
-                    </td>
-                    <td>
-                        <input id="editSongTitle" type="button" class="btn btn-success" value="Edit"/>
                     </td>
                 </tr>
                 <tr>
@@ -93,14 +93,14 @@
             <table class="table table-striped table-hover table-condensed">
                 <tr>
                     <td colspan="4">
-                        <input id="deleteSongs" type="button" class="btn btn-danger" value="Delete All"/>
+                        <input id="deleteSongs" type="button" class="btn btn-mini btn-danger" value="Delete All"/>
                     </td>
                 </tr>
                 {{#songs}}
                 <tr>
                     <td>{{title}}</td>
-                    <td><input type="button" class="btn btn-success viewSong" value="View"/></td>
-                    <td><input type="button" class="btn btn-danger deleteSong" value="Delete"/></td>
+                    <td><input type="button" class="btn btn-mini btn-success viewSong" value="View"/></td>
+                    <td><input type="button" class="btn btn-danger btn-mini deleteSong" value="Delete"/></td>
                     <td><input value="{{_id.$oid}}" type="hidden"></td>
                 </tr>
                 {{/songs}}
@@ -243,6 +243,7 @@
             var template = $("#editSongTitleTemplate").html();
             var editSongHtml = Mustache.to_html(template, {title: songTitle});
             $("#songTitle").html(editSongHtml);
+            $("#editSongTitle").prop('disabled', true);
             $(".saveSongButton").prop('disabled', false);
         });
 
