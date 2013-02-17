@@ -115,7 +115,7 @@
 <div class="navbar navbar-inverse" span8 offset3>
     <div class="navbar-inner">
         <ul class="nav">
-            <li><a href="#">About</a></li>
+        <ul class="nav"><li><a href="#" id="aboutModal">About</a></li></ul>
         </ul>
     </div>
 </div>
@@ -277,10 +277,14 @@
             deleteSong("/musicmaker/songs");
         });
 
-        $("#about").click(function () {
+        $("#about_variant").click(function () {
             var template = $('#aboutTemplate').html();
             var html = Mustache.to_html(template);
             $('#presentationArea').html(html);
+        });
+
+        $("#aboutModal").click(function () {
+	       	$('#about').modal('show');	
         });
     });
 </script>
