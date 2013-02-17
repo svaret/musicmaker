@@ -31,12 +31,21 @@
         </select>
     </script>
 
+    <script id="editSongTitleTemplate" type="text/template">
+        <input class="songTitle" value="{{title}}"/>
+    </script>
+
     <script id="songTemplate" type="text/template">
         <div class="well">
             <table class="table-striped table-hover table-condensed">
                 <tr>
-                    <td colspan={{colSpan}} id="songTitle"><b>{{song.title}}</b></td>
-                    <td><input type="button" class="editTitle btn btn-success" value="Edit"/></td>
+                    <td id="songTitle" colspan={{colSpan}}>
+                        <input class="songTitle" type="hidden" value="{{song.title}}"/>
+                        <b>{{song.title}}</b>
+                    </td>
+                    <td>
+                        <input id="editSongTitle" type="button" class="btn btn-success" value="Edit"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Intro:</td>
@@ -146,7 +155,7 @@
     </div>
 </div>
 
-<div class="container-fluid span8 offset1" id="presentationArea"/>
+<div id="presentationArea" class="container-fluid span8 offset1"/>
 
 <script>
     function getTextValuesFromElementArray(elementArray) {
@@ -175,7 +184,7 @@
             type: method,
             dataType: "json",
             data: JSON.stringify({
-                'title': $("#songTitle").text(),
+                'title': $(".songTitle").val(),
                 'intro': getTextValuesFromElementArray($(".songIntro")),
                 'verse': getTextValuesFromElementArray($(".songVerse")),
                 'chorus': getTextValuesFromElementArray($(".songChorus")),
@@ -224,6 +233,14 @@
             var columns = $(this).parents("tr").children("td");
             var songId = columns.last().children("input").val();
             getSongById(songId);
+        });
+
+        $("body").on("click", "#editSongTitle", function () {
+            var songTitle = $("#songTitle").text().trim();
+            var template = $("#editSongTitleTemplate").html();
+            var editSongHtml = Mustache.to_html(template, {title: songTitle});
+            $("#songTitle").html(editSongHtml);
+            $(".saveSongButton").prop('disabled', false);
         });
 
         $("body").on("click", ".editPartOfSong", function () {
