@@ -8,9 +8,6 @@
         height: 30px;
         width: 50px;
     }
-    td {
-        width: 250px;
-    }
     </style>
 
     <meta charset="UTF-8">
