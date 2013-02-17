@@ -79,9 +79,9 @@
                     </td>
                     {{/song.outro}}
                 </tr>
-                    <td id="songAuthor" colspan={{colSpan}}>
-                         Original composition by: <input class="songAuthor" type="text/template"" value="{{song.author}}"/>
-                    </td>
+                <td colspan={{colSpan}}>
+                    Original composition by: <input id="songAuthor" value="{{song.author}}"/>
+                </td>
             </table>
         </div>
         <input type="button" id="{{saveAction}}" class="btn btn-success saveSongButton" value="Save"/>
@@ -191,7 +191,7 @@
                 'verse': getTextValuesFromElementArray($(".songVerse")),
                 'chorus': getTextValuesFromElementArray($(".songChorus")),
                 'outro': getTextValuesFromElementArray($(".songOutro")),
-                'author': $(".songAuthor").val()
+                'author': $("#songAuthor").val()
             })
         });
     }
