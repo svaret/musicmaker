@@ -1,11 +1,9 @@
 package musicmaker.factory
 
+import groovy.json.JsonSlurper
 import org.springframework.web.client.RestTemplate
 
 class RandomWordFactory {
-
-    private static FIRST_REAL_LETTER = 3
-    private static START_INDEX_REST_OF_WORD = 4
     private static final RANDOM = new Random()
 
     static def pickAmongTuneWords() {
@@ -14,13 +12,13 @@ class RandomWordFactory {
 
     static def pickFromWebService() {
         def restTemplate = new RestTemplate()
-        def result = restTemplate.getForObject "http://randomword.setgetgo.com/get.php", String.class
-        upperCaseFirstLetterAndRemoveLeadingGarbage result
+        def result = restTemplate.getForObject "http://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&api_key=975d12f51cac2ca4d300502bdac0e101af8c4087906889cf8", String.class
+        def jsonObj = new JsonSlurper().parseText( result )
+        upperCaseFirstLetterAndRemoveLeadingGarbage jsonObj.word
     }
 
     private static def upperCaseFirstLetterAndRemoveLeadingGarbage(String result) {
-        result[FIRST_REAL_LETTER].toUpperCase() +
-                result[START_INDEX_REST_OF_WORD..result.length()-3]
+        result[0].toUpperCase() + result[1..result.length()-1]
     }
 
     private static final tuneWords =

@@ -17,7 +17,7 @@ class SongsController {
         def db = mongo.getDB(MUSICMAKER_DB)
         BasicDBObject dbObject = new BasicDBObject(request.JSON)
         db.song.insert(dbObject)
-        ObjectId songId = (ObjectId)dbObject.get( "_id" );
+        ObjectId songId = (ObjectId)dbObject.get( "_id" )
 
         def result = [status: "OK", songId: songId.toString()]
         render result as JSON

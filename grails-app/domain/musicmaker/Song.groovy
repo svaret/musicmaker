@@ -15,7 +15,7 @@ class Song {
 	String author
 
     Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords, int numberOfOutroNotes, String author) {
-        title = RandomWordFactory.pickAmongTuneWords() + " " + RandomWordFactory.pickAmongTuneWords()
+        title = RandomWordFactory.pickAmongTuneWords() + " " + RandomWordFactory.pickFromWebService()
         intro = new Riff(ToneSequenceFactory.createRandomToneSequence(numberOfIntroNotes))
         verse = new Verse(ChordSequenceFactory.createRandomSequence(numberOfVerseChords))
         chorus = new Chorus(ChordSequenceFactory.createRandomSequence(numberOfChorusChords))
