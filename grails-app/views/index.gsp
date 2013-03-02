@@ -43,6 +43,10 @@
         <input class="songTitle" value="{{title}}"/>
     </script>
 
+    <script id="editSongAuthorTemplate" type="text/template">
+        <input class="songAuthor" value="{{author}}"/>
+    </script>
+
     <script id="songTemplate" type="text/template">
         <div class="well">
             <table class="table-striped table-hover table-condensed">
@@ -90,9 +94,13 @@
                                value="{{.}}"/>
                     </td>
                     {{/song.outro}}
-                </tr>
-                <td colspan={{colSpan}}>
-                    Original composition by: <input id="songAuthor" value="{{song.author}}"/>
+				</tr>
+               <td>
+                        <input id="editSongAuthor" type="button" class="btn btn-mini btn-success" value="Edit"/>
+                    </td>
+				<td id="songAuthor" colspan={{colSpan}}>
+                        <input class="songAuthor" type="hidden" value="{{song.author}}"/>
+                        <b>{{song.author}}</b>
                 </td>
             </table>
         </div>

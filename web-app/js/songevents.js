@@ -29,7 +29,7 @@ function saveSong(url, method) {
             'verse': getTextValuesFromElementArray($(".songVerse")),
             'chorus': getTextValuesFromElementArray($(".songChorus")),
             'outro': getTextValuesFromElementArray($(".songOutro")),
-            'author': $("#songAuthor").val()
+            'author': $(".songAuthor").val()
         })
     });
 }
@@ -85,6 +85,17 @@ $(document).ready(function () {
         $(".saveSongButton").prop('disabled', false);
     });
 
+    
+    $("body").on("click", "#editSongAuthor", function () {
+        var songAuthor = $("#songAuthor").text().trim();
+        var template = $("#editSongAuthorTemplate").html();   
+        var editSongHtml = Mustache.to_html(template, {author: songAuthor});
+        $("#songAuthor").html(editSongHtml);
+        $("#editSongAuthor").prop('disabled', true);
+        $(".saveSongButton").prop('disabled', false);
+    });
+
+    
     $("body").on("click", ".editPartOfSong", function () {
         var songPart = $(this).parents("td");
         var songPartId = songPart.attr('id');
