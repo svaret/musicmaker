@@ -119,6 +119,7 @@
                 {{#songs}}
                 <tr>
                     <td>{{title}}</td>
+                    <td>{{author}}</td>
                     <td><input type="button" class="btn btn-mini btn-success viewSong" value="View"/></td>
                     <td><input type="button" class="btn btn-danger btn-mini deleteSong" value="Delete"/></td>
                     <td><input value="{{_id.$oid}}" type="hidden"></td>
