@@ -3,16 +3,32 @@
       xmlns="http://www.w3.org/1999/html">
 <head>
 
-
     <style>
-    .select-mini {
+    .chordSelect {
         font-size: 11px;
-        height: 30px;
         width: 50px;
+        vertical-align: bottom !important;
+        height: 20px !important;
+    }
+
+    .column {
+        width: 2000px !important;
+    }
+
+    .row {
+        height: 30px;
     }
 
     body {
         background-image: url('img/knappar.jpg');
+    }
+
+    select {
+    }
+
+    .chordButton {
+        width: 35px !important;
+
     }
     </style>
 
@@ -32,7 +48,7 @@
     <g:javascript src="songevents.js"/>
 
     <script id="chordsTemplate" type="text/template">
-        <select class="select-mini btn-mini {{songPartId}}">
+        <select class="chordSelect btn-mini {{songPartId}}">
             {{#chords}}
             <option value="{{chord}}">{{chord}}</option>
             {{/chords}}
@@ -59,38 +75,38 @@
                         <b>{{song.title}}</b>
                     </td>
                 </tr>
-                <tr>
+                <tr class="row">
                     <td>Intro:</td>
                     {{#song.intro}}
-                    <td id="songIntro" class="span2">
-                        <input type="button" style="width: 35px " class="songIntro editPartOfSong btn btn-mini"
+                    <td id="songIntro" class="span2 column">
+                        <input type="button" class="chordButton songIntro editPartOfSong btn btn-mini"
                                value="{{.}}"/>
                     </td>
                     {{/song.intro}}
                 </tr>
-                <tr>
+                <tr class="row">
                     <td>Verse:</td>
                     {{#song.verse}}
-                    <td id="songVerse" class="span2">
-                        <input type="button" style="width: 35px " class="songVerse editPartOfSong btn btn-mini"
+                    <td id="songVerse" class="span2 column">
+                        <input type="button" class="chordButton songVerse editPartOfSong btn btn-mini"
                                value="{{.}}"/>
                     </td>
                     {{/song.verse}}
                 </tr>
-                <tr>
+                <tr class="row">
                     <td>Chorus:</td>
                     {{#song.chorus}}
-                    <td id="songChorus" class="span2">
-                        <input type="button" style="width: 35px " class="songChorus editPartOfSong btn btn-mini"
+                    <td id="songChorus" class="span2 column">
+                        <input type="button" class="chordButton songChorus editPartOfSong btn btn-mini"
                                value="{{.}}"/>
                     </td>
                     {{/song.chorus}}
                 </tr>
-                <tr>
+                <tr class="row">
                     <td>Outro:</td>
                     {{#song.outro}}
-                    <td id="songOutro" class="span2">
-                        <input type="button" style="width: 35px " class="songOutro editPartOfSong btn btn-mini"
+                    <td id="songOutro" class="span2 column">
+                        <input type="button" class="chordButton songOutro editPartOfSong btn btn-mini"
                                value="{{.}}"/>
                     </td>
                     {{/song.outro}}
