@@ -1,9 +1,11 @@
 package musicmaker
 
-import musicmaker.factory.ChordSequenceFactory
-import musicmaker.factory.RandomWordFactory
-import musicmaker.factory.ToneSequenceFactory
 import org.bson.types.ObjectId
+
+import static musicmaker.factory.ChordSequenceFactory.createRandomSequence
+import static musicmaker.factory.RandomWordFactory.pickAmongTuneWords
+import static musicmaker.factory.RandomWordFactory.pickFromWebService
+import static musicmaker.factory.ToneSequenceFactory.createRandomToneSequence
 
 class Song {
     ObjectId id
@@ -14,12 +16,13 @@ class Song {
     Riff outro
 	String author
 
-    Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords, int numberOfOutroNotes, String author) {
-        title = RandomWordFactory.pickAmongTuneWords() + " " + RandomWordFactory.pickFromWebService()
-        intro = new Riff(ToneSequenceFactory.createRandomToneSequence(numberOfIntroNotes))
-        verse = new Verse(ChordSequenceFactory.createRandomSequence(numberOfVerseChords))
-        chorus = new Chorus(ChordSequenceFactory.createRandomSequence(numberOfChorusChords))
-        outro = new Riff(ToneSequenceFactory.createRandomToneSequence(numberOfOutroNotes))
+    Song(int numberOfIntroNotes, int numberOfVerseChords, int numberOfChorusChords,
+         int numberOfOutroNotes, String author) {
+        this.title = pickAmongTuneWords() + " " + pickFromWebService()
+        this.intro = new Riff(createRandomToneSequence(numberOfIntroNotes))
+        this.verse = new Verse(createRandomSequence(numberOfVerseChords))
+        this.chorus = new Chorus(createRandomSequence(numberOfChorusChords))
+        this.outro = new Riff(createRandomToneSequence(numberOfOutroNotes))
 		this.author = author
     }
 }
