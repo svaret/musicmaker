@@ -48,6 +48,7 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.10.2"
         runtime ":resources:1.2"
 
+
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
