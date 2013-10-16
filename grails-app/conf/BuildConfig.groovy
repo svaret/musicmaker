@@ -7,6 +7,8 @@ grails.project.source.level = 1.6
 grails.server.port.http=8090
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+grails.project.dependency.resolver = "maven" // or ivy
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -37,21 +39,23 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.20'
         compile 'org.apache.httpcomponents:httpclient:4.2.2'
-        compile 'com.gmongo:gmongo:1.0'
+        compile 'com.gmongo:gmongo:1.2'
+        compile "net.sf.ehcache:ehcache-core:2.4.6"
     }
 
     plugins {
-        runtime ':mongodb:1.1.0.GA'
-        runtime ":jquery:1.7.2"
-        runtime ":resources:1.1.6"
+        runtime ':mongodb:1.3.0'
+        runtime ":jquery:1.10.2"
+        runtime ":resources:1.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
-        build ":tomcat:$grailsVersion"
+        build ":tomcat:7.0.42"
 
-        compile ':cache:1.0.0'
+        compile ":scaffolding:2.0.0"
+        compile ':cache:1.1.1'
     }
 }
