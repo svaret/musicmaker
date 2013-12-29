@@ -64,6 +64,26 @@ function deleteSong(url) {
 }
 
 $(document).ready(function () {
+    $.getJSON("/musicmaker/login/code", function (code) {
+        if(code.code) {
+            $("#login").hide();
+            $("#logout").show();
+        }
+    });
+
+    $("#login").click(function () {
+        $.getJSON("/musicmaker/login/login", function (result) {
+            window.location.href = result.url;
+        });
+    });
+
+    $("#logout").click(function () {
+        $.getJSON("/musicmaker/login/logout", function (result) {
+            $("#login").show();
+            $("#logout").hide();
+        });
+    });
+
     $("#generateRandomSong").click(function () {
         $.getJSON("/musicmaker/songs/random", function (song) {
             renderSong(song, "saveRandomSong");
@@ -85,17 +105,15 @@ $(document).ready(function () {
         $(".saveSongButton").prop('disabled', false);
     });
 
-    
     $("body").on("click", "#editSongAuthor", function () {
         var songAuthor = $("#songAuthor").text().trim();
-        var template = $("#editSongAuthorTemplate").html();   
+        var template = $("#editSongAuthorTemplate").html();
         var editSongHtml = Mustache.to_html(template, {author: songAuthor});
         $("#songAuthor").html(editSongHtml);
         $("#editSongAuthor").prop('disabled', true);
         $(".saveSongButton").prop('disabled', false);
     });
 
-    
     $("body").on("click", ".editPartOfSong", function () {
         var songPart = $(this).parents("td");
         var songPartId = songPart.attr('id');

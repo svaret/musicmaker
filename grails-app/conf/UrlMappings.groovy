@@ -1,8 +1,9 @@
 class UrlMappings {
-
     static mappings = {
+        "/$controller/$action?/$id?"()
+
         "/$controller/random" {
-            action = [GET:"random"]
+            action = [GET: "random"]
         }
 
         "/$aController/$id?" {

@@ -20,7 +20,7 @@
     }
 
     body {
-        background-image: url('img/knappar.jpg');
+        background-image: url("${resource(dir: 'img', file: 'knappar.jpg')}");
     }
 
     select {
@@ -110,13 +110,13 @@
                                value="{{.}}"/>
                     </td>
                     {{/song.outro}}
-				</tr>
-               <td>
-                        <input id="editSongAuthor" type="button" class="btn btn-mini btn-success" value="Edit"/>
-                    </td>
-				<td id="songAuthor" colspan={{colSpan}}>
-                        <input class="songAuthor" type="hidden" value="{{song.author}}"/>
-                        <b>{{song.author}}</b>
+                </tr>
+                <td>
+                    <input id="editSongAuthor" type="button" class="btn btn-mini btn-success" value="Edit"/>
+                </td>
+                <td id="songAuthor" colspan={{colSpan}}>
+                    <input class="songAuthor" type="hidden" value="{{song.author}}"/>
+                    <b>{{song.author}}</b>
                 </td>
             </table>
         </div>
@@ -169,12 +169,27 @@
 <div class="navbar navbar-inverse" span8 offset3>
     <div class="navbar-inner">
         <ul class="nav">
-            <ul class="nav"><li><a href="#" id="aboutModal">About</a></li></ul>
+            <input type="button"
+                   id="login"
+                   class="btn btn-success"
+                   value="Login with Google Account"/>
+        </ul>
+        <ul class="nav">
+            <input type="button"
+                   id="logout"
+                   class="btn btn-success"
+                   value="Logout"
+                   hidden="true"/>
+        </ul>
+        <ul class="nav">
+            <li><a href="#" id="aboutModal">About</a></li>
         </ul>
     </div>
 </div>
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
+
+<div id="loggedInActions"/>
 
 <h1>Music Maker</h1>
 <input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>

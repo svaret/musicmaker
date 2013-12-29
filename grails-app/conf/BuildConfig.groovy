@@ -34,13 +34,17 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
+
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.20'
         compile 'org.apache.httpcomponents:httpclient:4.2.2'
         compile 'com.gmongo:gmongo:1.2'
-        compile "net.sf.ehcache:ehcache-core:2.4.6"
+        compile 'net.sf.ehcache:ehcache-core:2.4.6'
+        compile 'com.google.http-client:google-http-client:1.17.0-rc'
+        compile 'com.google.api-client:google-api-client:1.17.0-rc'
+        compile 'com.google.http-client:google-http-client-jackson:1.17.0-rc'
     }
 
     plugins {
