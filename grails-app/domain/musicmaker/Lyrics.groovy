@@ -1,27 +1,17 @@
 package musicmaker
+
 import static musicmaker.factory.RandomWordFactory.pickAmongTuneWords
-import static musicmaker.factory.RandomWordFactory.pickFromWebService;
+import static musicmaker.factory.RandomWordFactory.pickFromWebService
 
 class Lyrics {
-    List<String> words
+    List<String> words = new ArrayList<>()
 
-
-    Lyrics(List<String> words) {
-        this.words = words
-    }
-
-
-    Lyrics(int noOfWords) {
-
-        List<String> tmp  = new ArrayList<String>();
-
-        for(int i = 0; i < noOfWords; i++){
-            if ( i % 2 == 0 )
-                tmp[i] = pickAmongTuneWords();
+    Lyrics(int numberOfWords) {
+        for (int i = 0; i < numberOfWords; i++) {
+            if (i % 2 == 0)
+                words[i] = pickAmongTuneWords()
             else
-                tmp[i] = pickFromWebService();
-         }
-
-        this.words = tmp
+                words[i] = pickFromWebService()
+        }
     }
 }
