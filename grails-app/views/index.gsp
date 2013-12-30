@@ -184,6 +184,7 @@
         <ul class="nav">
             <li><a href="#" id="aboutModal">About</a></li>
         </ul>
+        <span style="background:black; color:white; vertical-align:middle;" id="username"/>
     </div>
 </div>
 

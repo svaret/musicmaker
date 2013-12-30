@@ -68,6 +68,7 @@ $(document).ready(function () {
         if(code.code) {
             $("#login").hide();
             $("#logout").show();
+            $("#username").text('lasse.e.bergstrom@gmail.com');
         }
     });
 
@@ -81,6 +82,7 @@ $(document).ready(function () {
         $.getJSON("/musicmaker/login/logout", function (result) {
             $("#login").show();
             $("#logout").hide();
+            $("#username").text('');
         });
     });
 
