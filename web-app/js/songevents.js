@@ -68,7 +68,7 @@ $(document).ready(function () {
         if(code.code) {
             $("#login").hide();
             $("#logout").show();
-            $("#username").text('lasse.e.bergstrom@gmail.com');
+            $("#username").text(code.email);
         }
     });
 

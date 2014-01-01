@@ -12,6 +12,7 @@ import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.JsonFactory
 import com.google.api.client.json.jackson.JacksonFactory
 import grails.converters.JSON
+import groovy.json.JsonSlurper
 
 import static java.util.Arrays.asList
 
@@ -25,7 +26,7 @@ class LoginController {
     private static final JsonFactory JSON_FACTORY = new JacksonFactory()
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport()
     private static final String OFFLINE = "offline"
-    private static final String FORCE = "force"
+
     private GoogleAuthorizationCodeFlow flow
 
     LoginController() {
@@ -42,23 +43,25 @@ class LoginController {
     }
 
     def authenticate() {
-        GoogleTokenResponse response = flow.newTokenRequest(params.code).setRedirectUri(CALLBACK_URI).execute();
-        Credential credential = flow.createAndStoreCredential(response, null);
-        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
+        GoogleTokenResponse response = flow.newTokenRequest(params.code).setRedirectUri(CALLBACK_URI).execute()
+        Credential credential = flow.createAndStoreCredential(response, null)
+        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential)
 
         // Make an authenticated request
-        GenericUrl url = new GenericUrl(USER_INFO_URL);
-        HttpRequest request = requestFactory.buildGetRequest(url);
-        request.getHeaders().setContentType("application/json");
-        String jsonIdentity = request.execute().parseAsString();
+        GenericUrl url = new GenericUrl(USER_INFO_URL)
+        HttpRequest request = requestFactory.buildGetRequest(url)
+        request.getHeaders().setContentType("application/json")
+        String jsonIdentity = request.execute().parseAsString()
+        def slurper = new JsonSlurper().parseText(jsonIdentity)
 
         System.out.println(params)
         session.code = params.code
+        session.email = slurper.email
         render(view: "/index.gsp")
     }
 
     def code() {
-        def result = [code: session.code]
+        def result = [code: session.code, email: session.email]
         render result as JSON
     }
 
