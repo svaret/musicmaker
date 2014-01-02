@@ -66,9 +66,9 @@ function deleteSong(url) {
 $(document).ready(function () {
     $.getJSON("/musicmaker/authentication/code", function (code) {
         if(code.code) {
-            $("#login").hide();
-            $("#logout").show();
-            $("#username").text(code.email);
+            $('#login').toggle();
+            $('#logout').show();
+            $("#username").text('Logged in as ' + code.email);
         }
     });
 
@@ -80,8 +80,8 @@ $(document).ready(function () {
 
     $("#logout").click(function () {
         $.getJSON("/musicmaker/authentication/logout", function (result) {
-            $("#login").show();
-            $("#logout").hide();
+            $('#logout').toggle();
+            $('#login').toggle();
             $("#username").text('');
         });
     });

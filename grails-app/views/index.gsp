@@ -178,7 +178,7 @@
             <input type="button"
                    id="logout"
                    class="btn btn-success"
-                   value="Logout"
+                   value="Logout from Google Account"
                    hidden="true"/>
         </ul>
         <ul class="nav">
