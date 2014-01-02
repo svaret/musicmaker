@@ -64,7 +64,7 @@ function deleteSong(url) {
 }
 
 $(document).ready(function () {
-    $.getJSON("/musicmaker/login/code", function (code) {
+    $.getJSON("/musicmaker/authentication/code", function (code) {
         if(code.code) {
             $("#login").hide();
             $("#logout").show();
@@ -73,13 +73,13 @@ $(document).ready(function () {
     });
 
     $("#login").click(function () {
-        $.getJSON("/musicmaker/login/login", function (result) {
+        $.getJSON("/musicmaker/authentication/login", function (result) {
             window.location.href = result.url;
         });
     });
 
     $("#logout").click(function () {
-        $.getJSON("/musicmaker/login/logout", function (result) {
+        $.getJSON("/musicmaker/authentication/logout", function (result) {
             $("#login").show();
             $("#logout").hide();
             $("#username").text('');
