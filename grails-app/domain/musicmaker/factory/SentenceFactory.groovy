@@ -1,8 +1,5 @@
 package musicmaker.factory
 
-import groovy.json.JsonSlurper
-import org.springframework.web.client.RestTemplate
-
 class SentenceFactory {
 
     private static final RANDOM = new Random()
@@ -60,8 +57,8 @@ class SentenceFactory {
         String[] Pattern4 = ["P", "D", "N", "N", "V", "V", "N", "C", "D"]
         String[] Pattern5 = ["C", "N", "V", "P", "N", "P",  "N" ]
 
-        private final allpatterns = [Pattern1, Pattern2, Pattern3, Pattern4, Pattern5]
-        return (allpatterns[Random.nextInt(allpatterns.size)])
+//        private final allpatterns = [Pattern1, Pattern2, Pattern3, Pattern4, Pattern5]
+//        return (allpatterns[Random.nextInt(allpatterns.size)])
 
     }
 
