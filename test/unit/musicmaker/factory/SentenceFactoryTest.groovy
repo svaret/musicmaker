@@ -1,23 +1,19 @@
 package musicmaker.factory
 
-import musicmaker.factory.SentenceFactory
 import org.junit.Test
 
-import static groovy.util.GroovyTestCase.assertEquals
 import static junit.framework.TestCase.assertTrue
 
 class SentenceFactoryTest {
-
     @Test
-    void createSenentenceShouldReturnSentenence() {
-        String sentence = SentenceFactory.getSentence()
-        assertTrue(sentence.length() > 10)
+    void createSentenceShouldReturnSentence() {
+        String sentence = SentenceFactory.createSentence()
+        assertTrue sentence.length() > 10
     }
 
     @Test
-    void getSenentencePatternShouldReturnPattern() {
+    void getSentencePatternShouldReturnPattern() {
         String sentence  = SentenceFactory.getSentencePattern()
-        assertTrue(sentence.length() > 10)
+        assertTrue sentence.length() > 10
     }
-
 }
