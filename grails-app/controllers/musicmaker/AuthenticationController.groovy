@@ -12,6 +12,11 @@ class AuthenticationController {
     }
 
     def callback() {
+        if (params.error) {
+            render(view: "/index.gsp")
+            return
+        }
+
         def email = authenticationService.getUserEmail(params.code)
         if (!accountService.accountExists(email))
             accountService.createAccount(email)
