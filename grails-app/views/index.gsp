@@ -156,6 +156,12 @@
         </div>
     </script>
 
+    <script id="authenticationTemplate" type="text/template">
+        <input type="button"
+               id="login"
+               class="btn btn-success"
+               value="{{authenticationLabel}}"/>
+    </script>
 </head>
 
 <body>
@@ -169,18 +175,19 @@
 <div class="navbar navbar-inverse" span8 offset3>
     <div class="navbar-inner">
         <ul class="nav">
+            %{--<div id="authenticationButton"/>--}%
             <input type="button"
                    id="login"
                    class="btn btn-success"
-                   value="Login with Google Account"/>
+                   value=""/>
         </ul>
-        <ul class="nav">
-            <input type="button"
-                   id="logout"
-                   class="btn btn-success"
-                   value="Logout from Google Account"
-                   hidden="true"/>
-        </ul>
+        %{--<ul class="nav">--}%
+        %{--<input type="button"--}%
+        %{--id="logout"--}%
+        %{--class="btn btn-success"--}%
+        %{--value="Logout from Google Account"--}%
+        %{--hidden="true"/>--}%
+        %{--</ul>--}%
         <ul class="nav">
             <li><a href="#" id="aboutModal">About</a></li>
         </ul>

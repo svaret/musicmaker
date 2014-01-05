@@ -64,17 +64,31 @@ function deleteSong(url) {
 }
 
 $(document).ready(function () {
-    $.getJSON("/musicmaker/authentication/code", function (code) {
-        if(code.code) {
-            $('#login').toggle();
-            $('#logout').show();
-            $("#username").text('Logged in as ' + code.email);
+//    var template = $("#authenticationTemplate").html();
+
+    $.getJSON("/musicmaker/authentication/code", function (result) {
+        if (result.code) {
+            $("#login").attr('value', 'Logout from Google Account');
+            $("#username").text('Logged in as ' + result.email);
+        } else {
+            $("#login").attr('value', 'Login with Google Account');
         }
     });
 
     $("#login").click(function () {
-        $.getJSON("/musicmaker/authentication/login", function (result) {
-            window.location.href = result.url;
+        $.getJSON("/musicmaker/authentication/code", function (result) {
+            if (result.code) {
+                $.getJSON("/musicmaker/authentication/logout", function (result) {
+                    $("#username").text('');
+                    $("#login").attr('value', 'Login with Google Account');
+                });
+            } else {
+                $.getJSON("/musicmaker/authentication/login", function (result) {
+                        $("#login").attr('onclick', '/musicmaker/authentication/logout');
+                        $("#login").attr('value', 'Logout from Google Account');
+                        window.location.href = result.url;
+                });
+            }
         });
     });
 
