@@ -155,13 +155,6 @@
             </table>
         </div>
     </script>
-
-    <script id="authenticationTemplate" type="text/template">
-        <input type="button"
-               id="login"
-               class="btn btn-success"
-               value="{{authenticationLabel}}"/>
-    </script>
 </head>
 
 <body>
@@ -175,19 +168,10 @@
 <div class="navbar navbar-inverse" span8 offset3>
     <div class="navbar-inner">
         <ul class="nav">
-            %{--<div id="authenticationButton"/>--}%
             <input type="button"
-                   id="login"
-                   class="btn btn-success"
-                   value=""/>
+                   id="authenticate"
+                   class="btn btn-success"/>
         </ul>
-        %{--<ul class="nav">--}%
-        %{--<input type="button"--}%
-        %{--id="logout"--}%
-        %{--class="btn btn-success"--}%
-        %{--value="Logout from Google Account"--}%
-        %{--hidden="true"/>--}%
-        %{--</ul>--}%
         <ul class="nav">
             <li><a href="#" id="aboutModal">About</a></li>
         </ul>
@@ -196,8 +180,6 @@
 </div>
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
-
-<div id="loggedInActions"/>
 
 <h1>Music Maker</h1>
 <input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>

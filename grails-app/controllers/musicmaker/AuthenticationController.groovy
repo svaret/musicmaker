@@ -13,7 +13,7 @@ class AuthenticationController {
 
     def callback() {
         if (params.error) {
-            render(view: "/index.gsp")
+            redirect uri: '/'
             return
         }
 
@@ -23,7 +23,7 @@ class AuthenticationController {
         session.code = params.code
         session.email = email
 
-        render(view: "/index.gsp")
+        redirect uri: '/'
     }
 
     def code() {

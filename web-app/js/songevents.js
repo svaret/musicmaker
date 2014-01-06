@@ -64,38 +64,29 @@ function deleteSong(url) {
 }
 
 $(document).ready(function () {
-//    var template = $("#authenticationTemplate").html();
-
     $.getJSON("/musicmaker/authentication/code", function (result) {
         if (result.code) {
-            $("#login").attr('value', 'Logout from Google Account');
+            $("#authenticate").attr('value', 'Logout from Google Account');
             $("#username").text('Logged in as ' + result.email);
+            $('#authenticate').addClass('logout');
         } else {
-            $("#login").attr('value', 'Login with Google Account');
+            $('#authenticate').addClass('login');
+            $("#authenticate").attr('value', 'Login with Google Account');
         }
     });
 
-    $("#login").click(function () {
-        $.getJSON("/musicmaker/authentication/code", function (result) {
-            if (result.code) {
-                $.getJSON("/musicmaker/authentication/logout", function (result) {
-                    $("#username").text('');
-                    $("#login").attr('value', 'Login with Google Account');
-                });
-            } else {
-                $.getJSON("/musicmaker/authentication/login", function (result) {
-                        $("#login").attr('onclick', '/musicmaker/authentication/logout');
-                        $("#login").attr('value', 'Logout from Google Account');
-                        window.location.href = result.url;
-                });
-            }
+    $("body").on("click", ".login", function () {
+        $('#authenticate').toggleClass('login logout');
+        console.log($('#authenticate'));
+        $.getJSON("/musicmaker/authentication/login", function (result) {
+            window.location.href = result.url;
         });
     });
 
-    $("#logout").click(function () {
+    $("body").on("click", ".logout", function () {
+        $('#authenticate').toggleClass('login logout');
         $.getJSON("/musicmaker/authentication/logout", function (result) {
-            $('#logout').toggle();
-            $('#login').toggle();
+            $("#authenticate").attr('value', 'Login with Google Account');
             $("#username").text('');
         });
     });
