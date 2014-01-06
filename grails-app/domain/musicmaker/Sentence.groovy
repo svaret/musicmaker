@@ -3,9 +3,11 @@ package musicmaker
 class Sentence {
     List<Word> words = []
 
+    WordArchive wordArchive = new WordArchive()
+
     Sentence() {
         (0..5).each {
-            words << Word.getRandom()
+            words << wordArchive.randomWord
         }
     }
 }
