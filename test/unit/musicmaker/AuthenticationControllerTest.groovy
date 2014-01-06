@@ -26,7 +26,7 @@ class AuthenticationControllerTest extends Specification {
         1 * accountService.createAccount("email@domain.se")
         session.code == "authCode"
         session.email == "email@domain.se"
-        view == "/index.gsp"
+        response.redirectedUrl == '/'
     }
 
     def "callback should just render start page when user denies access"() {
@@ -40,6 +40,6 @@ class AuthenticationControllerTest extends Specification {
         0 * authenticationService.getUserEmail(_)
         0 * accountService.accountExists(_)
         0 * accountService.createAccount(_)
-        view == "/index.gsp"
+        response.redirectedUrl == '/'
     }
 }
