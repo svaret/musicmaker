@@ -8,6 +8,9 @@ class WordArchiveTest extends Specification {
     def wordArchive = new WordArchive()
 
     def "created word archive should contain words of all word classes"() {
+        when:
+        def wordArchive = new WordArchive()
+
         then:
         wordArchive.VERB_STRINGS.size() > 0
         wordArchive.NOUN_STRINGS.size() > 0
