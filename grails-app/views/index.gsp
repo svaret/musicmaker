@@ -2,13 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html">
 <head>
-
     <style>
     .chordSelect {
         font-size: 11px;
         width: 50px;
         vertical-align: bottom !important;
         height: 20px !important;
+        margin: 0;
     }
 
     .column {
