@@ -33,7 +33,7 @@ class AuthenticationService {
                 CLIENT_SECRET, SCOPE).build()
     }
 
-    def login() {
+    def getGoogleAuthorizationUrl() {
         GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl()
         url.setRedirectUri(CALLBACK_URI).setState("google;601227152").setAccessType(OFFLINE).build()
     }

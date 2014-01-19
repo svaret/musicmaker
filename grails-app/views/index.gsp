@@ -170,12 +170,16 @@
         <ul class="nav">
             <input type="button"
                    id="authenticate"
-                   class="btn btn-success"/>
+                   class="nav btn btn-success"
+                   value="Login with Google account"
+                   style="width:210px;"/>
         </ul>
         <ul class="nav">
             <li><a href="#" id="aboutModal">About</a></li>
         </ul>
-        <span style="background:black; color:white; vertical-align:middle;" id="username"/>
+        <ul class="nav">
+            <li><a style="background: #1b1b1b; color:white; vertical-align:middle;" id="username"/></li>
+        </ul>
     </div>
 </div>
 
