@@ -44,7 +44,7 @@ class SentenceTest extends Specification {
         Sentence sentence = new Sentence()
 
         then:
-        char c = sentence.wordString[sentence.wordString.length()]
+        char c = sentence.wordString[sentence.wordString.length()-1]
         c == "."
 
     }
