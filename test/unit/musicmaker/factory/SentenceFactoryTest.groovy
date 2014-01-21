@@ -9,12 +9,12 @@ class SentenceFactoryTest {
 
     @Test
     void createSentenceShouldContainCorrectNumberOfSentences() {
-        int numberOfSentences= 4
+        int numberOfSentences= 10
         List<Sentence> sentences = SentenceFactory.createSentences(numberOfSentences)
 
         assertEquals numberOfSentences, sentences.size()
 
-        (0..3).each{
+        (0..9).each{
         System.out.println(sentences[it].wordString)
         }
     }

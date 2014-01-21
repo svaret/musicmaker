@@ -29,7 +29,7 @@ class WordArchive {
     }
 
     Word getRandomAdverb() {
-        new Word(ADVERB, ADVERB_STRINGS[RANDOM.nextInt(VERB_STRINGS.size)])
+        new Word(ADVERB, ADVERB_STRINGS[RANDOM.nextInt(ADVERB_STRINGS.size)])
     }
 
     Word getRandomPreposition() {
