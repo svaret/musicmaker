@@ -18,6 +18,6 @@ class Sentence {
         String restOfString = wordString.substring(2)
 
         String firstLetterInCapital = (String) Character.toUpperCase(firstLetter.toCharacter())
-        firstLetterInCapital + restOfString + "."
+        wordString = firstLetterInCapital + restOfString + "."   //TODO: Känns grisigt att skriva över wordstring då den tilldelats här ovanför
     }
 }

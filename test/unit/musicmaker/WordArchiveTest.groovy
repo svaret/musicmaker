@@ -19,7 +19,17 @@ class WordArchiveTest extends Specification {
         wordArchive.CONJUNCTION_STRINGS.size() > 0
         wordArchive.DETERMINER_STRINGS.size() > 0
         wordArchive.PREPOSITION_STRINGS.size() > 0
+
+        System.out.println("Verbs: " + wordArchive.VERB_STRINGS.size())
+        System.out.println("Nouns: " + wordArchive.NOUN_STRINGS.size())
+        System.out.println("Adjectives: " + wordArchive.ADJECTIVE_STRINGS.size())
+        System.out.println("Adverbs: " + wordArchive.ADVERB_STRINGS.size())
+        System.out.println("Conjunctions: " + wordArchive.CONJUNCTION_STRINGS.size())
+        System.out.println("Determiners: " + wordArchive.DETERMINER_STRINGS.size())
+        System.out.println("Prepositions: " + wordArchive.PREPOSITION_STRINGS.size())
     }
+
+
 
     def "getVerb should return Verb"() {
         when:
