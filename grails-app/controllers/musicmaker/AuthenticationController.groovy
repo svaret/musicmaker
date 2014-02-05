@@ -7,7 +7,6 @@ class AuthenticationController {
     AccountService accountService
 
     def login() {
-        int i = 1
         def result = [url: authenticationService.getGoogleAuthorizationUrl()]
         render result as JSON
     }
