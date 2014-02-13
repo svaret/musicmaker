@@ -54,7 +54,7 @@
             {{/chords}}
         </select>
     </script>
-
+AAAAAAAAAAAAAA
     <script id="editSongTitleTemplate" type="text/template">
         <input class="songTitle" value="{{title}}"/>
     </script>
