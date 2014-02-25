@@ -18,9 +18,10 @@ import javax.annotation.PostConstruct
 import static java.util.Arrays.asList
 
 class AuthenticationService {
-    String clientID
-    String clientSecret
-    String callbackURI
+    def grailsApplication
+    private String clientID
+    private String clientSecret
+    private String callbackURI
 
     private GoogleAuthorizationCodeFlow flow
     private static final Iterable<String> SCOPE = asList("https://www.googleapis.com/auth/userinfo.profile",
@@ -32,6 +33,9 @@ class AuthenticationService {
 
     @PostConstruct
     private void init() {
+        clientID = grailsApplication.config.google.authorization.client.id
+        clientSecret = grailsApplication.config.google.authorization.client.secret
+        callbackURI = grailsApplication.config.google.authorization.callback.uri
         flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientID,
                 clientSecret, SCOPE).build()
     }

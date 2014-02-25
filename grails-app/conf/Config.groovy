@@ -10,8 +10,10 @@
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+
 grails.config.locations = [
-        "file:/etc/${appName}.properties",
+        "classpath:musicmaker-config.properties",
+        "file:/etc/musicmaker-config.properties"
 ]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
@@ -93,21 +95,6 @@ log4j = {
             'net.sf.ehcache.hibernate'
 }
 
-google {
-    authorization {
-        client.id = "72370846401-jo027588vl6vimint313crgh4r1t940h.apps.googleusercontent.com"
-        client.secret = "c2Y0I2-TtoICzcfAVP2i9cXg"
-        callback.uri = "http://localhost:8090/musicmaker/authentication/callback"
-    }
-}
-
-beans {
-    authenticationService {
-        clientID = google.authorization.client.id
-        clientSecret = google.authorization.client.secret
-        callbackURI = google.authorization.callback.uri
-    }
-}
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 /* remove this line
 // GSP settings
