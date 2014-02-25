@@ -13,33 +13,36 @@ import com.google.api.client.json.JsonFactory
 import com.google.api.client.json.jackson.JacksonFactory
 import groovy.json.JsonSlurper
 
+import javax.annotation.PostConstruct
+
 import static java.util.Arrays.asList
 
 class AuthenticationService {
-    private GoogleAuthorizationCodeFlow flow
+    String clientID
+    String clientSecret
+    String callbackURI
 
-    private static final String CLIENT_ID = "72370846401-jo027588vl6vimint313crgh4r1t940h.apps.googleusercontent.com"
-    private static final String CLIENT_SECRET = "c2Y0I2-TtoICzcfAVP2i9cXg"
+    private GoogleAuthorizationCodeFlow flow
     private static final Iterable<String> SCOPE = asList("https://www.googleapis.com/auth/userinfo.profile",
             "https://www.googleapis.com/auth/userinfo.email")
     private static final JsonFactory JSON_FACTORY = new JacksonFactory()
     private static final String OFFLINE = "offline"
-    private static final String CALLBACK_URI = "http://localhost:8090/musicmaker/authentication/callback"
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport()
     private static final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo"
 
-    AuthenticationService() {
-        flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID,
-                CLIENT_SECRET, SCOPE).build()
+    @PostConstruct
+    private void init() {
+        flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientID,
+                clientSecret, SCOPE).build()
     }
 
     def getGoogleAuthorizationUrl() {
         GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl()
-        url.setRedirectUri(CALLBACK_URI).setState("google;601227152").setAccessType(OFFLINE).build()
+        url.setRedirectUri(callbackURI).setState("google;601227152").setAccessType(OFFLINE).build()
     }
 
     String getUserEmail(String authenticationCode) {
-        GoogleTokenResponse response = flow.newTokenRequest(authenticationCode).setRedirectUri(CALLBACK_URI).execute()
+        GoogleTokenResponse response = flow.newTokenRequest(authenticationCode).setRedirectUri(callbackURI).execute()
         Credential credential = flow.createAndStoreCredential(response, null)
         HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential)
 
