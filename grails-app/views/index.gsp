@@ -164,7 +164,7 @@
         <ul class="nav">
             <input type="button"
                    id="authenticate"
-                   class="nav btn btn-success"
+                   class="login nav btn btn-success"
                    value="Login"
                    style="width:210px;"/>
         </ul>
