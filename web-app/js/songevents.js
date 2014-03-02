@@ -66,12 +66,11 @@ function deleteSong(url) {
 $(document).ready(function () {
     $.getJSON("/musicmaker/authentication/code", function (result) {
         if (result.code) {
-            $("#authenticate").attr('value', 'Logout from Google Account');
+            $("#authenticate").attr('value', 'Logout');
             $("#username").text('Logged in as ' + result.email);
             $('#authenticate').addClass('logout');
-        } else {
-            $('#authenticate').addClass('login');
-            $("#authenticate").attr('value', 'Login with Google Account');
+            $('#songArchive').removeAttr('disabled');
+            $('#generateRandomSong').removeAttr('disabled');
         }
     });
 
@@ -86,8 +85,10 @@ $(document).ready(function () {
     $("body").on("click", ".logout", function () {
         $('#authenticate').toggleClass('login logout');
         $.getJSON("/musicmaker/authentication/logout", function (result) {
-            $("#authenticate").attr('value', 'Login with Google Account');
+            $("#authenticate").attr('value', 'Login');
             $("#username").text('');
+            $('#songArchive').attr('disabled', 'disabled');
+            $('#generateRandomSong').attr('disabled', 'disabled');
         });
     });
 

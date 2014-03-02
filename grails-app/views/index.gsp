@@ -157,12 +157,7 @@
 </head>
 
 <body>
-
-<audio controls>
-    <source src="sound/apa.mp3" type="audio/mpeg">
-    <source src="sound/apa.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
-</audio>
+<br>
 
 <div class="navbar navbar-inverse" span8 offset3>
     <div class="navbar-inner">
@@ -174,7 +169,23 @@
                    style="width:210px;"/>
         </ul>
         <ul class="nav">
-            <li><a href="#" id="aboutModal">About</a></li>
+            <input type="button"
+                   id="generateRandomSong"
+                   class="nav btn btn-success"
+                   value="Generate"
+                   disabled="true"/>
+        </ul>
+        <ul class="nav">
+            <input type="button"
+                   id="songArchive"
+                   class="nav btn btn-success"
+                   value="Archive"
+                   disabled="true"/>
+        </ul>
+        <ul class="nav">
+            <a href="#"
+               id="aboutModal"
+               class="nav">About</a>
         </ul>
         <span style="background:black; color:white; vertical-align:middle;" id="username"/>
     </div>
@@ -182,9 +193,7 @@
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
 
-<h1>Music Maker</h1>
-<input type="button" id="generateRandomSong" class="btn btn-success" value="Generate new"/>
-<input type="button" id="songArchive" class="btn btn-success" value="Song archive"/>
+<h1>Music maker</h1>
 <br><br>
 </div>
 
