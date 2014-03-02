@@ -67,7 +67,7 @@
 <div class="container-fluid span8 offset1" id="menuarea"/>
 
 <h1>Music Maker</h1>
-<input type="button" id="login" class="btn btn-success" value="Login with Google Account"/>
+<input type="button" id="login" class="btn btn-success" value="Login"/>
 <br><br>
 </div>
 
