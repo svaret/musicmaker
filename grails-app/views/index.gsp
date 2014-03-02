@@ -165,7 +165,7 @@
             <input type="button"
                    id="authenticate"
                    class="nav btn btn-success"
-                   value="Login with Google account"
+                   value="Login"
                    style="width:210px;"/>
         </ul>
         <ul class="nav">
