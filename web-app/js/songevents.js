@@ -71,6 +71,8 @@ $(document).ready(function () {
             $('#authenticate').addClass('logout');
             $('#songArchive').removeAttr('disabled');
             $('#generateRandomSong').removeAttr('disabled');
+        } else {
+            $('#authenticate').addClass('login');
         }
     });
 
