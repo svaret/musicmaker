@@ -32,7 +32,7 @@
     }
     </style>
 
-    <title>Music Maker</title>
+    <title>Musicmaker</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -148,7 +148,7 @@
         <div class="well">
             <table class="table">
                 <tr>
-                    <td>About Music Maker</td>
+                    <td>About Musicmaker</td>
                     <td>Version X</td>
                 </tr>
             </table>
@@ -193,7 +193,7 @@
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
 
-<h1>Music maker</h1>
+<h1>Musicmaker</h1>
 <br><br>
 </div>
 
