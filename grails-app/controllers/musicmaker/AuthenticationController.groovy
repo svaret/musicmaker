@@ -20,14 +20,14 @@ class AuthenticationController {
         def email = authenticationService.getUserEmail(params.code)
         if (!accountService.accountExists(email))
             accountService.createAccount(email)
-        session.code = params.code
+        session.authCode = params.code
         session.email = email
 
         redirect uri: '/'
     }
 
     def code() {
-        def result = [code: session.code, email: session.email]
+        def result = [authCode: session.authCode, email: session.email]
         render result as JSON
     }
 

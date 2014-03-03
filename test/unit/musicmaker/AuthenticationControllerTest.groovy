@@ -24,7 +24,7 @@ class AuthenticationControllerTest extends Specification {
 
         then:
         1 * accountService.createAccount("email@domain.se")
-        session.code == "authCode"
+        session.authCode == "authCode"
         session.email == "email@domain.se"
         response.redirectedUrl == '/'
     }

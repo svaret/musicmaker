@@ -65,7 +65,7 @@ function deleteSong(url) {
 
 $(document).ready(function () {
     $.getJSON("/musicmaker/authentication/code", function (result) {
-        if (result.code) {
+        if (result.authCode) {
             $("#authenticate").attr('value', 'Logout');
             $("#username").text('Logged in as ' + result.email);
             $('#authenticate').addClass('logout');
