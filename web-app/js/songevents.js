@@ -91,6 +91,7 @@ $(document).ready(function () {
             $("#username").text('');
             $('#songArchive').attr('disabled', 'disabled');
             $('#generateRandomSong').attr('disabled', 'disabled');
+            $("#presentationArea").empty();
         });
     });
 
