@@ -84,7 +84,7 @@
                     {{/song.intro}}
                 </tr>
                 <tr class="row">
-                    <td>Verse:</td>
+                    <td>Versatiles:</td>
                     {{#song.verse}}
                     <td id="songVerse" class="span2 column">
                         <input type="button" class="chordButton songVerse editPartOfSong btn btn-mini"
