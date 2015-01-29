@@ -193,7 +193,7 @@
 
 <div class="container-fluid span8 offset1" id="menuarea"/>
 
-<h1>Musicmaker</h1>
+<h1>Musicmaker</h1><span style="background:black; color:red; vertical-align:middle;">Generated songs are not connected to logged in user</span>
 <br><br>
 </div>
 
