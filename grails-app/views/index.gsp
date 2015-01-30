@@ -119,7 +119,29 @@
                 </td>
             </table>
         </div>
+        <input type="button" id="{{saveAction}}" class="btn btn-success saveSongButton" value="Save"/>
         <input id="songId" value="{{song._id.$oid}}" type="hidden">
+    </script>
+
+    <script id="songArchiveTemplate" type="text/template">
+        <div class="well">
+            <table class="table table-striped table-hover table-condensed">
+                <tr>
+                    <td colspan="4">
+                        <input id="deleteSongs" type="button" class="btn btn-mini btn-danger" value="Delete All"/>
+                    </td>
+                </tr>
+                {{#songs}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{author}}</td>
+                    <td><input type="button" class="btn btn-mini btn-success viewSong" value="View"/></td>
+                    <td><input type="button" class="btn btn-danger btn-mini deleteSong" value="Delete"/></td>
+                    <td><input value="{{_id.$oid}}" type="hidden"></td>
+                </tr>
+                {{/songs}}
+            </table>
+        </div>
     </script>
 
     <script id="aboutTemplate" type="text/template">
@@ -151,6 +173,13 @@
                    id="generateRandomSong"
                    class="nav btn btn-success"
                    value="Generate"
+                   disabled="true"/>
+        </ul>
+        <ul class="nav">
+            <input type="button"
+                   id="songArchive"
+                   class="nav btn btn-success"
+                   value="Archive"
                    disabled="true"/>
         </ul>
         <ul class="nav">
