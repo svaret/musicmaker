@@ -37,9 +37,9 @@ class AuthenticationControllerTest extends Specification {
         controller.callback()
 
         then:
-        0 * authenticationService.getUserEmail(_)
-        0 * accountService.accountExists(_)
-        0 * accountService.createAccount(_)
+        0 * authenticationService.getUserEmail()
+        0 * accountService.accountExists()
+        0 * accountService.createAccount()
         response.redirectedUrl == '/'
     }
 }
