@@ -119,7 +119,6 @@
                 </td>
             </table>
         </div>
-        <input type="button" id="{{saveAction}}" class="btn btn-success saveSongButton" value="Save"/>
         <input id="songId" value="{{song._id.$oid}}" type="hidden">
     </script>
 
