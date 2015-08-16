@@ -176,13 +176,6 @@
                    disabled="true"/>
         </ul>
         <ul class="nav">
-            <input type="button"
-                   id="songArchive"
-                   class="nav btn btn-success"
-                   value="Archive"
-                   disabled="true"/>
-        </ul>
-        <ul class="nav">
             <a href="#"
                id="aboutModal"
                class="nav">About</a>
